@@ -69,19 +69,19 @@ class PagesController extends Controller
     {
         try{
             $id_users = Auth::guard('user')->user()->id;
-            $jumlah = $request->jumlah;
-            $kendaraan = $request->kendaraan;
-            $pekerjaaan = $request->pekerjaaan;
-            $penghasilan = $request->penghasilan;
+            $id_jumlah = $request->jumlah;
+            $id_kendaraan = $request->kendaraan;
+            $id_pekerjaaan = $request->pekerjaaan;
+            $id_penghasilan = $request->penghasilan;
 
             // InsertOrUpdate ke Detail Users
             $cek_detail = DB::table('detail_users')->where('id_users',$id_users)->first();
             $data = [
                 'id_users'              => $id_users,
-                'id_jumlah_tanggungan'  => $jumlah,
-                'id_kendaraan'          => $kendaraan,
-                'id_pekerjaan'          => $pekerjaaan,
-                'id_penghasilan'        => $penghasilan
+                'id_jumlah_tanggungan'  => $id_jumlah,
+                'id_kendaraan'          => $id_kendaraan,
+                'id_pekerjaan'          => $id_pekerjaaan,
+                'id_penghasilan'        => $id_penghasilan
             ];
             if(!empty($cek_detail)){
                 DB::table('detail_users')->where('id_users',$id_users)->update($data);
@@ -89,30 +89,43 @@ class PagesController extends Controller
                 DB::table('detail_users')->insert($data);
             }
 
-            // InsertOrUpdate ke Hasil Normalisasi
-            $cek_normalisasi = DB::table('hasil_normalisasi')->where('id_users',$id_users)->first();
+            // Get Bobot Terbesar Kepentingan
             $rating = DB::table('bobot_kepentingan')->orderBy('rating_kepentingan','DESC')->first()->rating_kepentingan;
-            $normalisasi_jumlah = Round($jumlah / $rating,2);
-            $normalisasi_kendaraan = Round($kendaraan / $rating,2);
-            $normalisasi_pekerjaaan = Round($pekerjaaan / $rating,2);
-            $normalisasi_penghasilan = Round($penghasilan / $rating,2);
-            $bobot_jumlah = DB::table('bobot_kepentingan')->where('kriteria','master_jumlah_tanggungan')->first()->rating_kepentingan;
-            $bobot_kendaraan = DB::table('bobot_kepentingan')->where('kriteria','master_kendaraan')->first()->rating_kepentingan;
-            $bobot_pekerjaaan = DB::table('bobot_kepentingan')->where('kriteria','master_pekerjaan')->first()->rating_kepentingan;
-            $bobot_penghasilan = DB::table('bobot_kepentingan')->where('kriteria','master_penghasilan')->first()->rating_kepentingan;
-            $rank_jumlah = $bobot_jumlah * $normalisasi_jumlah;
-            $rank_kendaraan = $bobot_kendaraan * $normalisasi_kendaraan;
-            $rank_pekerjaaan = $bobot_pekerjaaan * $normalisasi_pekerjaaan;
-            $rank_penghasilan = $bobot_penghasilan * $normalisasi_penghasilan;
+
+            // Get Bobot Berdasarkan Id
+            $bobot_jumlah = getJumlahTanggungan($id_jumlah)->bobot;
+            $bobot_kendaraan = getKendaraan($id_kendaraan)->bobot;
+            $bobot_pekerjaan = getPekerjaan($id_pekerjaaan)->bobot;
+            $bobot_penghasilan = getPenghasilan($id_penghasilan)->bobot;
+
+            // Bobot yang didapet diNormalisasi
+            $normalisasi_jumlah = Round($bobot_jumlah / $rating,2);
+            $normalisasi_kendaraan = Round($bobot_kendaraan / $rating,2);
+            $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $rating,2);
+            $normalisasi_penghasilan = Round($bobot_penghasilan / $rating,2);
+
+            // Get Bobot Kepentingan
+            $kepentingan_jumlah = DB::table('bobot_kepentingan')->where('kriteria','master_jumlah_tanggungan')->first()->rating_kepentingan;
+            $kepentingan_kendaraan = DB::table('bobot_kepentingan')->where('kriteria','master_kendaraan')->first()->rating_kepentingan;
+            $kepentingan_pekerjaaan = DB::table('bobot_kepentingan')->where('kriteria','master_pekerjaan')->first()->rating_kepentingan;
+            $kepentingan_penghasilan = DB::table('bobot_kepentingan')->where('kriteria','master_penghasilan')->first()->rating_kepentingan;
+
+            // Penentuan Rank
+            $rank_jumlah = $kepentingan_jumlah * $normalisasi_jumlah;
+            $rank_kendaraan = $kepentingan_kendaraan * $normalisasi_kendaraan;
+            $rank_pekerjaaan = $kepentingan_pekerjaaan * $normalisasi_pekerjaaan;
+            $rank_penghasilan = $kepentingan_penghasilan * $normalisasi_penghasilan;
             $rank = Round($rank_jumlah + $rank_kendaraan + $rank_pekerjaaan + $rank_penghasilan,2);
             $data_normalisasi = [
                 'id_users'              => $id_users,
-                'id_jumlah_tanggungan'  => $normalisasi_jumlah,
-                'id_kendaraan'          => $normalisasi_kendaraan,
-                'id_pekerjaan'          => $normalisasi_pekerjaaan,
-                'id_penghasilan'        => $normalisasi_penghasilan,
+                'jumlah_tanggungan'     => $normalisasi_jumlah,
+                'kendaraan'             => $normalisasi_kendaraan,
+                'pekerjaan'             => $normalisasi_pekerjaaan,
+                'penghasilan'           => $normalisasi_penghasilan,
                 'rank'                  => $rank
             ];
+
+            $cek_normalisasi = DB::table('hasil_normalisasi')->where('id_users',$id_users)->first();
             if(!empty($cek_normalisasi)){
                 DB::table('hasil_normalisasi')->where('id_users',$id_users)->update($data_normalisasi);
             }else{

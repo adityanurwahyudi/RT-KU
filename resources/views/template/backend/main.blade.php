@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Dashboard RT</title>
     @include('template.backend.header_script.header')
-    </script>
+    @yield('css')
 </head>
 <body class="sb-nav-fixed">
     @include('template.backend.navbar.navbar')

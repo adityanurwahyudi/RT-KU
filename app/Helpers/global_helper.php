@@ -31,4 +31,38 @@
             return $user;
         }
     }
+
+    if(!function_exists('getJumlahTanggungan')){
+        function getJumlahTanggungan($id)
+        {
+            $data = DB::table('master_jumlah_tanggungan')->where('id', $id)->first();
+
+            return $data;
+        }
+    }
+
+    if(!function_exists('getKendaraan')){
+        function getKendaraan($id)
+        {
+            $data = DB::table('master_kendaraan')->where('id', $id)->first();
+
+            return $data;
+        }
+    }
+    if(!function_exists('getPekerjaan')){
+        function getPekerjaan($id)
+        {
+            $data = DB::table('master_pekerjaan')->where('id', $id)->first();
+
+            return $data;
+        }
+    }
+    if(!function_exists('getPenghasilan')){
+        function getPenghasilan($id)
+        {
+            $data = DB::table('master_penghasilan')->where('id', $id)->first();
+
+            return $data;
+        }
+    }
 ?>
