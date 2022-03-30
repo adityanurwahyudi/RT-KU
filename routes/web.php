@@ -40,9 +40,15 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         // Dashboard
         Route::get('/dashboard-rt', 'DashboardAdminController@index')->name('dashboard');
 
+        Route::get('/data-warga', 'UserManagementController@datawarga')->name('datawarga');\
+
         // User Management
-        Route::get('/data-warga', 'UserManagementController@datawarga')->name('datawarga');
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
+        Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
+        Route::post('data-login-warga/save', 'UserManagementController@dataloginwarga_save')->name('dataloginwarga_save');
+        Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
+        Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
+        Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
 
         // Penentuan Warga Tidak Mampu
         Route::get('/SPK-warga', 'PenentuanWargaController@SPKWarga')->name('SPK-warga');
@@ -73,10 +79,26 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
     Route::name('rw.')->namespace('RW')->prefix('RW')->group(function () {
         // Dashboard
         Route::get('/dashboard-rw', 'DashboardAdminController@index')->name('dashboard');
+        
+        // User Management
+        Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
+        Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
+        Route::post('data-login-warga/save', 'UserManagementController@dataloginwarga_save')->name('dataloginwarga_save');
+        Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
+        Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
+        Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
     });
     Route::name('kelurahan.')->namespace('kelurahan')->prefix('kelurahan')->group(function () {
         // Dashboard
         Route::get('/dashboard-kelurahan', 'DashboardAdminController@index')->name('dashboard');
+
+        // User Management
+        Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
+        Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
+        Route::post('data-login-warga/save', 'UserManagementController@dataloginwarga_save')->name('dataloginwarga_save');
+        Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
+        Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
+        Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
     });
 });
 
