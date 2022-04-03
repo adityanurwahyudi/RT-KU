@@ -39,7 +39,7 @@ class RondaEmail extends Mailable
         return $this->from(
             $this->ronda->senderEmail,
             $this->ronda->senderName)
-            ->subject($this->ronda->subject)->to($this->ronda->email)->markdown('mails.ronda')->with([
+            ->subject($this->ronda->subject)->to($this->ronda->email)->markdown('mail.ronda')->with([
             'message' => $this->ronda->message,
             'sender' => $this->ronda->senderName,
             'subject' => $this->ronda->subject,

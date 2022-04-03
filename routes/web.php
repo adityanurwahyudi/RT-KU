@@ -75,6 +75,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/jadwal-ronda/edit/{id}', 'JadwalRondaController@edit')->name('jadwalronda.edit');
         Route::post('/jadwal-ronda/update', 'JadwalRondaController@update')->name('jadwalronda.update');
         Route::get('/jadwal-ronda/hapus/{id}', 'JadwalRondaController@hapus')->name('jadwalronda.hapus');
+        Route::get('/jadwal-ronda/mail-send/{tgl}', 'JadwalRondaController@sendEmail')->name('jadwalronda.sendEmail');
     });
     Route::name('rw.')->namespace('RW')->prefix('RW')->group(function () {
         // Dashboard

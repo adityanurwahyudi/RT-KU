@@ -115,7 +115,7 @@
             confirmButtonText: "Kirim",
         }).then(function(result) {
             if(result.value){
-                // window.location.href = "{{ URL::to('/ronda/mail/send')}}"+'/'+tgl;
+                window.location.href = "{{ URL::to('/RT/jadwal-ronda/mail-send')}}"+'/'+tgl;
             }else{
                 Swal.fire({
                     icon: 'error',
