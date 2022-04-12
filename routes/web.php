@@ -67,6 +67,10 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/keluarmasukwarga', 'PagesController@keluarmasukwarga')->name('keluarmasukwarga');
         Route::get('/pengaduan', 'PagesController@pengaduan')->name('pengaduan');
 
+        // Surat Domisili
+        Route::post('/surat/domisili/verifikasi', 'PagesController@verifikasi_domisili')->name('verifikasi_domisili');
+        Route::get('/surat/domisili/delete/{id}', 'PagesController@delete_domisili')->name('delete_domisili');
+
         // Jadwal Ronda
         Route::get('/jadwal-ronda', 'JadwalRondaController@index')->name('jadwalronda');
         Route::get('/jadwal-ronda/datatable', 'JadwalRondaController@datatable')->name('jadwalronda.datatable');
@@ -111,6 +115,10 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/galeri', 'PagesController@galeri')->name('galeri');
     Route::get('/contact', 'PagesController@contact')->name('contact');
     Route::get('/service', 'PagesController@service')->name('service');
+    Route::post('/service/domisili/tambah', 'PagesController@tambah_domisili')->name('tambah_domisili');
+    Route::post('/service/domisili/edit', 'PagesController@edit_domisili')->name('edit_domisili');
+    Route::get('/service/domisili/kirim/{id}', 'PagesController@kirim_domisili')->name('kirim_domisili');
+    Route::get('/service/domisili/cetak/{id}', 'PagesController@cetak_domisili')->name('cetak_domisili');
     Route::get('/kegiatan', 'PagesController@kegiatan')->name('kegiatan');
     Route::get('/video', 'PagesController@video')->name('video');
     Route::get('/keuangan', 'PagesController@keuangan')->name('keuangan');

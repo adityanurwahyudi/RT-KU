@@ -6,4 +6,9 @@ window.addEventListener('DOMContentLoaded', event => {
     if (datatablesSimple) {
         new simpleDatatables.DataTable(datatablesSimple);
     }
+
+    const suratDomisili = document.getElementById('surat-domisili');
+    if (suratDomisili) {
+        new simpleDatatables.DataTable(suratDomisili);
+    }
 });

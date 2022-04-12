@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
+use DB;
+use Auth;
 
 class PagesController extends Controller
 {
@@ -38,7 +40,34 @@ class PagesController extends Controller
     
     public function surat()
     {
-        return view('RT.surat');
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
+
+        $data['no'] = 1;
+        $data['domisili'] = DB::table('surat_domisili')
+        ->leftjoin('users','users.id','surat_domisili.id_users')
+        ->where('users.rt', $rt)
+        ->where('users.rw', $rw)
+        ->orderBy('tgl_lahir','ASC')->get();
+
+        return view('RT.surat', $data);
+    }
+
+    public function delete_domisili($id)
+    {
+        DB::table('surat_domisili')->where('id', $id)->delete();
+
+        return redirect()->back()->with(['success'=>'Delete Berhasil']);
+    }
+
+    public function verifikasi_domisili(Request $request)
+    {
+        DB::table('surat_domisili')->where('id', $request->id)->update([
+            'status'=>$request->status,
+            'catatan'=>$request->catatan,
+        ]);
+
+        return redirect()->back()->with(['success'=>'Verifikasi Berhasil']);
     }
     
     public function kritiksaran()

@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use DB;
 use Auth;
+use PDF;
 
 class PagesController extends Controller
 {
@@ -40,7 +41,51 @@ class PagesController extends Controller
     }
     public function service()
     {
-        return view('warga.service');
+        $data['no'] = 1;
+        $data['domisili'] = DB::table('surat_domisili')->get();
+
+        return view('warga.service', $data);
+    }
+    public function tambah_domisili(Request $request)
+    {
+        $data = [
+            'nama'          => $request->nama,
+            'id_users'      => Auth::guard('user')->user()->id,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'agama'         => $request->agama,
+            'status'        => 0,
+        ];
+        DB::table('surat_domisili')->insert($data);
+
+        return redirect()->back()->with(['success'=>'Data Simpan']);
+    }
+    public function edit_domisili(Request $request)
+    {
+        $data = [
+            'nama'          => $request->nama,
+            'id_users'      => Auth::guard('user')->user()->id,
+            'tempat_lahir'  => $request->tempat_lahir,
+            'tgl_lahir'     => $request->tgl_lahir,
+            'agama'         => $request->agama,
+        ];
+        DB::table('surat_domisili')->where('id',$request->id)->update($data);
+
+        return redirect()->back()->with(['success'=>'Data Update']);
+    }
+    public function kirim_domisili($id)
+    {
+        DB::table('surat_domisili')->where('id',$id)->update(['status'=>1]);
+        
+        return redirect()->back()->with(['success'=>'Data Kirim']);
+    }
+    public function cetak_domisili($id){
+
+        $data['surat'] = DB::table('surat_domisili')->where('id', $id)->first();
+
+        // return view('warga.surat.domisili.surat-domisili', $data);
+        $pdf = PDF::loadView('warga.surat.cetak_domisili', $data);
+        return $pdf->stream('surat-domisili.pdf');
     }
     public function galeri()
     {
