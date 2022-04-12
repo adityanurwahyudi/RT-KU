@@ -197,7 +197,7 @@
                             </td>
                             <td>
                                 @if($val->status==1)
-                                <button type="button" title="Edit" onclick="edit('{{ $val->id }}','{{ $val->status }}')" class="btn btn-info">Edit</button>
+                                <button type="button" title="Edit" onclick="edit('{{ $val->id }}','{{ $val->status }}','{{ $val->catatan }}')" class="btn btn-info">Edit</button>
                                 <button type="button" title="Delete" class="btn btn-danger" onclick="hapus('{{ $val->id }}')">Delete</button>
                                 @elseif($val->status==2)
                                 <button type="button" title="Delete" class="btn btn-danger" onclick="hapus('{{ $val->id }}')">Delete</button>
@@ -218,7 +218,7 @@
     $(document).ready(function(){
     });
 
-    function edit(id, status){
+    function edit(id, status, catatan){
         var verif='';var tolak='';var approve='';
         if(status == 1){
             verif = 'selected';
@@ -238,7 +238,7 @@
                         '</select>'+
                         '<br>'+
                         '<label class="catatan" style="display:none;">Catatan</label>'+
-                        '<textarea class="form-control catatan" name="catatan" style="display:none;"></textarea>'+
+                        '<textarea class="form-control catatan" name="catatan" value="'+catatan+'" style="display:none;">'+catatan+'</textarea>'+
                   '</form>';
         Swal.fire({
             position: 'mid-end',

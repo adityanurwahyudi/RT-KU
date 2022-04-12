@@ -44,11 +44,11 @@ class PagesController extends Controller
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
-        $data['domisili'] = DB::table('surat_domisili')
-        ->leftjoin('users','users.id','surat_domisili.id_users')
-        ->where('users.rt', $rt)
-        ->where('users.rw', $rw)
-        ->orderBy('tgl_lahir','ASC')->get();
+        $data['domisili'] = DB::table('surat_domisili')->select('surat_domisili.*')
+                        ->leftjoin('users','users.id','surat_domisili.id_users')
+                        ->where('users.rt', $rt)
+                        ->where('users.rw', $rw)
+                        ->orderBy('tgl_lahir','ASC')->get();
 
         return view('RT.surat', $data);
     }
@@ -64,7 +64,7 @@ class PagesController extends Controller
     {
         DB::table('surat_domisili')->where('id', $request->id)->update([
             'status'=>$request->status,
-            'catatan'=>$request->catatan,
+            'catatan'=>$request->catatan
         ]);
 
         return redirect()->back()->with(['success'=>'Verifikasi Berhasil']);
