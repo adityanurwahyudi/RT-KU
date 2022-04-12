@@ -41,8 +41,10 @@ class PagesController extends Controller
     }
     public function service()
     {
+        $id_users = Auth::guard('user')->user()->id;
+
         $data['no'] = 1;
-        $data['domisili'] = DB::table('surat_domisili')->get();
+        $data['domisili'] = DB::table('surat_domisili')->where('id_users',$id_users)->get();
 
         return view('warga.service', $data);
     }
