@@ -152,7 +152,7 @@
                 <span style="float: right;padding-top: 10px;">Pengurus RT 015 / 010</span>
                 <br><br><br>
                 <div width="40%" style="float: right;">
-                    <img src="{{url('/tanda_tangan/ttd.png')}}" alt="Tanda Tangan"
+                    <img src="{{url('/tanda_tangan/ttd.jpg')}}" alt="Tanda Tangan"
                         style="padding-right:15px;height:100px;width:100px;">
                     <br>
                     <span style="padding-right:-10px;">Rasiman</span>
