@@ -49,11 +49,15 @@
 
 <!-- Header Start -->
 <header class="navigation">
-    <nav class="navbar navbar-expand-lg  py-4" id="navbar">
+    <nav class="navbar navbar-expand-lg" id="navbar">
         <div class="container">
             <a class="navbar-brand" href="index">
                 RT-KU</span>
             </a>
+
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="fa fa-bars"></span>
+            </button>
 
             <!-- Button to open the modal login form -->
             <div id="id01" class="modal">
