@@ -23,8 +23,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                    <form id="contact-form" class="contact__form" method="post" action="mail.php">
-                        <!-- form message -->
+                        <form action="{{ route('admin.rt.kritiksaran.store') }}"  method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                    <!-- form message -->
                         <div class="row">
                             <div class="col-12">
                                 <div class="alert alert-success contact__msg" style="display: none" role="alert">
@@ -48,8 +49,8 @@
                                 placeholder="Nomor Handphone">
                         </div>
                         <div class="form-group-2 mb-4">
-                            <textarea id="kritiksaran" name="kritiksaran" class="form-control" rows="4"
-                                placeholder="Kritik dan Saran"></textarea>
+                            <textarea id="kritikdansaran" name="kritikdansaran" class="form-control" rows="4"
+                                placeholder="Kritik dan Saran "></textarea>
                         </div>
                         <button class="btn btn-main" name="submit" type="submit">Kirim</button>
                     </form>
@@ -102,68 +103,56 @@
 
         <div class="container">
             <div class="row testimonial-wrap">
+                    @foreach($kritiksaran as $p)
                 <div class="testimonial-item position-relative">
                     <i class="ti-quote-left text-color"></i>
 
                     <div class="testimonial-item-content">
-                        <p class="testimonial-text">Quam maiores perspiciatis temporibus odio reiciendis error alias
-                            debitis atque consequuntur natus iusto recusandae numquam corrupti facilis blanditiis.
-                        </p>
+                        <p class="testimonial-text">{{ $p->kritikdansaran }}
 
                         <div class="testimonial-author">
-                            <h5 class="mb-0 text-capitalize">Thomas Johnson</h5>
+                            <h5 class="mb-0 text-capitalize">{{ $p->nama }}</h5>
 
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-item position-relative">
-                    <i class="ti-quote-left text-color"></i>
-
-                    <div class="testimonial-item-content">
-                        <p class="testimonial-text">Consectetur adipisicing elit. Quam maiores perspiciatis
-                            temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae
-                            .</p>
-
-                        <div class="testimonial-author">
-                            <h5 class="mb-0 text-capitalize">Mickel hussy</h5>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item position-relative">
-                    <i class="ti-quote-left text-color"></i>
-
-                    <div class="testimonial-item-content">
-                        <p class="testimonial-text">Quam maiores perspiciatis temporibus odio reiciendis error alias
-                            debitis atque consequuntur natus iusto recusandae numquam corrupti.</p>
-
-                        <div class="testimonial-author">
-                            <h5 class="mb-0 text-capitalize">James Watson</h5>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-item position-relative">
-                    <i class="ti-quote-left text-color"></i>
-
-                    <div class="testimonial-item-content">
-                        <p class="testimonial-text">Consectetur adipisicing elit. Quam maiores perspiciatis
-                            temporibus odio reiciendis error alias debitis atque consequuntur natus iusto recusandae
-                            .</p>
-
-                        <div class="testimonial-author">
-                            <h5 class="mb-0 text-capitalize">Mickel hussy</h5>
-
-                        </div>
-                    </div>
-                </div>
+                        @endforeach
             </div>
         </div>
     </section>
 @endsection
 
 @section('script')
+@include('sweetalert::alert')
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    })
+</script>
+
 @if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
+
+
+@if(Session::has('success'))    
 <script type="text/javascript">
     Swal.fire({
         icon: 'success',

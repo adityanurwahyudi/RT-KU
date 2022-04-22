@@ -28,17 +28,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($kritiksaran as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->email }}</td>
+                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->kritikdansaran }}</td>
                             <td>
-                                <a title="Delete" href=" " class="btn btn-danger"
+                                <a title="Delete" href="{{route('admin.rt.kritiksaran.hapus',$p->id)}}" class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                             </td>
                         </tr>
+                                @endforeach
                     </tbody>
                 </table>
             </div>

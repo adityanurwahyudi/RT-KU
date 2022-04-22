@@ -85,10 +85,10 @@
                         <tr>
                             <th>No.</th>
                             <th>Nama</th>
-                            <th>Jumlah Tanggungan</th>
-                            <th>Kendaraan</th>
-                            <th>Pekerjaan</th>
-                            <th>Penghasilan</th>
+                            <th>R1</th>
+                            <th>R2</th>
+                            <th>R3</th>
+                            <th>R4</th>
                         </tr>
                     </thead>
                     <tbody>

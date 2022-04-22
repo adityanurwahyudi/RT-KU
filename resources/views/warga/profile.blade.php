@@ -33,7 +33,7 @@
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="about-item-img">
-                    <img src="/sbwarga/images/about/home-7.jpg" alt="" class="img-fluid">
+                    <img src="{{asset('/superwarga/assets/img/1.jpg')}}" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -48,17 +48,17 @@
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="about-info-item mb-4 mb-lg-0">
                     <h3 class="mb-3"><span class="text-color mr-2 text-md ">Visi</span></h3>
-                    <p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque
-                        maxime
-                        sunt deleniti voluptas distinctio .</p>
+                    <p>1.  wkwkwkw</p>
+                    <p>2.  wkwkwkw</p>
+                    <p>3.  wkwkwkw</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="about-info-item mb-4 mb-lg-0">
                     <h3 class="mb-3"><span class="text-color mr-2 text-md">Misi</span></h3>
-                    <p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque
-                        maxime
-                        sunt deleniti voluptas distinctio .</p>
+                    <p>1.  wkwkwkw</p>
+                    <p>2.  wkwkwkw</p>
+                    <p>3.  wkwkwkw</p>
                 </div>
             </div>
         </div>
@@ -78,7 +78,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <img src="/sbwarga/images/struktur.jpg" width="500" height="500">
+            <img src="{{asset('/superwarga/assets/img/1.jpg')}}" width="500" height="500">
 
         </div>
     </div>
@@ -91,7 +91,7 @@
             <div class="row justify-content-center align-items-center ">
                 <div class="col-lg-7">
                     <span class="text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Pengurus RT Untuk Informasi Yang Lebih Lengkap</h2>
+                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
                 </div>
                 <div class="col-lg-4">
                     <a href="tel:+6287722350785" class="btn btn-main btn-round-full float-lg-right ">Hubungi

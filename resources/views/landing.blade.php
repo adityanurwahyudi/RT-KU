@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{asset('/superwarga/assets/img/favicon.png')}}" rel="icon">
+    <link href="{{asset('/superwarga/assets/img/rt.jpeg')}}" rel="icon">
     <link href="{{asset('/superwarga/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     <!-- Google Fonts -->
     <link
@@ -88,7 +88,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                        <img src="/superwarga/assets/img/1.jpg" class="img-fluid" alt="">
+                        <img src="{{asset('/superwarga/assets/img/1.jpg')}}" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center"
                         data-aos="fade-up" data-aos-delay="100">
@@ -492,5 +492,31 @@
     <script src="{{asset('/superwarga/assets/js/main.js')}}"></script>
 
 </body>
+@include('sweetalert::alert')
+    
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    })
+</script>
 
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
 </html>

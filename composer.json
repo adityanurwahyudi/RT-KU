@@ -16,6 +16,7 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
+        "realrashid/sweet-alert": "^5.0",
         "simplesoftwareio/simple-qrcode": "2.0.0",
         "symfony/translation": "4.3.8"
     },

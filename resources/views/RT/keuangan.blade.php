@@ -15,83 +15,54 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/pemasukanpengeluaran/tambah" class="btn btn-primary">Add</a>
+                <a href="{{route('admin.rt.pemasukanpengeluaran.tambah1') }}" class="btn btn-primary">Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed"
                     id="pemasukanpengeluaran-table">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Keterangan</th>
+                            <th>Nama</th>
                             <th>Tanggal</th>
+                            <th>Bulan</th>
                             <th>Pemasukan</th>
+                            <th>Metode Pembayaran</th>
                             <th>Pengeluaran</th>
                             <th>Bukti</th>
+                            <th>Keterangan</th>
                             <th>Saldo Akhir</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($pemasukanpengeluaran as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->bulan }}</td>
+                            <td>{{ $p->pemasukan }}</td>
+                            <td>{{ $p->metodepembayaran }}</td>
+                            <td>{{ $p->pengeluaran }}</td>
+                            <td>{{ $p->gambar }}</td>
+                            <td>{{ $p->keterangan }}</td>
+                            <td>{{ $p->totalsaldo }}</td>
+                            <td>{{ $p->status }}</td>
                             <td>
 
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
+                                <a title="Edit" href="{{route('admin.rt.pemasukanpengeluaran.edit1',$p->id)}}" class="btn btn-info">Edit</a>
+                                <a title="Delete" href="{{route('admin.rt.pemasukanpengeluaran.hapus',$p->id)}}" class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Tabel pembayaran kas warga
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <a href="/kaswarga/tambah" class="btn btn-primary">Add</a>
-                <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kaswarga-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Bulan</th>
-                            <th>Jumlah</th>
-                            <th>Bukti Pembayaran</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
+    
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -99,7 +70,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/qris/tambah" class="btn btn-primary">Add</a>
+                <a href="{{route('admin.rt.qris.tambah') }}" class="btn btn-primary">Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="qris-table">
                     <thead>
@@ -111,16 +82,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($qris as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/qris/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Delete" href=" " class="btn btn-danger"
+                                <a title="Delete" href="{{route('admin.rt.qris.hapus',$p->id)}}" class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

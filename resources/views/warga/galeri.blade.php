@@ -31,26 +31,13 @@
             </div>
         </div>
     </div>
-    <div class="responsive">
-        <div class="img" class="card h-100">
-            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Trolltunga Norway" width="300" height="200">
-        </div>
-    </div>
+                    @foreach($foto as $p)
     <div class="responsive">
         <div class="img">
-            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Forest" width="300" height="200">
+            <img src="{{asset('upload/foto/'.$p->gambar)}}" width="50" height="50">
         </div>
     </div>
-    <div class="responsive">
-        <div class="img">
-            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Northern Lights" width="300" height="200">
-        </div>
-    </div>
-    <div class="responsive">
-        <div class="img">
-            <img src="https://www.w3schools.com/css/img_lights.jpg" alt="Mountains" width="300" height="200">
-        </div>
-    </div>
+                        @endforeach
 
     <div class="clearfix">
         <div class="row justify-content-center mt-5">
@@ -93,33 +80,18 @@
             <div class="container">
                 <div class="row">
 
+                @foreach($video as $p)
                     <div class="col-lg-4 responsive">
                         <div class="card">
-                            <img src="/sbwarga/images/ied.jpg" class="card-img-top img-responsive" alt="Waterfall" />
+                            <div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="{{ $p->URLVideo }}" allowfullscreen></iframe>
+</div>
                             <center>
-                                <h4 class="card-title">John Doe</h4>
+                                <h4 class="card-title">{{ $p->nama }}</h4>
                             </center>
                         </div>
                     </div>
-
-                    <div class="col-lg-4  d-lg-block responsive">
-                        <div class="card">
-                            <img src="/sbwarga/images/17agustus.jpg" class="card-img-top" alt="Sunset Over the Sea" />
-                            <center>
-                                <h4 class="card-title">John Doe</h4>
-                            </center>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4  d-lg-block responsive">
-                        <div class="card">
-                            <img src="/sbwarga/images/bersih.jpg" class="card-img-top" alt="Sunset over the Sea" />
-                            <center>
-                                <h4 class="card-title">John Doe</h4>
-                            </center>
-
-                        </div>
-                    </div>
+                    @endforeach 
                 </div>
             </div>
         </div>

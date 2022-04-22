@@ -15,7 +15,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/foto/tambah" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.foto.tambah') }}" class="btn btn-primary">Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed"
                     id="foto-table">
@@ -27,16 +27,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($foto as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $No++ }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/foto/'.$p->gambar)}}"></td>
                             <td>
-
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
+                                <a title="Delete" href="{{route('admin.rt.foto.edit',$p->id)}}"  class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -51,7 +51,7 @@
             Video
         </div>
         <div class="card-body">
-            <a href="/video/tambah" class="btn btn-primary">Add</a>
+            <a href="{{ route('admin.rt.video.add') }}" class="btn btn-primary">Add</a>
             <br><br>
             <table class="table table-striped table-bordered table-hover table-condensed"
                 id="video-table">
@@ -59,21 +59,23 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Video</th>
+                        <th>URLVideo</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
+                     @foreach($video as $p)
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ $no++ }}</td>
+                        <td>{{ $p->nama }}</td>
+                        <td>{{ $p->URLVideo }}</td>
                         <td>
-                            <a title="Edit" href="" class="btn btn-info">Edit</a>
-                            <a title="Delete" href=" " class="btn btn-danger"
+                            <a title="Edit" href="{{route('admin.rt.video.edit',$p->id)}}"  class="btn btn-info">Edit</a>
+                            <a title="Delete" href="{{route('admin.rt.video.hapus',$p->id)}}"  class="btn btn-danger"
                                 onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                         </td>
                     </tr>
+                        @endforeach
                 </tbody>
             </table>
         </div>
@@ -84,4 +86,30 @@
 @section('script')
 <script type="text/javascript">
 </script>
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    })
+</script>
+
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
 @endsection

@@ -12,7 +12,7 @@ window.onclick = function(event) {
 </script>
 <!-- Main jQuery -->
 <script src="{{asset('/sbwarga/plugins/jquery/jquery.js')}}"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="{{asset('/sbwarga/js/contact.js')}}"></script>
 <!-- Bootstrap 4.3.1 -->
 <script src="{{asset('/sbwarga/plugins/bootstrap/js/popper.js')}}"></script>
@@ -32,4 +32,5 @@ window.onclick = function(event) {
 
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{{asset('/sbwarga/js/script.js')}}"></script>
+
 

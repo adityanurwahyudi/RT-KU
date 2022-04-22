@@ -5,6 +5,89 @@
 @endsection
 
 @section('content')
+<!-- Form Surat Domisili -->
+<div id="id02" class="modal">
+                    <form class="modal-content animate" action="/action_page.php" method="post">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                                title="Close Modal">&times;</span>
+                            <img src="/loginform/images/admin.png" alt="Avatar" class="avatar">
+                        </div>
+                        <div class="container">
+                            <label for="nama"><b>Nama</b></label>
+                            <input id="nama" type="text" name="nama" required>
+
+                            <label for="nik"><b>NIK</b></label>
+                            <input id="nik" type="text" name="nik" required>
+
+                            <label for="agama"><b>Agama</b></label>
+                            <input id="agama" type="text" name="agama" required>
+
+                            <label for="tempattanggallahir"><b>Tempat/Tanggal Lahir</b></label>
+                            <input id="tempattanggallahir" type="text" name="tempattanggallahir" required>
+
+                            <label>Jenis Kelamin</label>
+                            <select id="jeniskelamin" class="form-control" name="jeniskelamin">
+                                <option value="lakilaki">Laki-Laki</option>
+                                <option value="perempuan">Perempuan</option>
+                            </select><br>
+
+                            <label for="pekerjaan"><b>Pekerjaan</b></label>
+                            <input id="pekerjaan" type="text" name="pekerjaan" required>
+
+                            <label for="alamat"><b>Alamat Domisili</b></label>
+                            <input id="alamat" type="text" name="alamat" required>
+                            <button type="submit">Kirim</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Surat Keterangan Kematian -->
+                <div id="id03" class="modal">
+                    <form class="modal-content animate" action="/action_page.php" method="post">
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id03').style.display='none'" class="close"
+                                title="Close Modal">&times;</span>
+                            <img src="/loginform/images/admin.png" alt="Avatar" class="avatar">
+                        </div>
+                        <div class="container">
+                            <label for="nama"><b>Nama</b></label>
+                            <input id="nama" type="text" name="nama" required>
+
+                            <label for="tempatlahir"><b>Tempat Lahir</b></label><br>
+                            <input id="tempatlahir" type="text" name=" tempatlahir" required>
+
+                            <label for="tanggallahir"><b>Tanggal Lahir</b></label>
+                            <input id="tanggallahir" type="date" name="tanggallahir" required><br>
+
+                            <label for="pekerjaan"><b>Pekerjaan</b></label>
+                            <input id="pekerjaan" type="text" name="pekerjaan" required>
+
+                            <label for="agama"><b>Agama</b></label>
+                            <input id="agama" type="text" name="agama" required>
+
+                            <label for="alamat"><b>Alamat</b></label>
+                            <input id="alamat" type="text" name="alamat" required>
+
+                            <label for="hari"><b>Hari</b></label>
+                            <input id="hari" type="text" name="hari" required>
+
+                            <label for="tanggalmeninggal"><b>Tanggal Meninggal</b></label><br>
+                            <input id="tanggalmeninggal" type="date" name="tanggalmeninggal" required><br>
+                            <br>
+
+                            <label for="pukul"><b>Pukul</b></label>
+                            <input id="pukul" type="text" name="pukul" required>
+                            <br>
+                            <label for="tempat"><b>Tempat</b></label>
+                            <input id="tempat" type="text" name="tempat" required>
+
+                            <label for="makam"><b>Dimakamkan Di</b></label>
+                            <input id="makam" type="text" name="makam" required>
+
+                            <button type="submit">Kirim</button>
+                        </div>
+                    </form>
+                </div>
     <section class="page-title bg-1">
         <div class="container">
             <div class="row">
@@ -157,6 +240,30 @@
             </div>
         </div>
     </section>
+    
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    var modal = document.getElementById('id02');
+    var modal = document.getElementById('id03');
+    var modal = document.getElementById('id04');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js')}}" crossorigin=" anonymous">
+    </script>
+    <script src="{{asset('/sbadmin/assets/demo/chart-area-demo.js')}}"></script>
+    <script src="{{asset('/sbadmin/assets/demo/chart-bar-demo.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="{{asset('/sbadmin/js/datatables-simple-demo.js')}}"></script>
 @endsection
 
 @section('script')

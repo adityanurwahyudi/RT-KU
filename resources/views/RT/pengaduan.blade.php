@@ -15,13 +15,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
-                            <th>Email</th>
                             <th>Telepon</th>
                             <th>Tanggal</th>
                             <th>Gambar</th>
@@ -30,19 +28,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($pengaduan as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->bukti }}</td>
+                            <td>{{ $p->deskripsi }}</td>
                             <td>
-                                <a title="Delete" href=" " class="btn btn-danger"
+                                <a title="Delete" href="{{route('admin.rt.security.hapus',$p->id)}}" class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

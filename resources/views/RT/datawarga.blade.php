@@ -138,44 +138,6 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Data Kendaraan Warga
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <a href="/kendaraan/tambah" class="btn btn-primary">Add</a>
-                <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kendaraan-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama Pemilik</th>
-                            <th>Nomer Plat Kendaraan</th>
-                            <th>Jenis Kendaraan</th>
-                            <th>Alamat</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
             Data Warga Tidak Mampu
         </div>
         <div class="card-body">

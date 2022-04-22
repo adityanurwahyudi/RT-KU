@@ -27,16 +27,30 @@ class PagesController extends Controller
     }
     public function berita()
     {
-        return view('warga.berita');
+        $berita = DB::table('berita')->get();
+		return view('warga.berita',
+		compact('berita'));
+    }
+    public function datawargaa()
+    {
+        
+        $kendaraan = DB::table('kendaraan')->whereIn('status',  ['proses','selesai'])->get();
+        $no = 1;
+		return view('warga.datawargaa',
+		compact('kendaraan','no'));
     }
     
     public function contact()
     {
-        return view('warga.contact');
+        $kritiksaran = DB::table('kritiksaran')->get();
+		return view('warga.contact',
+		compact('kritiksaran'));
     }
     public function kegiatan()
     {
-        return view('warga.kegiatan');
+        $kegiatan = DB::table('kegiatan')->get();
+		return view('warga.kegiatan',
+		compact('kegiatan'));
     }
     public function service()
     {
@@ -44,15 +58,22 @@ class PagesController extends Controller
     }
     public function galeri()
     {
-        return view('warga.galeri');
+        $foto = DB::table('foto')->get();
+        $video = DB::table('video')->get();
+		return view('warga.galeri',
+		compact('foto','video'));
     }
     public function keuangan()
     {
-        return view('warga.keuangan');
+        $qris = DB::table('qris')->get();
+		return view('warga.keuangan',
+		compact('qris'));
     }
     public function keamanan()
     {
-        return view('warga.keamanan');
+        $security = DB::table('security')->get();
+		return view('warga.keamanan',
+		compact('security'));
     }
     public function datawarga()
     {

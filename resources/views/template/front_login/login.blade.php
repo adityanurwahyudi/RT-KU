@@ -2,9 +2,13 @@
 <html lang="en">
 
 <head>
-    <title>Login Admin</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Favicons -->
+    <link href="{{ asset('/loginform/images/admin.png') }}" rel="icon">
+    <link href="{{asset('/superwarga/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/loginform/images/icons/favicon.ico" />
     <!--===============================================================================================-->

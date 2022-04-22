@@ -5,6 +5,7 @@ namespace App\Http\Controllers\RT;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Exception;
 
 class PagesController extends Controller
@@ -35,7 +36,13 @@ class PagesController extends Controller
     {
         return view('RT.keuangan');
     }
+    public function keamanan()
+    {
+     
+    $security = DB::table('security')->get();
     
+    return view('warga.keamanan', compact('security'));  
+    }
     public function surat()
     {
         return view('RT.surat');

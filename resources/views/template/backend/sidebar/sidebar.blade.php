@@ -62,13 +62,17 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Keuangan
                 </a>
+                <a class="nav-link" href="{{ route('admin.rt.kendaraan') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Kendaraan
+                </a>
                 <a class="nav-link" href="{{ route('admin.rt.surat') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Pengajuan Surat
                 </a>
                 <a class="nav-link" href="{{ route('admin.rt.kritiksaran') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Kritin dan Saran
+                    Kritik dan Saran
                 </a>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError"
                     aria-expanded="false" aria-controls="pagesCollapseError">

@@ -7,6 +7,9 @@
   <meta name="description" content="megakit,business,company,agency,multipurpose,modern,bootstrap4">
   <meta name="author" content="themefisher.com">
   <title>RT-KU</title>
+    <link href="{{asset('/sbwarga/images/rt.jpeg')}}" rel="icon">
+    @include('sweetalert::alert', ['cdn' => "https://cdn.jsdelivr.net/npm/sweetalert2@9"])
+    <link href="{{asset('/superwarga/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
   @include('template.frontend.header_script.header')
   @yield('css')
 </head>
@@ -18,5 +21,6 @@
   </div>
   @include('template.frontend.footer_script.footer')
   @yield('script')
+  @include('sweetalert::alert')
 </body>
 </html>
