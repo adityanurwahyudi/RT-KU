@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\RT;
+namespace App\Http\Controllers\kelurahan;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,46 +20,42 @@ class UserManagementController extends Controller
 
     public function datawarga()
     {
-        return view('RT.datawarga');
+        return view('RW.datawarga');
     }
 
     public function dataloginwarga()
     {
-        $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
-        $data['users'] = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',1)->orderBy('id','ASC')->get();
+        $data['users'] = DB::table('users')->whereNull('rt')->whereNotNull('rw')->where('status',3)->orderBy('id','ASC')->get();
 
-        return view('RT.dataloginwarga', $data);
+        return view('kelurahan.dataloginwarga', $data);
     }
 
     public function dataloginwarga_create()
     {
-        return view('RT.formcreate.c_dataloginwarga');
+        return view('kelurahan.formcreate.c_dataloginwarga');
     }
 
     public function dataloginwarga_save(Request $request)
     {
         try{
-            $rt = Auth::guard('admin')->user()->rt;
-            $rw = Auth::guard('admin')->user()->rw;
-
             $data = [
                 'name'              => $request->nama,
                 'email'             => $request->email,
                 'telpon'            => $request->telepon,
                 'password'          => Hash::make($request->password),
                 'password_real'     => $request->password,
-                'rt'                => $rt,
-                'rw'                => $rw,
-                'status'            => 1
+                'rt'                => NULL,
+                'rw'                => $request->rw,
+                'status'            => 3
             ];
             DB::table('users')->insert($data);
 
-            return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
+            return redirect('/kelurahan/data-login-warga')->with(['success'=>'Berhasil Simpan']);
         }catch(Exception $e){
-            return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
+            return redirect('/kelurahan/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
         }
 
     }
@@ -68,14 +64,12 @@ class UserManagementController extends Controller
     {
         $data['users'] = DB::table('users')->where('id', $id)->first();
 
-        return view('RT.formedit.e_dataloginwarga', $data);
+        return view('kelurahan.formedit.e_dataloginwarga', $data);
     }
 
     public function dataloginwarga_update(Request $request)
     {
         try{
-            $rt = Auth::guard('admin')->user()->rt;
-            $rw = Auth::guard('admin')->user()->rw;
 
             $data = [
                 'name'              => $request->nama,
@@ -83,15 +77,15 @@ class UserManagementController extends Controller
                 'telpon'            => $request->telepon,
                 'password'          => Hash::make($request->password),
                 'password_real'     => $request->password,
-                'rt'                => $rt,
-                'rw'                => $rw,
-                'status'            => 1
+                'rt'                => NULL,
+                'rw'                => $request->rw,
+                'status'            => 3
             ];
             DB::table('users')->where('id',$request->id)->update($data);
 
-            return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
+            return redirect('/kelurahan/data-login-warga')->with(['success'=>'Berhasil Simpan']);
         }catch(Exception $e){
-            return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
+            return redirect('/kelurahan/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
         }
     }
     
@@ -104,9 +98,9 @@ class UserManagementController extends Controller
                 DB::table('detail_users')->where('id_users', $id)->delete();
             }
             
-            return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
+            return redirect('/kelurahan/data-login-warga')->with(['success'=>'Berhasil Simpan']);
         }catch(Exception $e){
-            return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Hapus'.$e]);
+            return redirect('/kelurahan/data-login-warga')->with(['error'=>'Gagal Hapus'.$e]);
         }
     }
 }

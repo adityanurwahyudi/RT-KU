@@ -14,7 +14,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('admin.rt.dataloginwarga_save') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.rw.dataloginwarga_save') }}" method="post" enctype="multipart/form-data">
             @csrf
 
                 <div class="mb-3">
@@ -32,6 +32,10 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="text" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="rt" class="form-label">RT</label>
+                    <input type="number" class="form-control" id="rt" name="rt" required>
                 </div>
                 <div class="mb-3">
                     <input type="submit" class="btn btn-info" value="Simpan Data" />

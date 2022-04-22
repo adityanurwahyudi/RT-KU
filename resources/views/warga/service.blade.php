@@ -125,19 +125,20 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="card h-100">
-                                            <img src="/sbwarga/images/surat/domisli.jpeg"
+                                            <img src="{{ asset('sbwarga/images/surat/domisli.jpeg') }}"
                                                 class="card-img-top img-responsive" alt="Waterfall" />
                                             <div class="card-body">
                                                 <center>
-                                                    <h5 class="card-title">Card title</h5>
+                                                    <h5 class="card-title">Surat Domisili</h5>
                                                 </center>
                                                 <p class="card-text">
-                                                    Some quick example text to build on the card title and make
-                                                    up the bulk
-                                                    of the card's content.
+                                                    Surat domisili adalah surat keterangan yang berupa dokumen atau bukti
+                                                    resmi seorang pendatang yang bertempat tinggal di daerah tertentu.
+                                                    Surat domisili dapat berupa selembar kertas yang di dalamnya tercantum
+                                                    data kependudukan seseorang seperti dalam KTP
                                                 </p>
                                                 <button type='button'
-                                                    onclick="document.getElementById('id02').style.display='block'"
+                                                    data-toggle="modal" data-target="#modal-domisili"
                                                     class='btn btn-primary center-block'>
                                                     Ajukan Surat
                                                 </button>
@@ -147,7 +148,7 @@
 
                                     <div class="col-lg-4 d-none d-lg-block">
                                         <div class="card h-100">
-                                            <img src="/sbwarga/images/surat/kematian.jpg" class="card-img-top"
+                                            <img src="{{ asset('sbwarga/images/surat/kematian.jpg') }}" class="card-img-top"
                                                 alt="Sunset Over the Sea" />
                                             <div class="card-body">
                                                 <center>
@@ -168,7 +169,7 @@
 
                                     <div class="col-lg-4 d-none d-lg-block">
                                         <div class="card h-100">
-                                            <img src="/sbwarga/images/surat/sktm.jpg" class="card-img-top"
+                                            <img src="{{ asset('sbwarga/images/surat/sktm.jpg') }}" class="card-img-top"
                                                 alt="Sunset over the Sea" />
                                             <div class="card-body">
                                                 <center>
@@ -216,81 +217,237 @@
                     Pengajuan Surat
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple">
+                    <table class="table table-bordered" id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Nama</th>
                                 <th>Tanggal</th>
                                 <th>Jenis Surat</th>
                                 <th>Status Pengajuan</th>
-
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($domisili as $val)
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>61</td>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $val->nama }}</td>
+                                <td>{{ $val->tgl_lahir }}</td>
+                                <td>Domisili</td>
+                                <td>
+                                    @if($val->status==0)
+                                    <span class="badge badge-info">Draft</span>
+                                    @elseif($val->status==1)
+                                    <span class="badge badge-warning">On Process</span>
+                                    @elseif($val->status==2)
+                                    <span class="badge badge-danger" style="cursor: pointer;" onclick="catatan('{{$val->catatan}}')">Revisi</span>
+                                    @else
+                                    <span class="badge badge-success">Approve</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($val->status==0)
+                                        <button type="button" class="btn btn-danger btn-round-full float-lg-right" onclick="kirim('{{$val->id}}')">KIRIM</button>
+                                        <button type="button" class="btn btn-primary btn-round-full float-lg-right" onclick="edit(this)" data-item="{{json_encode($val)}}">EDIT</button>
+                                    @elseif($val->status==1)
+                                        <button type="button" class="btn btn-primary" onclick="view(this)" data-item="{{json_encode($val)}}">VIEW</button>
+                                    @elseif($val->status==2)
+                                        <button type="button" class="btn btn-danger" onclick="kirim('{{$val->id}}')">KIRIM</button>
+                                        <button type="button" class="btn btn-danger" onclick="edit(this)" data-item="{{json_encode($val)}}">EDIT</button>
+                                    @else
+                                        <a href="{{route('warga.cetak_domisili', $val->id)}}" target="_blank" class="btn btn-warning">CETAK</a>
+                                    @endif
+                                </td>
                             </tr>
-
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </section>
-    
-    <script>
-    // Get the modal
-    var modal = document.getElementById('id01');
-    var modal = document.getElementById('id02');
-    var modal = document.getElementById('id03');
-    var modal = document.getElementById('id04');
 
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
-    </script>
-    <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js')}}" crossorigin=" anonymous">
-    </script>
-    <script src="{{asset('/sbadmin/assets/demo/chart-area-demo.js')}}"></script>
-    <script src="{{asset('/sbadmin/assets/demo/chart-bar-demo.js')}}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="{{asset('/sbadmin/js/datatables-simple-demo.js')}}"></script>
+    <!-- Modal Domisili -->
+    <div class="modal fade" id="modal-domisili" role="dialog" style="z-index:1500" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Surat Domisili</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formTambahSurat" action="{{ route('warga.tambah_domisili') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama">Nama</label>
+                            <input type="text" maxlength="100" class="form-control" id="nama" name="nama" placeholder="Masukan Nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" maxlength="255" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="agama">Agama</label>
+                            <input type="text" maxlength="20" class="form-control" name="agama" id="agama" placeholder="Masukan Agama" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- Modal Edit --}}
+    <div class="modal fade" id="modal-edit-domisili" style="z-index:1500" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="HeaderModal"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formEditSurat" action="{{route('warga.edit_domisili')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <div class="modal-body">
+                            <input type="hidden" name="id" id="id">
+                            <div class="form-group">
+                                <label for="nama">Nama</label>
+                                <input type="text" maxlength="100" class="form-control" id="nama_e" name="nama" placeholder="Masukan Nama">
+                            </div>
+                            <div class="form-group">
+                                <label for="tempat_lahir">Tempat Lahir</label>
+                                <input type="text" maxlength="255" class="form-control" id="tempat_lahir_e" name="tempat_lahir" placeholder="Masukan Tempat Lahir">
+                            </div>
+                            <div class="form-group">
+                                <label for="tgl_lahir">Tanggal Lahir</label>
+                                <input type="text" class="form-control" id="tgl_lahir_e" name="tgl_lahir" placeholder="Masukan Tanggal Lahir">
+                            </div>
+                            <div class="form-group">
+                                <label for="agama">Agama</label>
+                                <input type="text" maxlength="20" class="form-control" name="agama" id="agama_e" placeholder="Masukan Agama">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" id="BtnSimpan" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
-@if(Session::has('success'))
-<script type="text/javascript">
-    Swal.fire({
-        icon: 'success',
-        text: '{{Session::get("success")}}',
-        showConfirmButton: false,
-        timer: 1500
-    });
-</script>
-<?php
-        Session::forget('success');
-    ?>
-@endif
-@if(Session::has('error'))
-<script type="text/javascript">
-    Swal.fire({
-        icon: 'error',
-        text: '{{Session::get("error")}}',
-        showConfirmButton: false,
-        timer: 1500
-    });
-</script>
-<?php
-        Session::forget('error');
-    ?>
-@endif
+    <script>
+        $(document).ready(function(){
+
+        })
+
+        flatpickr("#tgl_lahir", {
+            altInput: true,
+            altFormat: "j F Y",
+            dateFormat: "Y-m-d",
+        });
+        flatpickr("#tgl_lahir_e", {
+            altInput: true,
+            altFormat: "j F Y",
+            dateFormat: "Y-m-d",
+        });
+
+        function kirim(id){
+            Swal.fire({
+                icon: 'question',
+                title: 'Ingin Mengirim Data?',
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                confirmButtonText: "Kirim",
+            }).then(function(result) {
+                if(result.value){
+                    window.location.href = "{{ URL::to('warga/service/domisili/kirim/')}}"+'/'+id;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Kirim",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+        }
+
+        function edit(obj){
+            var item = $(obj).data('item');
+            $('#HeaderModal').text('Edit Surat Domisili');
+            
+            $('#id').val(item.id);
+            $('#nama_e').val(item.nama);
+            $('#tempat_lahir_e').val(item.tempat_lahir);
+            flatpickr("#tgl_lahir_e").setDate(item.tgl_lahir);
+            $('#agama_e').val(item.agama);
+            
+            $('#modal-edit-domisili').modal('show');
+        }
+
+        function view(obj){
+            var item = $(obj).data('item');
+            $('#HeaderModal').text('View Surat Domisili');
+            $('#id').val(item.id);
+            $('#nama_e').val(item.nama);
+            $('#tempat_lahir_e').val(item.tempat_lahir);
+            flatpickr("#tgl_lahir_e").setDate(item.tgl_lahir);
+            $('#agama_e').val(item.agama);
+            $('.form-control').attr('readonly', true);
+            $('#BtnSimpan').hide();
+            
+            $('#modal-edit-domisili').modal('show');
+        }
+
+        function catatan(catatan){
+            Swal.fire(
+            catatan,
+            '',
+            'info'
+            )
+        }
+    </script>
+
+
+    @if(Session::has('success'))
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'success',
+            text: '{{Session::get("success")}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+    <?php
+            Session::forget('success');
+        ?>
+    @endif
+    @if(Session::has('error'))
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'error',
+            text: '{{Session::get("error")}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+    <?php
+            Session::forget('error');
+        ?>
+    @endif
 @endsection

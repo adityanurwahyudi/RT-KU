@@ -4,7 +4,8 @@ namespace App\Http\Controllers\RT;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Mail\RondaEmail;
+use Illuminate\Support\Facades\Mail;
 use Exception;
 use Auth;
 use DB;
@@ -116,18 +117,21 @@ class JadwalRondaController extends Controller
         $event = new \stdClass();
 
         $formatBesok = $besok->format('Y-m-d');
-        $getDate = DB::table('jadwal_ronda')->where('jadwal_ronda.tgl_ronda', $tgl)->join('users','users.id','jadwal_ronda.id_users')->get();
+        $getDate = DB::table('jadwal_ronda')->where('jadwal_ronda.tanggal', $tgl)
+                    ->join('users','users.id','jadwal_ronda.id_users')
+                    ->get();
         
         foreach($getDate as $g){
             $event->senderEmail = $g->email;
             $event->email = $g->email; 
-            $event->senderName = 'Ketua RT 15';
-            $event->subject = 'Pengumuman Jadwal Ronda';
+            $event->senderName = 'RT-KU';
+            $event->subject = 'PEMBERITAHUAN JADWAL RONDA';
             $event->message = '';  
             $event->name = $g->name;
-            $event->tanggal = $g->tgl_ronda;       
+            $event->tanggal = $g->tanggal;
+
+            Mail::send((new RondaEmail($event))->delay(30));
         }
-        Mail::send((new RondaEmail($event))->delay(30));
         return redirect()->back()->with(['success'=>'Terkirim']);
     }
 

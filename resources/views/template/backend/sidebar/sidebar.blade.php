@@ -8,6 +8,11 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard Kelurahan
                 </a>
+                <div class="sb-sidenav-menu-heading">Data-Data</div>
+                <a class="nav-link" href="{{ route('admin.kelurahan.dataloginwarga') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Data Login RW
+                </a>
             </div>
             @elseif(Auth::guard('admin')->user()->status == 3) {{-- RW --}}
             <div class="nav">
@@ -15,6 +20,11 @@
                 <a class="nav-link" href="{{ route('admin.rw.dashboard') }}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard RW
+                </a>
+                <div class="sb-sidenav-menu-heading">Data-Data</div>
+                <a class="nav-link" href="{{ route('admin.rw.dataloginwarga') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Data Login RT
                 </a>
             </div>
             @elseif(Auth::guard('admin')->user()->status == 2) {{-- RT --}}

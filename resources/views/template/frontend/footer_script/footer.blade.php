@@ -33,4 +33,5 @@ window.onclick = function(event) {
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="{{asset('/sbwarga/js/script.js')}}"></script>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

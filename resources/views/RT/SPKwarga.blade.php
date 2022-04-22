@@ -76,6 +76,48 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
+            Data Bobot Warga Tidak Mampu
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {{-- <a href="/tidakmampu/tambah" class="btn btn-primary">Add</a>
+                <br><br> --}}
+                <table class="table table-striped table-bordered table-hover table-condensed" id="tidakmampu-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Penghasilan</th>
+                            <th>Pekerjaan</th>
+                            <th>Jumlah Tanggungan</th>
+                            <th>Kendaraan</th>
+                            {{-- <th>Aksi</th> --}}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($users as $val)
+                        <tr>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $val->name }}</td>
+                            <td>{{ number_format(getPenghasilan($val->id_penghasilan)->bobot,2) }}</td>
+                            <td>{{ number_format(getPekerjaan($val->id_pekerjaan)->bobot,2) }}</td>
+                            <td>{{ number_format(getJumlahTanggungan($val->id_jumlah_tanggungan)->bobot,2) }}</td>
+                            <td>{{ number_format(getKendaraan($val->id_kendaraan)->bobot,2) }}</td>
+                            {{-- <td>
+                                <a title="Edit" href="" class="btn btn-info">Edit</a>
+                                <a title="Delete" href=" " class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
             Tabel Normalisasi Matriks
         </div>
         <div class="card-body">

@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="{{asset('/sbadmin/js/datatables-simple-demo.js')}}"></script>
 
-    <script src="{{asset('/sbadmin/plugins/bootstrap/js/popper.js')}}"></script>
+    {{-- <script src="{{asset('/sbadmin/plugins/bootstrap/js/popper.js')}}"></script> --}}
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
@@ -19,3 +19,10 @@
 
     {{-- SweetAlert --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    {{-- Highchart --}}
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>

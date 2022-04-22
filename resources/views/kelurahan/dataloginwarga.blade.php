@@ -2,20 +2,20 @@
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Data Login Warga</h1>
+    <h1 class="mt-4">Data Login RW</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a>Dashboard</a></li>
-        <li class="breadcrumb-item active">Data Login Warga</li>
+        <li class="breadcrumb-item active">Data Login RW</li>
     </ol>
 
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Data Login Warga
+            Data Login RW
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.dataloginwarga_create') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.kelurahan.dataloginwarga_create') }}" class="btn btn-primary">Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="loginwarga-table">
                     <thead>
@@ -25,6 +25,7 @@
                             <th>Email</th>
                             <th>Telepon</th>
                             <th>Password</th>
+                            <th>RW</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -36,9 +37,10 @@
                             <td>{{ $val->email }}</td>
                             <td>{{ $val->telpon }}</td>
                             <td>{{ $val->password_real }}</td>
+                            <td>{{ $val->rw }}</td>
                             <td>
 
-                                <a title="Edit" href="{{ route('admin.rt.dataloginwarga_edit',$val->id) }}" class="btn btn-info">Edit</a>
+                                <a title="Edit" href="{{ route('admin.kelurahan.dataloginwarga_edit',$val->id) }}" class="btn btn-info">Edit</a>
                                 <button title="Delete" class="btn btn-danger"
                                     onclick="hapus('{{ $val->id }}')">Delete</button>
                             </td>
@@ -67,7 +69,7 @@
             confirmButtonText: 'Delete'
             }).then((result) => {
                 if(result.value){
-                    window.location.href = "{{ URL::to('RT/data-login-warga/hapus')}}"+'/'+id;
+                    window.location.href = "{{ URL::to('kelurahan/data-login-warga/hapus')}}"+'/'+id;
                 }else{
                     Swal.fire({
                         icon: 'error',
