@@ -14,7 +14,7 @@
         </div>
 
         <div class="card-body">
-            <form action="{{ route('admin.rw.dataloginwarga_update') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('admin.kelurahan.dataloginwarga_update') }}" method="post" enctype="multipart/form-data">
             @csrf
                 <input type="hidden" name="id" value="{{ $users->id }}">
                 <div class="mb-3">

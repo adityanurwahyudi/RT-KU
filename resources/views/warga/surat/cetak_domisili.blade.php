@@ -58,9 +58,9 @@
     <!-- <body> -->
     <center>
         <span style="font-size: 15px;"><b>PEMERINTAHAN PROVINSI DAERAH KHUSUS IBU KOTA JAKARTA</b></span><br>
-        <span style="font-size: 17px;"><b>RUKUN TETANGGA RT 015 RW 010</b></span><br>
+        <span style="font-size: 17px;"><b>RUKUN TETANGGA RT {{ $ttd->rt }} RW {{ $ttd->rw }}</b></span><br>
         <span style="font-size: 17px;"><b>KELURAHAN CIRACAS, KECAMATAN CIRACAS</b></span><br>
-        <span style="font-size: 14px;">Jalan Centex Gg. Epatik II Dalam, RT. 015 / RW. 010, Ciracas</span>
+        <span style="font-size: 14px;">Jalan Centex Gg. Epatik II Dalam, RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }}, Ciracas</span>
     </center>
     <br>
     <hr style="border:1px solid #000;">
@@ -72,13 +72,13 @@
     </table>
     <table border="0" style="width: 100%; font-size: 14px;">
         <tr>
-            <td align="center" style="font-weight: bold;">No. 015/010/SKD/</td>
+            <td align="center" style="font-weight: bold;">No. {{ $ttd->rt }}/{{ $ttd->rw }}/SKD/</td>
         </tr>
     </table>
     <br>
     <table border="0" style="width: 100%;">
         <span>
-            Yang bertanda tangan dibawah ini Pengurus RT. 015 / RW. 010 Kelurahan Ciracas, Kecamatan Ciracas, Jakarta
+            Yang bertanda tangan dibawah ini Pengurus RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }} Kelurahan Ciracas, Kecamatan Ciracas, Jakarta
             Timur dengan ini menerangkan :
         </span>
     </table>
@@ -149,13 +149,15 @@
             <td align="center">
                 <span style="float: right;">Jakarta, {{date('d F Y')}}</span>
                 <br>
-                <span style="float: right;padding-top: 10px;">Pengurus RT 015 / 010</span>
+                <span style="float: right;padding-top: 10px;">Pengurus RT {{ $ttd->rt }} / {{ $ttd->rw }}</span>
                 <br><br><br>
                 <div width="40%" style="float: right;">
-                    <img src="{{url('/tanda_tangan/ttd.jpg')}}" alt="Tanda Tangan"
-                        style="padding-right:15px;height:100px;width:100px;">
+                    <img src="{{url('/upload/tanda_tangan/'.$ttd->tanda_tangan.'')}}" alt="Tanda Tangan"
+                        style="position:absolute;padding-right:15px;height:100px;width:100px;z-index:1;">
+                    <img src="{{url('/upload/stempel/'.$ttd->stempel.'')}}" alt="Tanda Tangan"
+                        style="position:relative;padding-right:15px;height:100px;width:100px;">
                     <br>
-                    <span style="padding-right:-10px;">Rasiman</span>
+                    <span style="padding-right:-10px;">{{ $ttd->name }}</span>
                 </div>
             </td>
         </tr>

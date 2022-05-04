@@ -29,6 +29,10 @@
             color: #fff;
             background-color: #1567ff;
         }
+        .alertFile{
+            font-size:13px;
+            color:red;
+        }
     </style>
 @endsection
 
@@ -39,7 +43,44 @@
         <li class="breadcrumb-item"><a>Dashboard</a></li>
         <li class="breadcrumb-item active">Permohonan Surat</li>
     </ol>
-
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Tanda Tangan Dan Stempel
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @if(count($ttd) == 0)
+                <button type="button" class="btn btn-sm btn-success" onclick="TambahTandaTangan()"><i class="fa fa-plus"></i>&nbsp;Tambah</button>
+                <br><br>
+                @endif
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>RT</th>
+                            <th>RW</th>
+                            <th>Tanda Tangan</th>
+                            <th>Stempel</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($ttd as $val)
+                        <tr>
+                            <td>{{ $val->rt }}</td>
+                            <td>{{ $val->rw }}</td>
+                            <td><a href="{{ asset('/upload/tanda_tangan/'.$val->tanda_tangan.'') }}" target="_blank" class="btn btn-sm btn-dark"><i class="fa fa-eye"></i>&nbsp;Lihat</a></td>
+                            <td><a href="{{ asset('/upload/stempel/'.$val->stempel.'') }}" target="_blank" class="btn btn-sm btn-dark"><i class="fa fa-eye"></i>&nbsp;Lihat</a></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-primary" onclick="EditTandaTangan('{{ $val->id }}')"><i class="fa fa-edit"></i></button>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -197,10 +238,10 @@
                             </td>
                             <td>
                                 @if($val->status==1)
-                                <button type="button" title="Edit" onclick="edit('{{ $val->id }}','{{ $val->status }}','{{ $val->catatan }}')" class="btn btn-info">Edit</button>
-                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapus('{{ $val->id }}')">Delete</button>
+                                <button type="button" title="Edit" onclick="editDomisili('{{ $val->id }}','{{ $val->status }}','{{ $val->catatan }}')" class="btn btn-info">Edit</button>
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusDomisili('{{ $val->id }}')">Delete</button>
                                 @elseif($val->status==2)
-                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapus('{{ $val->id }}')">Delete</button>
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusDomisili('{{ $val->id }}')">Delete</button>
                                 @endif
                             </td>
                         </tr>
@@ -211,6 +252,69 @@
         </div>
     </div>
 </div>
+{{-- Modal Tambah TTD --}}
+<div class="modal fade" id="modal-tambah-ttd" role="dialog" aria-labelledby="labelTandaTangan"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelTandaTangan">Tambah Tandan Tangan & Stempel</h5>
+                </button>
+            </div>
+            <form id="form-ttd" method="POST" action="{{ route('admin.rt.tambah_ttd') }}" enctype="multipart/form-data">
+            @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Tanda Tangan</label>
+                        <input type="file" class="form-control" id="tanda_tangan" name="tanda_tangan" accept=".png" required>
+                        <span class="alertFile">*Format File Harus .png</span>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Stempel</label>
+                        <input type="file" class="form-control" id="stempel" name="stempel" accept=".png" required>
+                        <span class="alertFile">*Format File Harus .png</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-tambah-ttd')">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{{-- Modal Edit TTD --}}
+<div class="modal fade" id="modal-edit-ttd" role="dialog" aria-labelledby="labelTandaTangan"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="labelTandaTangan">Tambah Tandan Tangan & Stempel</h5>
+                </button>
+            </div>
+            <form id="form-ttd" method="POST" action="{{ route('admin.rt.update_ttd') }}" enctype="multipart/form-data">
+            @csrf
+                <input type="hidden" id="id" name="id">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Tanda Tangan</label>
+                        <input type="file" class="form-control" id="e_tanda_tangan" name="tanda_tangan" accept=".png">
+                        <span class="alertFile">*Format File Harus .png</span>
+                    </div><br>
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">Stempel</label>
+                        <input type="file" class="form-control" id="e_stempel" name="stempel" accept=".png">
+                        <span class="alertFile">*Format File Harus .png</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('modal-edit-ttd')">Close</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
@@ -218,7 +322,18 @@
     $(document).ready(function(){
     });
 
-    function edit(id, status, catatan){
+    function TambahTandaTangan(){
+        $('#modal-tambah-ttd').modal('show');
+    }
+
+    function EditTandaTangan(id)
+    {
+        $('#id').val(id);
+
+        $('#modal-edit-ttd').modal('show');
+    }
+
+    function editDomisili(id, status, catatan){
         var verif='';var tolak='';var approve='';
         if(status == 1){
             verif = 'selected';
@@ -231,7 +346,7 @@
                     '@csrf'+
                       '<input type="hidden" name="id" value="'+id+'">'+
                       '<label>Status</label>'+
-                      '<select class="form-control" id="status" onchange="HideCatatan()" name="status" value="'+status+'">'+
+                      '<select class="form-control" id="status" onchange="HideCatatanDomisili()" name="status" value="'+status+'">'+
                             '<option value="1" '+verif+'>Verifikasi</option>'+
                             '<option value="2" '+tolak+'>Ditolak</option>'+
                             '<option value="3" '+approve+'>Approve</option>'+
@@ -263,7 +378,7 @@
           })
     }
     
-    function HideCatatan(){
+    function HideCatatanDomisili(){
         if($('#status').val() == 2){
             $('.catatan').show();
         }else{
@@ -271,7 +386,7 @@
         }
     }
 
-    function hapus(id)
+    function hapusDomisili(id)
     {
         Swal.fire({
             title: 'Apakah Anda Yakin?',
@@ -295,12 +410,17 @@
         })
     }
 
-    function catatan(catatan){
-            Swal.fire(
-            catatan,
-            '',
-            'info'
-            )
-        }
+    function catatan(catatan)
+    {
+        Swal.fire(
+        catatan,
+        '',
+        'info'
+        )
+    }
+
+    function closeModal(modal){
+        $('#'+modal+'').modal('toggle');
+    }
 </script>
 @endsection

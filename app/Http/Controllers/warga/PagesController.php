@@ -9,6 +9,8 @@ use Exception;
 use DB;
 use Auth;
 use PDF;
+use Illuminate\Support\Facades\Hash;
+use Pusher;
 
 class PagesController extends Controller
 {
@@ -42,7 +44,6 @@ class PagesController extends Controller
     public function service()
     {
         $id_users = Auth::guard('user')->user()->id;
-
         $data['no'] = 1;
         $data['domisili'] = DB::table('surat_domisili')->where('id_users',$id_users)->get();
 
@@ -79,13 +80,50 @@ class PagesController extends Controller
     {
         DB::table('surat_domisili')->where('id',$id)->update(['status'=>1]);
         
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        $notif = [
+            'url'           => '/RT/surat',
+            'deskripsi'     => 'Pengajuan Surat Domisili',
+            'id_pengirim'   => $id_users,
+            'id_penerima'   => $penerima->id,
+            'created_at'    => date('Y-m-d H:i:s'),
+            'is_read'       => false
+        ];
+        DB::table('notification')->insert($notif);
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher\Pusher(
+            'dc54755d5048301338f6',
+            'e1ce7abf10d456b68339',
+            '1403900',
+            $options
+        );
+    
+        $data['message'] = 'hello world';
+        $pusher->trigger('my-channel', 'my-event', $data);
+        // End Notification
+        
         return redirect()->back()->with(['success'=>'Data Kirim']);
     }
     public function cetak_domisili($id){
 
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
         $data['surat'] = DB::table('surat_domisili')->where('id', $id)->first();
 
-        // return view('warga.surat.domisili.surat-domisili', $data);
+        $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.name','users.rt','users.rw')
+                    ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
+                    ->where('users.rt', $rt)
+                    ->where('users.rw', $rw)
+                    ->first();
+
+        // return view('warga.surat.cetak_domisili', $data);
         $pdf = PDF::loadView('warga.surat.cetak_domisili', $data);
         return $pdf->stream('surat-domisili.pdf');
     }
@@ -187,5 +225,28 @@ class PagesController extends Controller
     public function pindah()
     {
         return view('warga.pindah');
+    }
+    public function profil()
+    {
+        $id_users = Auth::guard('user')->user()->id;
+        $data['users'] = DB::table('users')->where('id',$id_users)->orderBy('id','ASC')->first();
+
+        return view('warga.profil',$data);
+    }
+    public function profil_update(Request $request)
+    {
+        try{
+            $data = [
+                'name'          => $request->nama,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'password_real' => $request->password
+            ];
+            DB::table('users')->where('id', $request->id)->update($data);
+
+            return redirect()->back()->with(['success'=>'Data Update']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
+        }
     }
 }

@@ -65,4 +65,12 @@
             return $data;
         }
     }
+    if(!function_exists('notification')){
+        function notification($id_users)
+        {
+            $data = DB::table('notification')->where('id_penerima', $id_users)->where('is_read',false)->get();
+
+            return ($data) ? $data : array();
+        }
+    }
 ?>

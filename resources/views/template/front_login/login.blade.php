@@ -64,6 +64,10 @@
                             Login
                         </button>
                     </div>
+                    <br><br>
+                    <div class="text-center">
+                        <span>Lupa Password?<a href="{{ url('password/reset') }}" style="color:blue;"> Klik Disini</a></span>
+                    </div>
                 </form>
             </div>
         </div>
@@ -90,6 +94,19 @@
     <script src="{{asset('/loginform/js/main.js')}}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
+    @if(Session::has('success'))
+    <script type="text/javascript">
+        Swal.fire({
+            icon: 'success',
+            text: '{{Session::get("success")}}',
+            showConfirmButton: false,
+            timer: 1500
+        });
+    </script>
+    <?php
+        Session::forget('success');
+    ?>
+    @endif
     @if(Session::has('error'))
     <script type="text/javascript">
         Swal.fire({

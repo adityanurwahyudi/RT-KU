@@ -44,13 +44,91 @@ class PagesController extends Controller
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
+        $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.rt','users.rw')
+                    ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
+                    ->where('users.rt', $rt)
+                    ->where('users.rw', $rw)
+                    ->get();
         $data['domisili'] = DB::table('surat_domisili')->select('surat_domisili.*')
                         ->leftjoin('users','users.id','surat_domisili.id_users')
                         ->where('users.rt', $rt)
                         ->where('users.rw', $rw)
                         ->orderBy('tgl_lahir','ASC')->get();
 
+        if(isset($_GET['id_notif'])){
+            DB::table('notification')->where('id',$_GET['id_notif'])->update(['is_read'=>true]);
+        }
+
         return view('RT.surat', $data);
+    }
+
+    public function tambah_ttd(Request $request)
+    {
+        $id_users = Auth::guard('admin')->user()->id;
+        if($request->hasFile('tanda_tangan')){
+            $file = $request->file('tanda_tangan');
+            $path = public_path().'/upload/tanda_tangan';
+            $namefile_ttd = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move($path,$namefile_ttd);
+        }else{
+            $namefile_ttd=null;
+        }
+        if($request->hasFile('stempel')){
+            $file = $request->file('stempel');
+            $path = public_path().'/upload/stempel';
+            $namefile_stempel = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move($path,$namefile_stempel);
+        }else{
+            $namefile_stempel=null;
+        }
+
+        DB::table('stempel_tanda_tangan')->insert([
+            'id_users'      => $id_users,
+            'tanda_tangan'  => $namefile_ttd,
+            'stempel'       => $namefile_stempel,
+        ]);
+
+        return redirect()->back()->with(['success'=>'Simpan Berhasil']);
+    }
+
+    public function update_ttd(Request $request)
+    {
+        $id_users = Auth::guard('admin')->user()->id;
+        $data = DB::table('stempel_tanda_tangan')->where('id',$request->id)->first();
+        if($request->hasFile('tanda_tangan')){
+            $file = $request->file('tanda_tangan');
+            $path = public_path().'/upload/tanda_tangan';
+            $namefile_ttd = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move($path,$namefile_ttd);
+
+            $path = public_path()."/upload/tanda_tangan/".$data->tanda_tangan;
+            if(is_file($path)){
+                @unlink($path);
+            }
+        }else{
+            $namefile_ttd = $data->tanda_tangan;
+        }
+        if($request->hasFile('stempel')){
+            $file = $request->file('stempel');
+            $path = public_path().'/upload/stempel';
+            $namefile_stempel = uniqid().'.'.$file->getClientOriginalExtension();
+            $file->move($path,$namefile_stempel);
+
+            $path = public_path()."/upload/stempel/".$data->stempel;
+            if(is_file($path)){
+                @unlink($path);
+            }
+        }else{
+            $namefile_stempel = $data->stempel;
+        }
+
+        DB::table('stempel_tanda_tangan')->where('id',$request->id)->update([
+            'id_users'      => $id_users,
+            'tanda_tangan'  => $namefile_ttd,
+            'stempel'       => $namefile_stempel,
+        ]);
+
+        return redirect()->back()->with(['success'=>'Simpan Berhasil']);
     }
 
     public function delete_domisili($id)
@@ -93,5 +171,16 @@ class PagesController extends Controller
     public function index()
     {
         return view('warga.index');
+    }
+
+    public function notification()
+    {
+        $id_users = Auth::guard('admin')->user()->id;
+        $data = notification($id_users);
+
+        echo json_encode([
+            'data' => $data,
+            'count' => count($data)
+        ]);
     }
 }

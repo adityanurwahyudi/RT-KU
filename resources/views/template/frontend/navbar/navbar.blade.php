@@ -109,11 +109,18 @@
                         </ul>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('warga.contact') }}">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('warga.datawarga') }}">{{ Auth::guard('user')->user()->name }}</a></li>
-                    <li class="nav-item" onclick="event.preventDefault();document.getElementById('logout').submit();"><a class="nav-link" href="contact">Logout</a></li>
-                    <form id="logout" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                            <li><a class="dropdown-item" href="{{ route('warga.profil') }}">Ubah Password</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.datawarga') }}">Formulir</a></li>
+                            <li onclick="event.preventDefault();document.getElementById('logout').submit();"><a class="dropdown-item" href="#">Logout</a></li>
+                            <form id="logout" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </ul>
+                    </li>
                 </ul>
 
                 <form class="form-lg-inline my-2 my-md-0 ml-lg-4 text-center">

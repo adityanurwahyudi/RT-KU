@@ -9,7 +9,6 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
- 
 Route::get('/', function () {
     return view('landing');
 });
@@ -22,6 +21,7 @@ Route::post('/detail-event/pesan/', 'FrontController@pesan_tiket')->name('pesan_
 Route::get('/event/kehadiran/{id}', 'FrontController@kehadiran')->name('event.kehadiran');
 Route::post('/event/kehadiran/store', 'FrontController@store_kehadiran')->name('event.store_kehadiran');
 
+Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 // Cek Email
 Route::get('cek-email','FrontController@cekEmail')->name('cekEmail');
 
@@ -66,6 +66,10 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/security', 'PagesController@security')->name('security');
         Route::get('/keluarmasukwarga', 'PagesController@keluarmasukwarga')->name('keluarmasukwarga');
         Route::get('/pengaduan', 'PagesController@pengaduan')->name('pengaduan');
+        
+        // Tanga Tangan
+        Route::post('/tanda-tangan/tambah', 'PagesController@tambah_ttd')->name('tambah_ttd');
+        Route::post('/tanda-tangan/update', 'PagesController@update_ttd')->name('update_ttd');
 
         // Surat Domisili
         Route::post('/surat/domisili/verifikasi', 'PagesController@verifikasi_domisili')->name('verifikasi_domisili');
@@ -80,6 +84,9 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::post('/jadwal-ronda/update', 'JadwalRondaController@update')->name('jadwalronda.update');
         Route::get('/jadwal-ronda/hapus/{id}', 'JadwalRondaController@hapus')->name('jadwalronda.hapus');
         Route::get('/jadwal-ronda/mail-send/{tgl}', 'JadwalRondaController@sendEmail')->name('jadwalronda.sendEmail');
+
+        // notification
+        Route::get('/notification', 'PagesController@notification')->name('notification');
     });
     Route::name('rw.')->namespace('RW')->prefix('RW')->group(function () {
         // Dashboard
@@ -126,5 +133,6 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/data-warga', 'PagesController@datawarga')->name('datawarga');
     Route::post('/data-warga/update', 'PagesController@datawarga_update')->name('datawarga_update');
     Route::get('/pindah', 'PagesController@pindah')->name('pindah');
-    
+    Route::get('/profil', 'PagesController@profil')->name('profil');
+    Route::post('/profil/update', 'PagesController@profil_update')->name('profil_update');
 });

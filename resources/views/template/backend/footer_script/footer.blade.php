@@ -26,3 +26,50 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = false;
+
+        var pusher = new Pusher('dc54755d5048301338f6', {
+            cluster: 'ap1'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            $.get("{{ URL::to('/RT/notification') }}",function(result){
+                var res = JSON.parse(result);
+                var html = '';
+                $.each(res.data, function(i, val){
+                    html += '<a href="'+val.url+'?id_notif='+val.id+'" class="waves-effect waves-block">';
+                    html += '<li>';
+                    html += '<div class="row">';
+                    html += '<div class="col-sm-1" style="margin:5px;">';
+                    html += '<div class="icon-circle bg-light-green">';
+                    html += '<i class="fa fa-user"></i>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="col-sm-10">';
+                    html += '<div class="col-sm-12">';
+                    html += '<div class="menu-info">';
+                    html += '<span>'+val.deskripsi+'</span>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '<div class="col-sm-12">';
+                    html += '<i class="badge badge-primary">';
+                    html += '<i class="fa fa-clock"></i>'+val.created_at+'';
+                    html += '</i>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</li>';
+                    html += '</a>';
+
+                });
+                $('#bodyNotifikasi').html(html);
+                $('#badgeNotifikasi').text(res.count);
+                $('#headerNotifikasi').text(res.count+' NOTIFICATION');
+            })
+        });
+    </script>

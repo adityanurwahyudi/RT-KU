@@ -28,6 +28,11 @@
     <!-- Template Main CSS File -->
     <link href="{{asset('/superwarga/assets/css/style.css')}}" rel="stylesheet">
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('jquery-svg/jquery.svg.css') }}"> 
+    <script type="text/javascript" src="{{ asset('jquery-svg/jquery.svg.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('jquery-svg/jquery.svganim.js') }}"></script>
+
     <!-- =======================================================
   * Template Name: BizLand - v3.7.0
   * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
@@ -79,6 +84,11 @@
     <main id="main">
 
         <!-- ======= About Section ======= -->
+        <section id="about" class="about section-bg">
+            <div class="container" data-aos="fade-up" id="svg_denah" style="height: 500px;">
+
+            </div>
+        </section>
         <section id="about" class="about section-bg">
             <div class="container" data-aos="fade-up">
 
@@ -490,7 +500,39 @@
 
     <!-- Template Main JS File -->
     <script src="{{asset('/superwarga/assets/js/main.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $('#svg_denah').svg();
+            var svg = $('#svg_denah').svg('get'); 
+            svg.line(10, 0, 10, 500, {stroke: 'black', strokeWidth: 2, class_: 'myline'});
+            svg.line(40, 0, 40, 240, {stroke: 'black', strokeWidth: 2, class_: 'myline1'});
+            svg.line(40, 270, 40, 500, {stroke: 'black', strokeWidth: 2, class_: 'myline2'});
+            svg.line(40, 240, 500, 240, {stroke: 'black', strokeWidth: 2, class_: 'myline3'});
+            svg.line(40, 270, 500, 270, {stroke: 'black', strokeWidth: 2, class_: 'myline3'});
 
+            svg.text(200, 260, 'Jalan Raya Centex', {fontSize: 15, fontFamily: 'Verdana', fill: 'black'});
+            g1 = svg.group({transform: 'translate(30,190)'});
+            g2 = svg.group(g1, {transform: 'rotate(-90)'});
+            svg.text(g2, 0, 0, 'Jalan Pulo Gebang',{fontSize: 15, fontFamily: 'Verdana', fill: 'black'});
+
+            var img = svg.image(45, 50, 40, 40, 'img/home.png', {onclick: 'imageClick(evt)'}); 
+            svg.title(img, 'Rumah Pak RT');
+            var img = svg.image(220, 195, 40, 40, 'img/home.png', {onclick: 'imageClick(evt)'}); 
+            svg.title(img, 'Rumah Sekretaris'); 
+        })
+
+        function imageClick(evt){
+            var circle = evt.target;
+            var currentRadius = circle.getAttribute("width"); 
+            if (currentRadius == 40){
+            circle.setAttribute("width", currentRadius * 2); 
+            circle.setAttribute("height", currentRadius * 2);
+            }else{
+            circle.setAttribute("width", currentRadius * 0.5); 
+            circle.setAttribute("height", currentRadius * 0.5); 
+            }
+        }
+    </script>
 </body>
 
 </html>

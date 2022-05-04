@@ -30,7 +30,7 @@ return [
     // Password
     'passwords' => [
         'users' => [
-            'provider' => 'users',
+            'provider' => 'admin',
             'table' => 'password_resets',
             'expire' => 60,
         ],
