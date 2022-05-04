@@ -95,7 +95,7 @@
                         <div style="position: relative; overflow: hidden; width: auto;">
                             <ul class="menu" style="overflow: hidden; width: auto;padding-left:0;" id="bodyNotifikasi">
                                 @foreach($notification as $val)
-                                <a href="{{ url($val->url.'?id_notif='.$val->id) }}" class="waves-effect waves-block">
+                                <a href="{{ $val->url.'?id_notif='.$val->id }}" class="waves-effect waves-block">
                                     <li>
                                         <div class="row">
                                             <div class="col-sm-1" style="margin:5px;">

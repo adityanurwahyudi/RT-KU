@@ -153,7 +153,7 @@ class PagesController extends Controller
         $rw = Auth::guard('user')->user()->rw;
         $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
         $notif = [
-            'url'           => '/RT/surat',
+            'url'           => url('/RT/surat'),
             'deskripsi'     => 'Pengajuan Surat Domisili',
             'id_pengirim'   => $id_users,
             'id_penerima'   => $penerima->id,
