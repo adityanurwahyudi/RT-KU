@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="page-title bg-1">
+    <section class="page-title bg-keamanan2">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -32,46 +32,22 @@
 
             <div class="row justify-content-center">
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="/sbwarga/images/satpam4.jpeg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <center>
-                                    <h5 class="card-title">Card title</h5>
-                                </center>
-                                <center>
-                                    <p class="card-text">Nomer Handphone: 0877772721712</p>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
 
+                    @foreach($security as $p)
                     <div class="col">
                         <div class="card h-100">
-                            <img src="/sbwarga/images/satpam2.jfif" class="card-img-top" alt="...">
+                            <img src="{{asset('upload/security/'.$p->gambar)}}" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <center>
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title">{{ $p->nama }}</h5>
                                 </center>
                                 <center>
-                                    <p class="card-text">Nomer Handphone: 0877772721712</p>
+                                    <p class="card-text">Nomer Handphone:{{ $p->telepon }}</p>
                                 </center>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="/sbwarga/images/satpam3.jpg" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <center>
-                                    <h5 class="card-title">Card title</h5>
-                                </center>
-                                <center>
-                                    <p class="card-text">Nomer Handphone: 0877772721712</p>
-                                </center>
-                            </div>
-                        </div>
-                    </div>
+                        @endforeach
                 </div>
 
             </div>
@@ -98,24 +74,19 @@
                     <table class="table" id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Tanggal</th>
-                                <th>Hari</th>
                                 <th>Nama Warga</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Office</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
+                     @foreach($jadwal_ronda as $p)
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $p->tanggal }}</td>
+                                <td>{{ $p->id_users }}</td>
                             </tr>
+                                @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -124,7 +95,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="lapor col-lg-6 col-md-12 col-sm-12 center">
-                    <form id="contact-form" class="contact__form center" method="post" action="mail.php">
+                <form action="{{route('admin.rt.pengaduan.proses') }}"  method="post" enctype="multipart/form-data">
+                        {{ csrf_field() }}    
                         <!-- form message -->
                         <div class="row">
                             <div class="col-12">
@@ -138,31 +110,26 @@
                         <center>
                             <h3 class="text-md mb-4">Pengaduan / Pelaporan</h3>
                         </center>
-
                         <div class="form-group">
                             <input id="nama" name="nama" class="form-control" placeholder="Nama Lengkap">
-                        </div>
-                        <div class="form-group">
-                            <input id="email" name="email" type="email" class="form-control"
-                                placeholder="Alamat E-mail">
                         </div>
                         <div class="form-group">
                             <input id="telepon" name="telepon" type="tel" class="form-control"
                                 placeholder="Nomor Telepon">
                         </div>
                         <div class="form-group">
-                            <labe <input name="tanggal" type="date" id="tanggal" class="form-control"
+                            <label>Tanggal</label>
+                             <input name="tanggal" type="date" id="tanggal" class="form-control"
                                 placeholder="Tanggal">
                         </div>
                         <div class="form-group">
-
-                            <label for="bukti"><b>Upload Bukti</b></label><br>
-                            <input id="bukti" name="bukti" type="file" class="form-control"
-                                placeholder="Upload Bukti">
+                            <label for="bukti" class="form-label">Upload Bukti</label><br>
+                            <input type="file" class="form-control" id="bukti" name="bukti" placeholder="Upload Bukti" required>
                         </div>
+                        
                         <div class="form-group-2 mb-4">
-                            <textarea id="keterangan" name="keterangan" class="form-control" rows="4"
-                                placeholder="Keterangan Pengaduan dan Laporan"></textarea>
+                            <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"
+                                placeholder="Keterangan Pengaduan dan Laporan" required></textarea>
                         </div>
                         <button class="btn btn-main" name="submit" type="submit">Kirim</button>
                     </form>
@@ -175,7 +142,7 @@
             <div class="row justify-content-center align-items-center ">
                 <div class="col-lg-7">
                     <span class="text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4 mb-lg-0">Griya Alam Sentul A8/5 Kecamatan Babakan Madang</h2>
+                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
                 </div>
                 <div class="col-lg-4">
                     <a href="tel:+6287722350785" class="btn btn-main btn-round-full float-lg-right ">Hubungi
@@ -184,9 +151,56 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
+    </script>
+    <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js')}}" crossorigin=" anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="{{asset('/sbadmin/js/datatables-simple-demo.js')}}"></script>
+    <script>
+    // Get the modal
+    var modal = document.getElementById('id01');
+    var modal = document.getElementById('id02');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = " none";
+        }
+    }
+    </script>
 @endsection
 
 @section('script')
+@include('sweetalert::alert')
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+    })
+</script>
+
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
+
 @if(Session::has('success'))
 <script type="text/javascript">
     Swal.fire({

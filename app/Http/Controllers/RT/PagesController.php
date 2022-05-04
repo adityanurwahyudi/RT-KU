@@ -37,7 +37,13 @@ class PagesController extends Controller
     {
         return view('RT.keuangan');
     }
+    public function keamanan()
+    {
+     
+    $security = DB::table('security')->get();
     
+    return view('warga.keamanan', compact('security'));  
+    }
     public function surat()
     {
         $rt = Auth::guard('admin')->user()->rt;

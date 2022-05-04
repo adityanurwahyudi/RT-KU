@@ -15,83 +15,49 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/pemasukanpengeluaran/tambah" class="btn btn-primary">Add</a>
-                <br><br>
+                <a href="{{route('admin.rt.keuangan.tambahh') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a>
+                <a href="{{ route('admin.rt.keuangan.cetak_keuangan')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed"
-                    id="pemasukanpengeluaran-table">
+                    id="satu">
                     <thead>
                         <tr>
+                            <th>Tanggal</th>
                             <th>No</th>
                             <th>Keterangan</th>
-                            <th>Tanggal</th>
                             <th>Pemasukan</th>
                             <th>Pengeluaran</th>
                             <th>Bukti</th>
-                            <th>Saldo Akhir</th>
+                            <th>Total Saldo</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($keuangan as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->keterangan }}</td>
+                            <td>{{ $p->pemasukan }}</td>
+                            <td>{{ $p->pengeluaran }}</td>
+                            <td>
+                                <a class="btn btn-info" img width="100" height="100"src="{{asset('upload/keuangan/'.$p->bukti)}}"><i class="fa fa-eye"></i></a>
+                            </td>
+                            <td>{{ $p->totalsaldo }}</td>
                             <td>
 
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Edit" href="{{route('admin.rt.keuangan.edit',$p->id)}}" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
+                                <a title="Delete" href="{{route('admin.rt.keuangan.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Tabel pembayaran kas warga
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <a href="/kaswarga/tambah" class="btn btn-primary">Add</a>
-                <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kaswarga-table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Bulan</th>
-                            <th>Jumlah</th>
-                            <th>Bukti Pembayaran</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>
-
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
+    
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -99,9 +65,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/qris/tambah" class="btn btn-primary">Add</a>
+                <a href="{{route('admin.rt.qris.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="qris-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="dua">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -111,16 +77,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($qris as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/qris/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Delete" href="{{route('admin.rt.qris.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -133,4 +101,22 @@
 @section('script')
 <script type="text/javascript">
 </script>
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
 @endsection

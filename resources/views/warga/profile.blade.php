@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="page-title bg-1">
+<section class="page-title bg-profile2">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -24,49 +24,44 @@
 <section class="section about-2 position-relative">
     <div class="container">
         <div class="row">
+                    @foreach($profile as $p)
             <div class="col-lg-6 col-md-6">
                 <div class="about-item pr-3 mb-5 mb-lg-0">
-                    <h2 class="mt-3 mb-4 position-relative content-title">NAMA PAK RT
+                    <br><br><br><br><br><br>
+                    <h2 class="mt-3 mb-4 position-relative content-title">{{ $p->nama }}
                     </h2>
-                    <p class="mb-5">Deskripsi singkat pak RT.</p>
+                    <p class="mb-5"><br><br>Aplikasi RT-KU merupakan aplikasi yang bertujuan untuk membantu
+                            mempermudah tugas-tugas rutin Pengurus Rumah Tangga (RT) dalam menata administrasi
+                            warga maupun keuangan sehingga menjadi lebih transparan.
+                            Dari aplikasi ini juga diharapkan dapat mempererat hubungan antar warga, menumbuhkan
+                            rasa persaudaraan antar warga, saling mengenal, saling peduli dan
+                            saling berbagi informasidengan warga sekitar khususnya tetangga di lingkungannya..</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="about-item-img">
-                    <img src="/sbwarga/images/about/home-7.jpg" alt="" class="img-fluid">
+                    <img src="{{asset('upload/profile/'.$p->profilert)}}" width="400" height="200"class="img-fluid">
                 </div>
             </div>
         </div>
     </div>
-</section>
 
-<!-- Section About End -->
-
-<section class="about-info section pt-0">
-    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="about-info-item mb-4 mb-lg-0">
-                    <h3 class="mb-3"><span class="text-color mr-2 text-md ">Visi</span></h3>
-                    <p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque
-                        maxime
-                        sunt deleniti voluptas distinctio .</p>
+                    <h3 class="mb-3"><span class="text-color mr-2 text-md ">Alamat</span></h3>
+                    <h4>{{ $p->alamat }}.</h4>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="about-info-item mb-4 mb-lg-0">
-                    <h3 class="mb-3"><span class="text-color mr-2 text-md">Misi</span></h3>
-                    <p>llum similique ducimus accusamus laudantium praesentium, impedit quaerat, itaque
-                        maxime
-                        sunt deleniti voluptas distinctio .</p>
+                    <h3 class="mb-3"><span class="text-color mr-2 text-md">Nomer Telepon</span></h3>
+                    <h4>{{ $p->telepon }}.</h4>
                 </div>
             </div>
         </div>
-    </div>
-</section>
 
 <!--  Section Services Start -->
-<section class="section team">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center">
@@ -78,30 +73,13 @@
         </div>
 
         <div class="row justify-content-center">
-            <img src="/sbwarga/images/struktur.jpg" width="500" height="500">
+            <img src="{{asset('upload/profile/'.$p->strukturorganisasi)}}" width="500" height="500">
 
         </div>
+                        @endforeach
     </div>
 </section>
 <!--  Section Services End -->
-
-<section class="mt-70 position-relative">
-    <div class="container">
-        <div class="cta-block-2 bg-gray p-5 rounded border-1">
-            <div class="row justify-content-center align-items-center ">
-                <div class="col-lg-7">
-                    <span class="text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Pengurus RT Untuk Informasi Yang Lebih Lengkap</h2>
-                </div>
-                <div class="col-lg-4">
-                    <a href="tel:+6287722350785" class="btn btn-main btn-round-full float-lg-right ">Hubungi
-                        Kami</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
 @endsection
 
 @section('script')

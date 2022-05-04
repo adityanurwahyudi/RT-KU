@@ -28,7 +28,11 @@ class UserManagementController extends Controller
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
-        $data['users'] = DB::table('users')->whereNotNull('rt')->where('rw',$rw)->where('status',2)->orderBy('id','ASC')->get();
+        $data['users'] = DB::table('users')->whereNotNull('rt')
+        ->where('rw',$rw)
+        ->where('status',2)
+        ->orderBy('id','ASC')
+        ->get();
 
         return view('RW.dataloginwarga', $data);
     }

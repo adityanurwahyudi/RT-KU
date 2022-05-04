@@ -1141,19 +1141,79 @@ a:focus {
 ul.dropdown-menu li {
     padding-left: 0px !important;
 }
+.bg-profile2 {
+    background: url "{{asset('/sbwarga/images/bg/profile1.png')}}"  ;
+    background-size: cover;
+}
+.bg-galeri2 {
+    background: url "{{asset('/sbwarga/images/bg/galeri1.png')}}"  ;
+    background-size: cover;
+}
+.bg-keamanan2 {
+    background: url "{{asset('/sbwarga/images/bg/security1.jpg')}}";
+    background-size: cover;
+}
+.bg-keuangan2 {
+    background: url "{{asset('/sbwarga/images/bg/keuangan1.jpg')}}" ;
+    background-size: cover;
+}
+.bg-berita2 {
+    background: url "{{asset('/sbwarga/images/bg/berita1.png')}}"  ;
+    background-size: cover;
+}
+.bg-contact2 {
+    background: url "{{asset('/sbwarga/images/bg/contact1.png')}}" ;
+    background-size: cover;
+}
 
+
+.bg-profile {
+    background: url "{{asset('/sbwarga/images/bg/profile1.png')}}"  no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-surat {
+    background: url "{{asset('/sbwarga/images/bg/surat.jpg')}}"  no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-galeri {
+    background: url "{{asset('/sbwarga/images/bg/galeri1.png')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-berita {
+    background: url "{{asset('/sbwarga/images/bg/berita1.png')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-kegiatan {
+    background: url "{{asset('/sbwarga/images/bg/kegiatan.jpg')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-datawarga {
+    background: url "{{asset('/sbwarga/images/bg/datawarga.jpg')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-keuangan {
+    background: url "{{asset('/sbwarga/images/bg/keuangan1.jpg')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-keamanan {
+    background: url "{{asset('/sbwarga/images/bg/security1.jpg')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
+.bg-contact {
+    background: url "{{asset('/sbwarga/images/bg/contact.png')}}" no-repeat 50% 50%;
+    background-size: cover;
+}
 .bg-1 {
     background: url("../images/bg/home-2.jpg") no-repeat 50% 50%;
     background-size: cover;
 }
-
 .bg-2 {
     background: url("../images/bg/home-5.jpg");
     background-size: cover;
 }
 
 .slider {
-    background: url("../images/bg/home-1.jpg") no-repeat;
+    background: url("../images/bg/hero-bg.jpg") no-repeat;
     background-size: cover;
     background-position: 10% 0%;
     padding: 200px 0 280px 0;

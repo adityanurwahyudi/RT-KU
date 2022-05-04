@@ -15,10 +15,11 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/berita/tambah" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.berita.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
+                
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="berita-table">
-                    <thead>
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
+                    
                         <tr>
                             <th>No</th>
                             <th>Nama</th>
@@ -27,22 +28,21 @@
                             <th>Gambar</th>
                             <th>Action</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                     @foreach($berita as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->deskripsi }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/berita/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href="" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Edit" href="{{route('admin.rt.berita.edit',$p->id)}} " class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                                <a title="Delete" href="{{route('admin.rt.berita.hapus',$p->id)}} " class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
-                    </tbody>
+                                @endforeach
                 </table>
             </div>
         </div>
@@ -54,9 +54,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="/kegiatan/tambah" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.kegiatan.tambah1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kegiatan-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatablesSimple">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -68,19 +68,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($kegiatan as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $No++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->deskripsi }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/kegiatan/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href="" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Edit" href="{{route('admin.rt.kegiatan.edit1',$p->id)}}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                                <a title="Delete" href="{{route('admin.rt.kegiatan.hapus',$p->id)}} " class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -91,5 +94,27 @@
 
 @section('script')
 <script type="text/javascript">
+    $(document).ready(function(){
+        
+    })
 </script>
+
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
 @endsection

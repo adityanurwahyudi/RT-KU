@@ -15,7 +15,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
+                <a href="{{ route('admin.rt.tamu.cetak_tamu')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br> 
                 <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
                     <thead>
                         <tr>
@@ -27,26 +28,30 @@
                             <th>Alamat Terdahulu</th>
                             <th>Alamat Terkini</th>
                             <th>Status Tinggal</th>
-                            <th>RT/RW</th>
-                            <th>Action</th>
+                            <th>RT</th>
+                            <th>RW</th>
+                            <th width="130">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($tamu as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->email }}</td>
+                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->alamatdahulu }}</td>
+                            <td>{{ $p->alamatterkini }}</td>
+                            <td>{{ $p->status }}</td>
+                            <td>{{ $p->RT }}</td>
+                            <td>{{ $p->RW }}</td>
                             <td>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Delete" href="{{route('admin.rt.tamu.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -59,7 +64,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
+                <a href="{{ route('admin.rt.pindah.cetak_pindah')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		         <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
                     <thead>
                         <tr>
@@ -73,18 +79,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($pindah as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $No++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $p->alamat }}</td>
+                            <td>{{ $p->alamatpindah }}</td>
+                            <td>{{ $p->deskripsi }}</td>
                             <td>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Delete" href="{{route('admin.rt.pindah.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

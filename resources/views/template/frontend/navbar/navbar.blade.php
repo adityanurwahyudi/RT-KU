@@ -62,16 +62,17 @@
             <!-- Button to open the modal login form -->
             <div id="id01" class="modal">
 
-                <form class="modal-content animate" action="/action_page.php" method="post">
-                    <div class="imgcontainer">
+                <form class="modal-content animate" action="{{ route('admin.rt.pindah.proses1') }}" method="post">
+                {{ csrf_field() }}    
+                <div class="imgcontainer">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close"
                             title="Close Modal">&times;</span>
-                        <img src="/loginform/images/admin.png" alt="Avatar" class="avatar">
+                        <img src="{{asset('/loginform/images/pindah.jpg')}}" alt="Avatar" class="avatar">
                     </div>
 
                     <div class="container">
-                        <label for="nama"><b>Username</b></label>
-                        <input id="nama" type="text" placeholder="Enter Username" name="nama" required>
+                        <label for="nama"><b>Nama Lengkap</b></label>
+                        <input id="nama" type="text" placeholder="Nama Lengkap" name="nama" required>
 
                         <label for="tanggal"><b>Tanggal</b></label><br>
                         <input id="tanggal" type="date" placeholder="Tanggal" name="tanggal" required>
@@ -82,14 +83,15 @@
                         <label for="alamatpindah"><b>Alamat Pindah</b></label>
                         <input id="alamatpindah" type="text" placeholder="Alamat Pindah" name="alamatpindah" required>
 
-                        <label for="keterangan"><b>Keterangan Pindah</b></label>
-                        <input id="keterangan" type="text" placeholder="Keterangan Pindah" name="keterangan" required>
+                        <label for="deskripsi"><b>Keterangan Pindah</b></label>
+                        <input id="deskripsi" type="text" placeholder="deskripsi Pindah" name="deskripsi" required>
 
-                        <button type="submit">Login</button>
+                        <button type="submit">pindah</button>
 
                     </div>
                 </form>
             </div>
+            
             <div class="collapse navbar-collapse text-center" id="navbarsExample09">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
@@ -104,6 +106,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdown05">
                             <li><a class="dropdown-item" href="{{ route('warga.berita') }}">Berita</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.kegiatan') }}">Kegiatan</a></li>
+                            <li><a class="dropdown-item" href="{{ route('warga.datawargaa') }}">Data Warga</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.keuangan') }}">Keuangan</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.keamanan') }}">Keamanan</a></li>
                         </ul>

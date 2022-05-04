@@ -22,6 +22,18 @@ class FrontController extends Controller
 
     public function register_tamu()
     {
-        return view('registerTamu');
+        $data['rt'] = DB::table('users')->select('rt')
+                ->whereNotNull('rt')
+                ->groupBy('rt')
+                ->get();
+        $data['rw'] = DB::table('users')->select('rw')
+                ->whereNotNull('rw')
+                ->groupBy('rw')
+                ->get();
+
+        return view('registertamu',$data);
     }
+
+
+
 }

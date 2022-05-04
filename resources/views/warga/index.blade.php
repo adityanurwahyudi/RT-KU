@@ -48,14 +48,14 @@
             </div>
         </div>
     </div>
+<br><br><br><br><br><br><br><br><br><br><br>
 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-7 text-center">
                 <div class="section-title">
-                    <br><br><br><br><br><br><br><br><br><br>
-                    <span class="h6 text-color">Our Services</span>
-                    <h2 class="mt-3 content-title ">We provide a wide range of creative services </h2>
+                    <span class="h6 text-color">Layanan</span>
+                    <h2 class="mt-3 content-title ">Layanan Rukun Tetangga</h2>
                 </div>
             </div>
         </div>
@@ -63,50 +63,46 @@
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="service-item mb-5">
-                    <i class="ti-desktop"></i>
-                    <h4 class="mb-3">Web development.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="service-item mb-5">
-                    <i class="ti-layers"></i>
-                    <h4 class="mb-3">Interface Design.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="service-item mb-5">
                     <i class="ti-bar-chart"></i>
-                    <h4 class="mb-3">Business Consulting.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
+                    <h4 class="mb-3">Catatan Kependudukan.</h4>
+                    <p>Catatan kependudukan yang disimpan didalam database guna meminimalisir kerusakan atau kehilangan data pada data yang dicatat pada buku kependudukan</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="service-item mb-5">
+                    <i class="ti-envelope"></i>
+                    <h4 class="mb-3">Digitalisasi layanan surat.</h4>
+                    <p>Digitalisasi layanan surat menyurat guna mempermudah dapat permohonan surat dan mengurangi kontak fisik selama pandemi</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="service-item mb-5">
+                    <i class="ti-desktop"></i>
+                    <h4 class="mb-3">Dokumentasi Kegiatan.</h4>
+                    <p>Dokumentasi berupa foto dan video kegiatan </p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="service-item mb-5 mb-lg-0">
-                    <i class="ti-vector"></i>
-                    <h4 class="mb-3">Branding.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
+                    <i class="ti-announcement"></i>
+                    <h4 class="mb-3">Informasi berita internal .</h4>
+                    <p>Informasi berita internal warga mengenai informasi data warga, berita atau pengumuman, kegiatan, keuangan serta keamanan</p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="service-item mb-5 mb-lg-0">
-                    <i class="ti-android"></i>
-                    <h4 class="mb-3">App development.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
+                    <i class="ti-check"></i>
+                    <h4 class="mb-3">Pengaduan / Pelaporan Warga.</h4>
+                    <p>Layanan pengaduan / pelaporan mengenai lingkungan sekitar</p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="service-item mb-5 mb-lg-0">
-                    <i class="ti-pencil-alt"></i>
-                    <h4 class="mb-3">Content creation.</h4>
-                    <p>A digital agency isn't here to replace your internal team, we're here to partner</p>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -115,8 +111,8 @@
         <div class="row ">
             <div class="col-lg-8">
                 <div class="section-title">
-                    <span class="h6 text-color ">Fitur Aplikasi</span>
-                    <h2 class="mt-3 content-title">Fitur Aplikasi RT-KU </h2>
+                    <span class="h6 text-color ">Modul Aplikasi</span>
+                    <h2 class="mt-3 content-title">Modul Aplikasi RT-KU </h2>
                 </div>
             </div>
         </div>
@@ -124,27 +120,52 @@
             <div class="col-lg-4 col-md-6 col-12">
                 <div class="intro-item mb-5 mb-lg-0">
                     <i class="ti-desktop color-one"></i>
-                    <h4 class="mt-4 mb-3">Modern & Responsive design</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+                    <h4 class="mt-4 mb-3">Warga</h4>
+                    <p> ini berfungsi untuk pengelolaan data dan penyajian informasi yang terkait
+                                    dengan warga, mulai dari kelahiran, warga tetap, warga pendatang, warga pindah
+                                    alamat, tamu warga, kematian, serta fasilitas-fasilitas lain yang dapat diakses
+                                    langsung oleh warga.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="intro-item mb-5 mb-lg-0">
-                    <i class="ti-medall color-one"></i>
-                    <h4 class="mt-4 mb-3">Awarded licensed company</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+                    <i class="ti-money color-one"></i>
+                    <h4 class="mt-4 mb-3">Keuangan</h4>
+                    <p>ini berfungsi untuk mempermudah dan mempercepat proses pencatatan dan
+                                    pengelolaan transaksi - transaksi keuangan yang dikelola oleh Pengurus RT, sehingga
+                                    tata kelola administrasi keuangan RT akan lebih tertib, transparan dan tertata
+                                    dengan baik.</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="intro-item">
-                    <i class="ti-layers-alt color-one"></i>
-                    <h4 class="mt-4 mb-3">Build your website Professionally</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit, ducimus.</p>
+                    <i class="ti-home color-one"></i>
+                    <h4 class="mt-4 mb-3">Admin</h4>
+                    <p>ini hanya diperuntukkan bagi Pengurus RT untuk mempersiapkan data-data yang
+                                    diperlukan, monitoring data, modifikasi data, setting dan konfigurasi, sehingga
+                                    mempermudah proses pendataan dan penyajian informasi akan menjadi valid dan selalu
+                                    uptodate.</p>
                 </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="intro-item">
+                    <i class="ti-eye color-one"></i>
+                    <h4 class="mt-4 mb-3">Kelurahan</h4>
+                    <p>Pada sesi ini pihak kelurahan dapat mengetahui secara terupdate mengenai jumlah atau data data warga di bawah jajaran nya yang dikelola oleh RT/RW, 
+                        yang ditampilkan secara grafik yang dapat memudahkan dalam membaca data.
+                    </p>
+                </div>
+            </div> 
+            <div class="col-lg-4 col-md-6">
+                
+            </div>
+            <div class="col-lg-4 col-md-6">
+                
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Section About End -->
 <!--  Section Services Start -->
@@ -158,7 +179,7 @@
             <div class="col-lg-5">
                 <div class="cta-item  bg-white p-5 rounded">
                     <span class="h6 text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4">Hubungi Kami Untuk Informasi Lebih Lengkap</h2>
+                    <h2 class="mt-2 mb-4">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
                     <h3><i class="ti-mobile mr-3 text-color"></i>0877-2235-0785</h3>
                 </div>
             </div>

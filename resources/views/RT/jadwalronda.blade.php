@@ -16,7 +16,9 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-9">
-                    <a href="{{ route('admin.rt.jadwalronda.create') }}" class="btn btn-primary">Add</a>
+                    <a href="{{ route('admin.rt.jadwalronda.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
+                    <a href="{{ route('admin.rt.jadwalronda.cetak_jadwalronda')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+                <br><br>
                 </div>
                 <div class="col-md-2">
                     <select class="form-control" name="filter_tanggal" id="filter_tanggal">
@@ -26,7 +28,7 @@
                     </select>
                 </div>
                 <div class="col-md-1">
-                    <button type="button" onclick="sendEmail()" class="btn btn-primary">KIRIM</a>
+                    <button type="button" onclick="sendEmail()" class="btn btn-primary"> KIRIM</a>
                 </div>
             </div>
             <br>
@@ -69,8 +71,8 @@
                     i+1,
                     val.name,
                     tgl_indo(val.tanggal),
-                    '<a title="Edit" href="{{ url("/RT/jadwal-ronda/edit/") }}/'+val.id+'" class="btn btn-info">Edit</a>&nbsp;&nbsp;'+
-                    '<button title="Delete" class="btn btn-danger" onclick="hapus('+val.id+')">Delete</button>'
+                    '<a title="Edit" href="{{ url("/RT/jadwal-ronda/edit/") }}/'+val.id+'" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>&nbsp;&nbsp;'+
+                    '<button title="Delete" class="btn btn-danger" onclick="hapus('+val.id+')"> <i class="fa fa-trash"></i> Delete</button>'
                 ]).draw();
             })
         });

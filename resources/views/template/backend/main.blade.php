@@ -7,6 +7,9 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard RT</title>
+    <!-- Favicons -->
+    <link href="{{asset('/sbadmin/assets/img/rt1.jpeg')}}" rel="icon">
+    <link href="{{asset('/superwarga/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
     @include('template.backend.header_script.header')
     @yield('css')
 </head>
@@ -25,5 +28,6 @@
   <!--End wrapper-->
   @include('template.backend.footer_script.footer')
   @yield('script')
+  @include('sweetalert::alert')
 </body>
 </html>
