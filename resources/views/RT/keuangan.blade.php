@@ -15,45 +15,40 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{route('admin.rt.pemasukanpengeluaran.tambah1') }}" class="btn btn-primary">Add</a>
-                <br><br>
+                <a href="{{route('admin.rt.keuangan.tambahh') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a>
+                <a href="{{ route('admin.rt.keuangan.cetak_keuangan')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed"
-                    id="pemasukanpengeluaran-table">
+                    id="satu">
                     <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Nama</th>
                             <th>Tanggal</th>
-                            <th>Bulan</th>
+                            <th>No</th>
+                            <th>Keterangan</th>
                             <th>Pemasukan</th>
-                            <th>Metode Pembayaran</th>
                             <th>Pengeluaran</th>
                             <th>Bukti</th>
-                            <th>Keterangan</th>
-                            <th>Saldo Akhir</th>
-                            <th>Status</th>
+                            <th>Total Saldo</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                     @foreach($pemasukanpengeluaran as $p)
+                     @foreach($keuangan as $p)
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $p->nama }}</td>
                             <td>{{ $p->tanggal }}</td>
-                            <td>{{ $p->bulan }}</td>
-                            <td>{{ $p->pemasukan }}</td>
-                            <td>{{ $p->metodepembayaran }}</td>
-                            <td>{{ $p->pengeluaran }}</td>
-                            <td>{{ $p->gambar }}</td>
+                            <td>{{ $no++ }}</td>
                             <td>{{ $p->keterangan }}</td>
+                            <td>{{ $p->pemasukan }}</td>
+                            <td>{{ $p->pengeluaran }}</td>
+                            <td>
+                                <a class="btn btn-info" img width="100" height="100"src="{{asset('upload/keuangan/'.$p->bukti)}}"><i class="fa fa-eye"></i></a>
+                            </td>
                             <td>{{ $p->totalsaldo }}</td>
-                            <td>{{ $p->status }}</td>
                             <td>
 
-                                <a title="Edit" href="{{route('admin.rt.pemasukanpengeluaran.edit1',$p->id)}}" class="btn btn-info">Edit</a>
-                                <a title="Delete" href="{{route('admin.rt.pemasukanpengeluaran.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Edit" href="{{route('admin.rt.keuangan.edit',$p->id)}}" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
+                                <a title="Delete" href="{{route('admin.rt.keuangan.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -70,9 +65,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{route('admin.rt.qris.tambah') }}" class="btn btn-primary">Add</a>
+                <a href="{{route('admin.rt.qris.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="qris-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="dua">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -90,7 +85,7 @@
                             <td>
 
                                 <a title="Delete" href="{{route('admin.rt.qris.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -106,4 +101,22 @@
 @section('script')
 <script type="text/javascript">
 </script>
+@if(Session::has('success'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("success") }}',
+            'success'
+        )
+    </script>
+@endif
+@if(Session::has('error'))
+    <script>
+        Swal.fire(
+            '',
+            '{{ Session::get("error") }}',
+            'error'
+        )
+    </script>
+@endif
 @endsection

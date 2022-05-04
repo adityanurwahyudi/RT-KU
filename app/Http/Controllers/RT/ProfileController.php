@@ -6,12 +6,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Auth;
+use App\Http\Controllers\RT\Exception;
 
 class ProfileController extends Controller
 {
 	public function index()
 	{
-		$profile = DB::table('profile')->get();
+		$rt = Auth::guard('admin')->user()->rt;
+		$rw = Auth::guard('admin')->user()->rw;
+
+		$profile = DB::table('profile')->select('profile.*')
+				->leftjoin('users','users.id','profile.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
 		$no = 1;
 		return view('RT.profile',compact('profile', 'no'));
 	}
@@ -19,44 +28,41 @@ class ProfileController extends Controller
 	{
 		return view('RT.formcreate.c_profile');
 	}
-	public function proses(Request $request)
-	{
-			if($request->hasFile('profilert'))
-			if($request->hasFile('strukturorganisasi'))
-			{
-				$file = $request->file('profilert');
-				$file1 = $request->file('strukturorganisasi');
-				$path = 'upload/profile';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$namefile1 = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-				$file1->move($path, $namefile1);
-			}else{
-				$namefile = null;
-				$namefile1 = null;
-			}
-			
-			$visi = $request->visi;
-			$misi = $request->misi;
-			foreach ($visi as $satuVisi)
-			foreach ($misi as $satuMisi) {
-				DB::table('profile')->insert([
-				'nama' =>  $request->nama,
-				'tanggal' =>  $request->tanggal,
-				'deskripsi' =>  $request->deskripsi,
-				'profilert' => $namefile,
-				'strukturorganisasi' => $namefile1,
-				'visi' => $satuVisi,
-				'misi' =>  $satuMisi,
-				'email' =>  $request->email,
-				'alamat' =>  $request->alamat,
-				'telepon' =>  $request->telepon,
-				'urlmap' =>  $request->urlmap,
-				]);
-			}
-			return redirect('RT/profile')->with(['success'=>'Data Berhasil Ditambahkan!']);;
 	
-	}
+public function proses(Request $request)
+{
+	$id_users = Auth::guard('admin')->user()->id;
+
+		if($request->hasFile('profilert'))
+		if($request->hasFile('strukturorganisasi'))
+		{
+			$file = $request->file('profilert');
+			$file1 = $request->file('strukturorganisasi');
+			$path = 'upload/profile';
+			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
+			$namefile1 = uniqid().'.'.$file->getClientOriginalExtension();
+			$file->move($path, $namefile);
+			$file1->move($path, $namefile1);
+		}else{
+			$namefile = null;
+			$namefile1 = null;
+		}{
+			DB::table('profile')->insert([
+			'id_users'	=> $id_users,
+			'nama' =>  $request->nama,
+			'tanggal' =>  $request->tanggal,
+			'deskripsi' =>  $request->deskripsi,
+			'profilert' => $namefile,
+			'strukturorganisasi' => $namefile1,
+			'email' =>  $request->email,
+			'alamat' =>  $request->alamat,
+			'telepon' =>  $request->telepon,
+			'urlmap' =>  $request->urlmap,
+			]);
+		}
+		return redirect('RT/profile')->with(['success'=>'Data Berhasil Ditambahkan!']);
+
+}
 	public function edit($id)
 	{
 		$profile = DB::table('profile')->where('id', $id)->get();
@@ -64,6 +70,8 @@ class ProfileController extends Controller
 	}
 	public function update(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id;
+
 		$profile = DB::table('profile')->where('id',$request->id)->first();
 		if($request->hasFile('profilert'))
 		if($request->hasFile('strukturorganisasi'))
@@ -81,12 +89,11 @@ class ProfileController extends Controller
 		}
 			  
 		$profilert = DB::table('profile')->where('id', $request->id)->update([
+				'id_users'	=> $id_users,
 				'nama' =>  $request->nama,
 				'deskripsi' =>  $request->deskripsi,
 				'profilert' => $namefile,
 				'strukturorganisasi' => $namefile1,
-				'visi' =>  $request->visi,
-				'misi' =>  $request->misi,
 				'email' =>  $request->email,
 				'alamat' =>  $request->alamat,
 				'telepon' =>  $request->telepon,

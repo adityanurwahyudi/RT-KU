@@ -19,37 +19,90 @@ class PagesController extends Controller
     }
 
     public function index()
-    {
-        return view('warga.index');
+    { $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $profile = DB::table('profile')
+                ->leftjoin('users','users.id','profile.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
+		return view('warga.index',
+		compact('profile'));
     }
     public function profile()
-    {
-        return view('warga.profile');
+    { 
+         $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $profile = DB::table('profile')
+                ->leftjoin('users','users.id','profile.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
+		return view('warga.profile',
+		compact('profile'));
     }
     public function berita()
     {
-        $berita = DB::table('berita')->get();
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $berita = DB::table('berita')
+                ->leftjoin('users','users.id','berita.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->paginate(4); 
 		return view('warga.berita',
 		compact('berita'));
     }
     public function datawargaa()
     {
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
         
-        $kendaraan = DB::table('kendaraan')->whereIn('status',  ['proses','selesai'])->get();
-        $no = 1;
+		$no = 1;
+        $No = 1;
+        
+        $datakependudukan = DB::table('datakependudukan')
+                    ->join('users','users.id','datakependudukan.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw)   
+                    ->get();
+
+        $kendaraan = DB::table('kendaraan')
+                ->leftjoin('users','users.id','kendaraan.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->whereIn('statuspermohonan', ['proses','selesai'])
+                ->get();
 		return view('warga.datawargaa',
-		compact('kendaraan','no'));
+		compact('kendaraan','datakependudukan','no','No'));
     }
     
     public function contact()
     {
-        $kritiksaran = DB::table('kritiksaran')->get();
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $kritiksaran = DB::table('kritiksaran')
+                ->leftjoin('users','users.id','kritiksaran.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
 		return view('warga.contact',
 		compact('kritiksaran'));
     }
     public function kegiatan()
     {
-        $kegiatan = DB::table('kegiatan')->get();
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $kegiatan = DB::table('kegiatan')
+                ->leftjoin('users','users.id','kegiatan.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->paginate(4); 
 		return view('warga.kegiatan',
 		compact('kegiatan'));
     }
@@ -105,22 +158,60 @@ class PagesController extends Controller
     }
     public function galeri()
     {
-        $foto = DB::table('foto')->get();
-        $video = DB::table('video')->get();
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $foto = DB::table('foto')
+                ->leftjoin('users','users.id','foto.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->paginate(4); 
+        $video = DB::table('video')
+                ->leftjoin('users','users.id','video.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
 		return view('warga.galeri',
 		compact('foto','video'));
     }
     public function keuangan()
-    {
-        $qris = DB::table('qris')->get();
-		return view('warga.keuangan',
-		compact('qris'));
+    { 
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+		$no = 1;
+        $qris = DB::table('qris')
+                ->leftjoin('users','users.id','qris.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
+        $keuangan = DB::table('keuangan')
+                ->leftjoin('users','users.id','keuangan.id_users')
+                ->where('users.rw', $rw)
+                ->where('users.rt', $rt)
+                ->get();
+                return view('warga.keuangan',
+		compact('qris','keuangan','no'));
     }
     public function keamanan()
     {
-        $security = DB::table('security')->get();
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+        
+        $security = DB::table('security')
+                ->leftjoin('users','users.id','security.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
+        $jadwal_ronda = DB::table('jadwal_ronda')
+                        ->leftjoin('users','users.id','jadwal_ronda.id_users')
+                        ->where('users.rw', $rw)
+                        ->where('users.rt', $rt)
+                        ->get();
+                        
+		$no = 1;
 		return view('warga.keamanan',
-		compact('security'));
+		compact('security','jadwal_ronda','no'));
     }
     public function datawarga()
     {

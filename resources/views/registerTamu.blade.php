@@ -68,16 +68,16 @@
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="alamatdahulu" class="form-outline flex-fill mb-0">
-                                                        <input type="text" id="alamatdahulu" name="alamatdahulu"
+                                                        <textarea type="text" id="alamatdahulu" name="alamatdahulu"
                                                             placeholder="Alamat Dahulu" class="form-control" required
-                                                            maxlength="120" minlength="4" />
+                                                            maxlength="120" minlength="4" ></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="alamatterkini"class="form-outline flex-fill mb-0">
-                                                        <input type="text" id="alamatterkini" name="alamatterkini"
+                                                        <textarea type="text" id="alamatterkini" name="alamatterkini"
                                                             placeholder="Alamat Terkini" class="form-control" required
-                                                            maxlength="120" minlength="4" />
+                                                            maxlength="120" minlength="4" ></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center mb-4">
@@ -92,14 +92,16 @@
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="rt" class="form-outline flex-fill mb-0">
                                                         <label >RT:</label>
-                                                        <select name="rt" id="rt">
-                                                            <option value="01">01</option>
-                                                            <option value="01">01</option>
+                                                        <select name="RT" id="RT">
+                                                            @foreach($rt as $val)
+                                                                <option value="{{ $val->rt }}">{{ $val->rt }}</option>
+                                                            @endforeach
                                                         </select>
                                                         <label >RW:</label>
-                                                        <select name="rw" id="rw">
-                                                            <option value="01">01</option>
-                                                            <option value="01">01</option>
+                                                        <select name="RW" id="RW">
+                                                            @foreach($rw as $val)
+                                                                <option value="{{ $val->rw }}">{{ $val->rw }}</option>
+                                                            @endforeach
                                                         </select>
                                                     </div>
                                                 </div>

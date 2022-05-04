@@ -15,10 +15,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.foto.tambah') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.foto.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed"
-                    id="foto-table">
+                    id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -32,8 +32,8 @@
                             <td>{{ $No++ }}</td>
                             <td><img width="100" height="100"src="{{asset('upload/foto/'.$p->gambar)}}"></td>
                             <td>
-                                <a title="Delete" href="{{route('admin.rt.foto.edit',$p->id)}}"  class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Delete" href="{{route('admin.rt.foto.hapus',$p->id)}}"  class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -51,10 +51,10 @@
             Video
         </div>
         <div class="card-body">
-            <a href="{{ route('admin.rt.video.add') }}" class="btn btn-primary">Add</a>
+            <a href="{{ route('admin.rt.video.add') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
             <br><br>
             <table class="table table-striped table-bordered table-hover table-condensed"
-                id="video-table">
+                id="datatablesSimple">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -70,9 +70,9 @@
                         <td>{{ $p->nama }}</td>
                         <td>{{ $p->URLVideo }}</td>
                         <td>
-                            <a title="Edit" href="{{route('admin.rt.video.edit',$p->id)}}"  class="btn btn-info">Edit</a>
+                            <a title="Edit" href="{{route('admin.rt.video.edit',$p->id)}}"  class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
                             <a title="Delete" href="{{route('admin.rt.video.hapus',$p->id)}}"  class="btn btn-danger"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i>Delete</a>
                         </td>
                     </tr>
                         @endforeach

@@ -18,21 +18,28 @@
                 <table class="table table-striped table-bordered table-hover table-condensed" id="kepentingan-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Nama Kriteria</th>
                             <th>Bobot Rating Kepentingan</th>
                             
                         </tr>
                     </thead>
                     <tbody>
-                     @foreach($bobot_kepentingan as $p)
                         <tr>
-                            <td>{{ $NOO++ }}</td>
-                            <td> {{ $p->kriteria }}  </td>
-                            <td> {{ $p->rating_kepentingan }}  </td>
-                            
+                            <td>Penghasilan</td>
+                            <td>2</td>
                         </tr>
-                        @endforeach
+                        <tr>
+                            <td>Pekerjaan</td>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah Tanggungan</td>
+                            <td>4</td>
+                        </tr>
+                        <tr>
+                            <td>Kendaraan</td>
+                            <td>1</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -72,7 +79,7 @@
             Kriteria Pekerjaan
         </div>
         <div class="card-body">
-            <a href="{{ route('admin.rt.pekerjaan.tambah') }}" class="btn btn-primary">Add</a>
+            <a href="{{ route('admin.rt.pekerjaan.tambah') }}" class="btn btn-primary"> <i class="fa fa-plus"></i> Add</a>
             <br><br>
             <div class="table-responsive">
                 <table class="table table-striped table-bordered table-hover table-condensed" id="pekerjaan-table">
@@ -91,9 +98,9 @@
                             <td> {{ $p->keterangan }} </td>
                             <td> {{ $p->bobot }} </td>
                             <td>
-                            <a title="Edit" href="{{route('admin.rt.pekerjaan.edit',$p->id)}}"  class="btn btn-info">Edit</a>
+                            <a title="Edit" href="{{route('admin.rt.pekerjaan.edit',$p->id)}}"  class="btn btn-info"> <i class="fa fa-edit"></i> Edit</a>
                             <a title="Delete" href="{{route('admin.rt.pekerjaan.hapus',$p->id)}}"  class="btn btn-danger"
-                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"> <i class="fa fa-trash"></i> Delete</a>
                         </td>
                         </tr>
                         @endforeach

@@ -13,6 +13,10 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Data Login RW
                 </a>
+                <a class="nav-link" href="{{ route('admin.kelurahan.datawarga') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Data Warga
+                </a>
             </div>
             @elseif(Auth::guard('admin')->user()->status == 3) {{-- RW --}}
             <div class="nav">
@@ -26,6 +30,28 @@
                     <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                     Data Login RT
                 </a>
+                <a class="nav-link" href="{{ route('admin.rw.datawarga') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Data Warga
+                </a>
+                <a class="nav-link" href="{{ route('admin.rw.kendaraan') }}">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Kendaraan
+                </a>
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError"
+                    aria-expanded="false" aria-controls="pagesCollapseError">
+                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                    Keamanan
+                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                </a>
+                <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                    data-bs-parent="#sidenavAccordionPages">
+                    <nav class="sb-sidenav-menu-nested nav">
+                        <a class="nav-link" href="{{ route('admin.rw.kritiksaran') }}">Kritik dan Saran</a>
+                        <a class="nav-link" href="{{ route('admin.rw.keluarmasukwarga') }}">Data Keluar Masuk Warga</a>
+                        <a class="nav-link" href="{{ route('admin.rw.pengaduan') }}">Pengaduan / Pelaporan</a>
+                    </nav>
+                </div>
             </div>
             @elseif(Auth::guard('admin')->user()->status == 2) {{-- RT --}}
             <div class="nav">

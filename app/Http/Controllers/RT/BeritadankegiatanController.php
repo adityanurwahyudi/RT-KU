@@ -5,13 +5,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Auth;
 
 class BeritadankegiatanController extends Controller
 {
 	public function index()
 	{
-		$berita = DB::table('berita')->get();
-		$kegiatan = DB::table('kegiatan')->get();
+		$rt = Auth::guard('admin')->user()->rt;
+		$rw = Auth::guard('admin')->user()->rw;
+
+		$berita = DB::table('berita')->select('berita.*')
+				->leftjoin('users','users.id','berita.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
+		$kegiatan = DB::table('kegiatan')->select('kegiatan.*')
+				->leftjoin('users','users.id','kegiatan.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
 		$no = 1;
 		$No = 1;
 		return view('RT.beritadankegiatan', compact('berita', 'kegiatan', 'no', 'No',));
@@ -26,10 +38,7 @@ class BeritadankegiatanController extends Controller
 	}
 	public function proses(Request $request)
 	{
-		//dd($request);		
-			// $this->validate($request, [
-			// 		'gambar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-			// ]);
+			$id_users = Auth::guard('admin')->user()->id;
 			
 			if($request->hasFile('gambar')){
 				$file = $request->file('gambar');
@@ -41,6 +50,7 @@ class BeritadankegiatanController extends Controller
 			}
 				  
 			$gambar = DB::table('berita')->insert([
+				'id_users'	=> $id_users,
 				'nama' =>  $request->nama,
 				'deskripsi' =>  $request->deskripsi,
 				'gambar' => $namefile,
@@ -52,6 +62,8 @@ class BeritadankegiatanController extends Controller
 	public function proses1(Request $request)
 	{
 			
+		$id_users = Auth::guard('admin')->user()->id;
+
 			if($request->hasFile('gambar')){
 				$file = $request->file('gambar');
 				$path = 'upload/kegiatan';
@@ -62,6 +74,7 @@ class BeritadankegiatanController extends Controller
 			}
 				  
 			$gambar = DB::table('kegiatan')->insert([
+				'id_users'	=> $id_users,
 				'nama' =>  $request->nama,
 				'deskripsi' =>  $request->deskripsi,
 				'gambar' => $namefile,
@@ -70,6 +83,7 @@ class BeritadankegiatanController extends Controller
 			return redirect('RT/beritadankegiatan')->with(['success'=>'Data Berhasil Ditambahkan!']);;
 	
 	}
+	
 	public function edit($id)
 	{
 		$berita = DB::table('berita')->where('id', $id)->get();
@@ -82,6 +96,8 @@ class BeritadankegiatanController extends Controller
 	}
     public function update(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id;
+
 		$berita = DB::table('berita')->where('id',$request->id)->first();
 		if($request->hasFile('gambar')){
 			$file = $request->file('gambar');
@@ -93,6 +109,7 @@ class BeritadankegiatanController extends Controller
 		}
 			  
 		$gambar = DB::table('berita')->where('id', $request->id)->update([
+			'id_users'=> $id_users,
 			'nama' =>  $request->nama,
 			'deskripsi' =>  $request->deskripsi,
 			'gambar' => $namefile,
@@ -104,6 +121,8 @@ class BeritadankegiatanController extends Controller
 	}
     public function update1(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id; 
+
 		$kegiatan = DB::table('kegiatan')->where('id',$request->id)->first();
 		if($request->hasFile('gambar')){
 			$file = $request->file('gambar');
@@ -115,6 +134,7 @@ class BeritadankegiatanController extends Controller
 		}
 			  
 		$gambar = DB::table('kegiatan')->where('id', $request->id)->update([
+			'id_users'=> $id_users,
 			'nama' =>  $request->nama,
 			'deskripsi' =>  $request->deskripsi,
 			'gambar' => $namefile,

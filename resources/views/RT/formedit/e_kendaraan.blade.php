@@ -36,28 +36,29 @@
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama Pemilik</label>
                                     <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}"
-                                        >
+                                       readonly >
                                 </div>
                                 <div class="mb-3">
                                     <label for="nopol" class="form-label">Nomer Plat Kendaraan</label>
-                                    <input type="text" class="form-control" id="nopol" name="nopol" value="{{ $p->nopol }}" >
+                                    <input type="text" class="form-control" id="nopol" name="nopol" value="{{ $p->nopol }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="jeniskendaraan" class="form-label">Jenis Kendaraan</label>
-                                    <input  type="text" class="form-control" id="jeniskendaraan" name="jeniskendaraan" value="{{ $p->jeniskendaraan }}" >
+                                    <input  type="text" class="form-control" id="jeniskendaraan" name="jeniskendaraan" value="{{ $p->jeniskendaraan }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal Pengajuan</label>
-                                    <input  type="text" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}" required>
+                                    <input  type="text" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}" readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" >
+                                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" readonly >
                                 </div>
-                                <label>Status</label>
-                                <select for="status" id="status" name="status" value="{{ $p->status }}" class="form-label">
+                                <label>Status :</label><br>
+                                <select for="statuspermohonan" id="statuspermohonan" name="statuspermohonan" value="{{ $p->statuspermohonan }}" class="form-label">
                                 <option value="proses">Proses</option>
                                 <option value="selesai">Selesai</option>
+                                <option value="sudah di ambil">Sudah di ambil</option>
                                 </select>
                                 <br>
                                 <div class="mb-3">

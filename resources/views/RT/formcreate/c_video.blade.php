@@ -23,7 +23,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="URLVideo" class="form-label">URLVideo</label>
-                                    <input type="text" class="form-control" id="URLVideo" name="URLVideo" required>
+                                    <input type="url" class="form-control" id="URLVideo" name="URLVideo" required>
                                 </div>
                                 <div class="mb-3">
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />

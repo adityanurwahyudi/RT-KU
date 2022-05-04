@@ -33,7 +33,7 @@
             </div>
 
             <div class="col-lg-3 ml-auto col-sm-6">
-                <div class="widget">
+            <div class="widget">
                     <div class="logo mb-4">
                         <h3>Hubungi Kami</h3>
                     </div>

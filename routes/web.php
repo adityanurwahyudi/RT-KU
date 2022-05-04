@@ -6,7 +6,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
+| routes are loaded by the RouteSer$val->iiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
  */
@@ -46,7 +46,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/dashboard-rt', 'DashboardAdminController@index')->name('dashboard');
 
         Route::get('/data-warga', 'UserManagementController@datawarga')->name('datawarga');\
-
+        
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
         Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
@@ -57,7 +57,6 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
 
         // Penentuan Warga Tidak Mampu
         Route::get('/SPK-warga', 'PenentuanWargaController@SPKWarga')->name('SPK-warga');
-        
 
         // Page Controller
         Route::get('/profile-RT', 'PagesController@profile')->name('profile');
@@ -76,6 +75,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
 
         // Jadwal Ronda
         Route::get('/jadwal-ronda', 'JadwalRondaController@index')->name('jadwalronda');
+        Route::get('/jadwalronda/cetak_jadwalronda', 'JadwalRondaController@cetak_jadwalronda')->name('jadwalronda.cetak_jadwalronda');
         Route::get('/jadwal-ronda/datatable', 'JadwalRondaController@datatable')->name('jadwalronda.datatable');
         Route::get('/jadwal-ronda/create', 'JadwalRondaController@create')->name('jadwalronda.create');
         Route::post('/jadwal-ronda/save', 'JadwalRondaController@save')->name('jadwalronda.save');
@@ -97,18 +97,30 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::post('/kegiatan/update', 'BeritadankegiatanController@update')->name('kegiatan.update');
         Route::get('/kegiatan/edit1/{id}', 'BeritadankegiatanController@edit1')->name('kegiatan.edit1');
 
+        //datakependudukanwarga
+
+        Route::post('/datawarga/proses', 'DataKependudukanController@proses')->name('datawarga.proses');
+        Route::get('/datawarga/cetak_datawarga', 'DataKependudukanController@cetak_datawarga')->name('datawarga.cetak_datawarga');
+        Route::get('/datawarga/cetak_datawargatidakmampu', 'DataKependudukanController@cetak_datawargatidakmampu')->name('datawarga.cetak_datawargatidakmampu');;
+        
+        Route::post('/datawarga/prosess', 'DataKependudukanController@prosess')->name('datawarga.prosess');
+        Route::get('/datawarga/tambah', 'DataKependudukanController@tambah')->name('datawarga.tambah');
+        Route::get('/datawarga/hapus/{id}', 'DataKependudukanController@hapus')->name('datawarga.hapus');
+        Route::post('/datawarga/update', 'DataKependudukanController@update')->name('datawarga.update');
+        Route::get('/datawarga/edit/{id}', 'DataKependudukanController@edit')->name('datawarga.edit');
+
         //keluarmasukwarga
         Route::get('/keluarmasukwarga', 'TamupindahController@index')->name('keluarmasukwarga');
+        Route::get('/tamu/cetak_tamu', 'TamupindahController@cetak_tamu')->name('tamu.cetak_tamu');
         Route::post('/tamu/proses', 'TamupindahController@proses')->name('tamu.proses');
         Route::get('/tamu/hapus/{id}', 'TamupindahController@hapus')->name('tamu.hapus');
          Route::post('/pidah/proses1', 'TamupindahController@proses1')->name('pindah.proses1');
+         Route::get('/pindah/cetak_pindah', 'TamupindahController@cetak_pindah')->name('pindah.cetak_pindah');
         Route::get('/pindah/hapus/{id}', 'TamupindahController@hapus')->name('pindah.hapus');
 
         //galeri
         Route::get('/galeri', 'GaleriController@index')->name('galeri');
-        
-        //dropzone
-        Route::post('/foto/fileupload/','GaleriController@fileupload')->name('foto.fileupload');
+
         //foto
         Route::post('/foto/proses', 'GaleriController@proses')->name('foto.proses');
         Route::get('/foto/tambah', 'GaleriController@tambah')->name('foto.tambah');
@@ -141,34 +153,19 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
        
         //keuangan
         Route::get('/keuangan', 'KeuanganController@index')->name('keuangan');
-
-        //konfirmasipembayaran
-        Route::post('/konfimrasipembayaran/proses1', 'KeuanganController@proses1')->name('konfirmasipembayaran.proses1');
-        Route::post('/konfimrasipembayaran/proses2', 'KeuanganController@proses2')->name('konfirmasipembayaran.proses2');
-        Route::get('/konfirmasipembayaran/edit/{id}', 'KeuanganController@edit')->name('konfirmasipembayaran.edit');
-        Route::get('/konfirmasipembayaran/tambah2', 'KeuanganController@tambah2')->name('konfirmasipembayaran.tambah2');
-        Route::post('/konfirmasipembayaran/update', 'KeuanganController@update')->name('konfirmasipembayaran.update');
-        Route::get('/konfirmasipembayaran/hapus/{id}', 'KeuanganController@hapus')->name('konfirmasipembayaran.hapus');
+        Route::get('/keuangan/cetak_keuangan', 'KeuanganController@cetak_keuangan')->name('keuangan.cetak_keuangan');
         
         //qris
         Route::post('/qris/proses', 'KeuanganController@proses')->name('qris.proses');
         Route::get('/qris/tambah', 'KeuanganController@tambah')->name('qris.tambah');
         Route::get('/qris/hapus/{id}', 'KeuanganController@hapus')->name('qris.hapus');
-        
-        //pemasukanpengeluaran
-        Route::post('/pemasukanpengeluaran/edit1', 'KeuanganController@edit')->name('pemasukanpengeluaran.edit1');
-        Route::get('/pemasukanpengeluaran/tambah1', 'KeuanganController@tambah1')->name('pemasukanpengeluaran.tambah1');
-        Route::get('/pemasukanpengeluaran/hapus/{id}', 'KeuanganController@hapus')->name('pemasukanpengeluaran.hapus');
-        Route::post('/pemasukanpengeluaran/proses1', 'KeuanganController@proses1')->name('pemasukanpengeluaran.proses1');
-        Route::post('/pemasukanpengeluaran/update1', 'KeuanganController@update1')->name('pemasukanpengeluaran.update1');
-       
-        //konfirmasipembayaran
-        Route::post('/konfirmasipembayaran/proses2', 'KeuanganController@proses2')->name('konfirmasipembayaran.proses2');
-        Route::get('/konfirmasipembayaran/tambah2', 'KeuanganController@tambah2')->name('konfirmasipembayaran.tambah2');
-        Route::get('/konfirmasipembayaran/hapus/{id}', 'KeuanganController@hapus')->name('konfirmasipembayaran.hapus');
-        Route::post('/konfirmasipembayaran/update2', 'KeuanganController@update2')->name('konfirmasipembayaran.update2');
-        Route::get('/konfirmasipembayaran/edit2/{id}', 'KeuanganController@edit2')->name('konfirmasipembayaran.edit2');
-        
+
+        //keuangan
+        Route::get('/keuangan/edit/{id}', 'KeuanganController@edit')->name('keuangan.edit');
+        Route::get('/keuangan/tambahh', 'KeuanganController@tambahh')->name('keuangan.tambahh');
+        Route::get('/keuangan/hapus/{id}', 'KeuanganController@hapus')->name('keuangan.hapus');
+        Route::post('/keuangan/prosess', 'KeuanganController@prosess')->name('keuangan.prosess');
+        Route::post('/keuangan/update', 'KeuanganController@update')->name('keuangan.update');
 
         // security
         Route::get('/security', 'SecurityController@index')->name('security');
@@ -180,6 +177,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         
         // Akses Kendaraan
         Route::get('/kendaraan', 'KendaraanController@index')->name('kendaraan');
+        Route::get('/kendaraan/cetak_kendaraan', 'KendaraanController@cetak_kendaraan')->name('kendaraan.cetak_kendaraan');
         Route::post('/kendaraan/proses', 'KendaraanController@proses')->name('kendaraan.proses');
         Route::get('/kendaraan/hapus/{id}', 'KendaraanController@hapus')->name('kendaraan.hapus');
         Route::post('/kendaraan/update', 'KendaraanController@update')->name('kendaraan.update');
@@ -192,6 +190,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
    
         //pengaduan
         Route::get('/pengaduan', 'PengaduanController@index')->name('pengaduan');
+        Route::get('/pengaduan/cetak_pengaduan', 'PengaduanController@cetak_pengaduan')->name('pengaduan.cetak_pengaduan');
         Route::post('/pengaduan/proses', 'PengaduanController@proses')->name('pengaduan.proses');
         Route::get('/pengaduan/hapus/{id}', 'PengaduanController@hapus')->name('pengaduan.hapus');
         
@@ -216,7 +215,24 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
         Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
+    
+    
+        Route::get('datawarga', 'DataKependudukannController@datawarga')->name('datawarga');
+        Route::get('/datawarga/cetak_datawarga', 'DataKependudukannController@cetak_datawarga')->name('datawarga.cetak_datawarga');
+        Route::get('pengaduan', 'DataKependudukannController@pengaduan')->name('pengaduan');
+        Route::get('/pengaduan/cetak_pengaduan', 'DataKependudukannController@cetak_pengaduan')->name('pengaduan.cetak_pengaduan');
+        Route::get('kendaraan', 'DataKependudukannController@kendaraan')->name('kendaraan');
+        Route::get('/kendaraan/cetak_kendaraan', 'DataKependudukannController@cetak_kendaraan')->name('kendaraan.cetak_kendaraan');
+        Route::get('keluarmasukwarga', 'DataKependudukannController@keluarmasukwarga')->name('keluarmasukwarga');
+        Route::get('/tamu/cetak_tamu', 'DataKependudukannController@cetak_tamu')->name('tamu.cetak_tamu');
+        Route::get('/pindah/cetak_pindah', 'DataKependudukannController@cetak_pindah')->name('pindah.cetak_pindah');
+        Route::get('kritiksaran', 'DataKependudukannController@kritiksaran')->name('kritiksaran');
     });
+
+
+
+
+
     Route::name('kelurahan.')->namespace('kelurahan')->prefix('kelurahan')->group(function () {
         // Dashboard
         Route::get('/dashboard-kelurahan', 'DashboardAdminController@index')->name('dashboard');
@@ -228,6 +244,9 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
         Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
+    
+        Route::get('datawarga', 'DataKependudukanController@datawarga')->name('datawarga');
+    
     });
 });
 

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="page-title bg-1">
+    <section class="page-title bg-keamanan2">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -74,15 +74,19 @@
                     <table class="table" id="datatablesSimple">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Tanggal</th>
                                 <th>Nama Warga</th>
                             </tr>
                         </thead>
                         <tbody>
+                     @foreach($jadwal_ronda as $p)
                             <tr>
-                                <td>Tiger Nixon</td>
-                                <td>Edinburgh</td>
+                                <td>{{ $no++ }}</td>
+                                <td>{{ $p->tanggal }}</td>
+                                <td>{{ $p->id_users }}</td>
                             </tr>
+                                @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -125,7 +129,7 @@
                         
                         <div class="form-group-2 mb-4">
                             <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"
-                                placeholder="Keterangan Pengaduan dan Laporan"></textarea>
+                                placeholder="Keterangan Pengaduan dan Laporan" required></textarea>
                         </div>
                         <button class="btn btn-main" name="submit" type="submit">Kirim</button>
                     </form>

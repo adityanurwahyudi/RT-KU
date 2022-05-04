@@ -15,7 +15,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kendaraan-table">
+                <a href="{{ route('admin.rt.kendaraan.cetak_kendaraan')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br> 
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -37,12 +39,12 @@
                             <td>{{ $p->jeniskendaraan }}</td>
                             <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->alamat }}</td>
-                            <td>{{ $p->status }}</td>
+                            <td>{{ $p->statuspermohonan }}</td>
                             <td>
 
-                                <a title="Edit" href="{{route('admin.rt.kendaraan.edit',$p->id)}}" class="btn btn-info">Edit</a>
-                                <a title="Delete" href="{{route('admin.rt.kendaraan.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                            <a title="Edit" href="{{route('admin.rt.kendaraan.edit',$p->id)}}"  class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
+                            <a title="Delete" href="{{route('admin.rt.kendaraan.hapus',$p->id)}}"  class="btn btn-danger"
+                                onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach

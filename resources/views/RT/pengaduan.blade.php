@@ -15,7 +15,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
+                <a href="{{ route('admin.rt.pengaduan.cetak_pengaduan')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br>
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -37,8 +39,8 @@
                             <td>{{ $p->bukti }}</td>
                             <td>{{ $p->deskripsi }}</td>
                             <td>
-                                <a title="Delete" href="{{route('admin.rt.security.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                <a title="Delete" href="{{route('admin.rt.pengaduan.hapus',$p->id)}}" class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach

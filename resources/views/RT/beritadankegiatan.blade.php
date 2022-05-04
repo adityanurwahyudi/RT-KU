@@ -15,9 +15,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.berita.tambah') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.berita.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
+                
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="berita-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     
                         <tr>
                             <th>No</th>
@@ -36,9 +37,9 @@
                             <td><img width="100" height="100"src="{{asset('upload/berita/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Edit" href="{{route('admin.rt.berita.edit',$p->id)}} " class="btn btn-info">Edit</a>
+                                <a title="Edit" href="{{route('admin.rt.berita.edit',$p->id)}} " class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
                                 <a title="Delete" href="{{route('admin.rt.berita.hapus',$p->id)}} " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                                 @endforeach
@@ -53,9 +54,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.kegiatan.tambah1') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.kegiatan.tambah1') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kegiatan-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatablesSimple">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -76,9 +77,9 @@
                             <td><img width="100" height="100"src="{{asset('upload/kegiatan/'.$p->gambar)}}"></td>
                             <td>
 
-                                <a title="Edit" href="{{route('admin.rt.kegiatan.edit1',$p->id)}}" class="btn btn-info">Edit</a>
+                                <a title="Edit" href="{{route('admin.rt.kegiatan.edit1',$p->id)}}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
                                 <a title="Delete" href="{{route('admin.rt.kegiatan.hapus',$p->id)}} " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         

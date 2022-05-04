@@ -5,14 +5,28 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Auth;
 
 
 class GaleriController extends Controller
 {
 	public function index()
 	{
-		$foto = DB::table('foto')->get();
-		$video = DB::table('video')->get();
+		$rt = Auth::guard('admin')->user()->rt;
+		$rw = Auth::guard('admin')->user()->rw;
+		
+		$foto = DB::table('foto')
+				->select('foto.*')
+				->leftjoin('users','users.id','foto.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get ();
+		$video = DB::table('video')
+				->select('video.*')
+				->leftjoin('users','users.id','video.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
 		$no = 1;
 		$No = 1;
 		return view('RT.galeri', compact('foto', 'video', 'no', 'No',));
@@ -27,6 +41,8 @@ class GaleriController extends Controller
 	}
 	public function proses(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id;
+			
 			if($request->hasFile('gambar')){
 				$file = $request->file('gambar');
 				$path = 'upload/foto';
@@ -37,13 +53,17 @@ class GaleriController extends Controller
 			}
 				  
 			$gambar = DB::table('foto')->insert([
+				'id_users'	=> $id_users,
 				'gambar' => $namefile,
 			]);
 			return redirect('RT/galeri')->with(['success'=>'Data Berhasil Ditambahkan!']);
 	}
 	public function proses1(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id;
+			
 		DB::table('video')->insert([
+			'id_users'	=> $id_users,
 			'nama' => $request->nama,
 			'URLVideo' => $request->URLVideo,
 		]);

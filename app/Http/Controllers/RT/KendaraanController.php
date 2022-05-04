@@ -5,26 +5,37 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RT\Kendaraan;
+use Auth;
+use PDF;
 
 class KendaraanController extends Controller
 {
 	public function index()
 	{
-		$kendaraan = DB::table('kendaraan')->get();
+		$rt = Auth::guard('admin')->user()->rt;
+		$rw = Auth::guard('admin')->user()->rw;
+
+		$kendaraan = DB::table('kendaraan')->select('kendaraan.*')
+				->leftjoin('users','users.id','kendaraan.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
 		$no = 1;
 		return view('RT.kendaraan',
 		compact('kendaraan', 'no'));
 	}
 	public function store(Request $request)
 	{
-		//dd($request->all());
+		$id_users = Auth::guard('admin')->user()->id;
+
 		DB::table('kendaraan')->insert([
+			'id_users'	=> $id_users,
 			'nama' => $request->nama,
 			'nopol' => $request->nopol,
 			'tanggal' => date('Y-m-d'),
 			'jeniskendaraan' => $request->jeniskendaraan,
 			'alamat' => $request->alamat,
-			'status' => $request->status,
+			'statuspermohonan' => $request->statuspermohonan,
 		]);
 		return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Terkirim!']);
 	}
@@ -35,16 +46,35 @@ class KendaraanController extends Controller
 	}
 	public function update(Request $request)
 	{
+		$id_users = Auth::guard('admin')->user()->id;
+		
 		DB::table('kendaraan')->where('id', $request->id)->update([
+			'id_users'	=> $id_users,
 			'nama' => $request->nama,
 			'nopol' => $request->nopol,
 			'tanggal' => date('Y-m-d'),
 			'jeniskendaraan' => $request->jeniskendaraan,
 			'alamat' => $request->alamat,
-			'status' => $request->status,
+			'statuspermohonan' => $request->statuspermohonan,
 		]);
 		return redirect('RT/kendaraan')->with(['success'=>'Data Berhasil Diupdate!']);
 	}
+	
+	public function cetak_kendaraan()
+    {
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
+		
+		$kendaraan = DB::table('kendaraan')
+				->select('kendaraan.*')
+				->leftjoin('users','users.id','kendaraan.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get ();
+ 
+    	$pdf = PDF::loadview('RT.laporan.cetak_kendaraan',['kendaraan'=>$kendaraan]);
+    	return $pdf->stream();
+    }
 	public function hapus($id)
 	{
 		DB::table('kendaraan')->where('id', $id)->delete();

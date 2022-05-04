@@ -1,10 +1,10 @@
-@extends('template.backend.main')
+@extends('template.backend.main1')
 
 @section('content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Dashboard RT</h1>
+    <h1 class="mt-4">Dashboard RW</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Dashboard RT</li>
+        <li class="breadcrumb-item active">Dashboard RW</li>
     </ol>
     <div class="row">
         <div class="col-xl-3 col-md-6">

@@ -15,13 +15,13 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rw.dataloginwarga_create') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rw.dataloginwarga_create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="loginwarga-table">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
+                            <th>Nama RT</th>
                             <th>Email</th>
                             <th>Telepon</th>
                             <th>Password</th>
@@ -40,9 +40,9 @@
                             <td>{{ $val->rt }}</td>
                             <td>
 
-                                <a title="Edit" href="{{ route('admin.rw.dataloginwarga_edit',$val->id) }}" class="btn btn-info">Edit</a>
+                                <a title="Edit" href="{{ route('admin.rw.dataloginwarga_edit',$val->id) }}" class="btn btn-info"> <i class="fa fa-edit"></i> Edit</a>
                                 <button title="Delete" class="btn btn-danger"
-                                    onclick="hapus('{{ $val->id }}')">Delete</button>
+                                    onclick="hapus('{{ $val->id }}')"> <i class="fa fa-trash"></i> Delete</button>
                             </td>
                         </tr>
                         @endforeach

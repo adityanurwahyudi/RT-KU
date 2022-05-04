@@ -50,14 +50,6 @@
                                     <input type="date" class="form-control" id="tanggal" name="tanggal"  required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="visi" class="form-label">Visi</label>
-                                    <input type="text" class="form-control" id="visi" name="visi" value="{{ $p->visi }}" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="misi" class="form-label">Misi</label>
-                                    <input type="text" class="form-control" id="misi" name="misi" value="{{ $p->misi }}" required>
-                                </div>
-                                <div class="mb-3">
                                     <label for="profilert" class="form-label">Foto Profile RT</label>
                                     <input type="text" class="form-control" id="profilert" name="profilert" value="{{ $p->profilert }}"
                                         disabled>

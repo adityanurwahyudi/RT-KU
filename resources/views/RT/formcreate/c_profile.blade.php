@@ -36,26 +36,6 @@
                                     placeholder="Deskripsi"></textarea>
                             </div>
                                 
-                                <label for="Visi" class="form-label">Visi</label><br>
-                                <div class="input-group control-group after-add-more">
-                                        <input type="text" name="visi[]" id="visi" class="form-control"
-                                            placeholder="Visi">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-success add-more" type="button"><i
-                                                    class="glyphicon glyphicon-plus"></i> Add</button>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    
-                                <label for="Misi" class="form-label">Misi</label><br>
-                                <div class="input-group control-group after-add-more1">
-                                        <input type="text" name="misi[]" id="misi" class="form-control"
-                                            placeholder="Misi">
-                                        <div class="input-group-btn">
-                                            <button class="btn btn-success add-more1" type="button"><i
-                                                    class="glyphicon glyphicon-plus"></i> Add</button>
-                                        </div>
-                                    </div>
                                 <div class="mb-3">
                                     <label for="profilert" class="form-label">Foto Profile RT</label>
                                     <input type="file" class="form-control" id="profilert" name="profilert" required>
@@ -84,26 +64,7 @@
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />
                                 </div>
                             </form>
-                            <div class="copy hide">
-                                <div class="control-group input-group" style="margin-top:10px">
-                                    <input type="text" id="visi" name="visi[]" class="form-control"
-                                        placeholder="Visi">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-danger remove" type="button"><i
-                                                class="glyphicon glyphicon-remove"></i> Remove</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="copy1 hide">
-                                <div class="control-group input-group" style="margin-top:10px">
-                                    <input type="text" id="misi" name="misi[]" class="form-control"
-                                        placeholder="Misi">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-danger remove" type="button"><i
-                                                class="glyphicon glyphicon-remove"></i> Remove</button>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -38,9 +38,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                {{-- <a href="/tidakmampu/tambah" class="btn btn-primary">Add</a>
-                <br><br> --}}
-                <table class="table table-striped table-bordered table-hover table-condensed" id="tidakmampu-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatablesSimple">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -82,7 +80,7 @@
             <div class="table-responsive">
                 {{-- <a href="/tidakmampu/tambah" class="btn btn-primary">Add</a>
                 <br><br> --}}
-                <table class="table table-striped table-bordered table-hover table-condensed" id="tidakmampu-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -122,7 +120,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="normalisasi-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -156,7 +154,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="perangkingan-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="dua">
                     <thead>
                         <tr>
                             <th>No.</th>

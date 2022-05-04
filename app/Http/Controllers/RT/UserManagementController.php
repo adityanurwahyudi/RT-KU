@@ -19,9 +19,49 @@ class UserManagementController extends Controller
     }
 
     public function datawarga()
-    {
-        return view('RT.datawarga');
+    { 
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
+
+        $data['no_normalisasi'] = 1;
+        $data['no_rank'] = 1;
+        
+
+        $kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
+        $data['kepentingan'] = $kepentingan / 2;
+        
+
+        $data['datakependudukan'] = DB::table('datakependudukan')->select('datakependudukan.*')
+                    ->join('users','users.id','datakependudukan.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->whereIn('jeniskelamin',['Laki-laki','Perempuan'])
+                    ->get();
+
+        $data['lakilaki'] = DB::table('datakependudukan')->select('datakependudukan.*')
+                    ->join('users','users.id','datakependudukan.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Laki-laki') 
+                    ->count();
+        $data['perempuan'] = DB::table('datakependudukan')->select('datakependudukan.*')
+                    ->join('users','users.id','datakependudukan.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Perempuan') 
+                    ->count();
+       
+        $data['normalisasi'] = DB::table('hasil_normalisasi')
+                    ->join('users','users.id','hasil_normalisasi.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw)   
+                    ->orderBy('rank','DESC') 
+                    ->get();
+        return view('RT.datawarga',$data);
+        
     }
+
+
 
     public function dataloginwarga()
     {

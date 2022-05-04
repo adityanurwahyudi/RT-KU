@@ -16,7 +16,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -37,7 +37,7 @@
                             <td>{{ $p->kritikdansaran }}</td>
                             <td>
                                 <a title="Delete" href="{{route('admin.rt.kritiksaran.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                                 @endforeach

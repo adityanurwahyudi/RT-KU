@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="page-title bg-1">
+<section class="page-title bg-datawarga">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -35,7 +35,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="datawarga-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -45,12 +45,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                     @foreach($datakependudukan as $p)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $No++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->alamat }}</td>
+                            <td>{{ $p->telepon }}</td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -167,7 +169,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="kendaraan-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -188,7 +190,7 @@
                             <td>{{ $p->jeniskendaraan }}</td>
                             <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->alamat }}</td>
-                            <td>{{ $p->status }}</td>
+                            <td>{{ $p->statuspermohonan }}</td>
                             
                         </tr>
                         @endforeach

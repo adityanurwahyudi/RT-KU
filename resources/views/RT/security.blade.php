@@ -15,9 +15,9 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.security.tambah') }}" class="btn btn-primary">Add</a>
+                <a href="{{ route('admin.rt.security.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="security-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -36,9 +36,9 @@
                             <td>{{ $p->telepon }}</td>
                             <td>
 
-                                <a title="Edit" href="{{route('admin.rt.security.edit',$p->id)}}" class="btn btn-info">Edit</a>
+                                <a title="Edit" href="{{route('admin.rt.security.edit',$p->id)}}" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
                                 <a title="Delete" href="{{route('admin.rt.security.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-edit"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach

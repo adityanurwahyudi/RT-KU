@@ -15,6 +15,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <a href="{{ route('admin.rt.tamu.cetak_tamu')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		        <br><br> 
                 <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
                     <thead>
                         <tr>
@@ -28,7 +30,7 @@
                             <th>Status Tinggal</th>
                             <th>RT</th>
                             <th>RW</th>
-                            <th>Action</th>
+                            <th width="130">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +48,7 @@
                             <td>{{ $p->RW }}</td>
                             <td>
                                 <a title="Delete" href="{{route('admin.rt.tamu.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach
@@ -62,6 +64,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
+                <a href="{{ route('admin.rt.pindah.cetak_pindah')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
+		         <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="ronda-table">
                     <thead>
                         <tr>
@@ -85,7 +89,7 @@
                             <td>{{ $p->deskripsi }}</td>
                             <td>
                                 <a title="Delete" href="{{route('admin.rt.pindah.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
                         </tr>
                         @endforeach

@@ -69,7 +69,7 @@
                             </div>
                 </div>
 
-            <section class="page-title bg-1">
+            <section class="page-title bg-keuangan2">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
@@ -93,44 +93,42 @@
                             </div>
                         </div>
                     </div>
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Laporan Keuangan
-                    </div>
-                    <div class="card-body">
-                        <table id="datatablesSimple">
-                            <thead>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Tabel Keuangan
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="keuangan-table">
+                <thead>
                                 <tr>
-                                    <th>Nama</th>
-                                    <th>Tanggal</th>
-                                    <th>Bulan</th>
-                                    <th>Pemasukan</th>
-                                    <th>Metode Pembayaran</th>
-                                    <th>Pengeluaran</th>
-                                    <th>Bukti</th>
-                                    <th>Keterangan</th>
-                                    <th>Total Saldo</th>
+                                <th>Tanggal</th>
+                                <th>No</th>
+                                <th>Keterangan</th>
+                                <th>Pemasukan</th>
+                                <th>Pengeluaran</th>
+                                <th>Total Saldo</th>
                                 </tr>
                             </thead>
                             
                             <tbody>
-                                <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011/04/25</td>
-                                    <td>$320,800</td>
-                                    <td>Salary</td>
-                                    <td>Salary</td>
-                                    <td>Salary</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                     @foreach($keuangan as $p)
+                        <tr>
+                            <td>{{ $p->tanggal }}</td>
+                            <td>{{ $no++ }}</td>
+                            <td>{{ $p->keterangan }}</td>
+                            <td>{{ $p->pemasukan }}</td>
+                            <td>{{ $p->pengeluaran }}</td>
+                            <td>{{ $p->totalsaldo }}</td>
+                        
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-7 text-center">
@@ -147,13 +145,14 @@
                             <span class="h6 text-color">Atas Nama:{{ $p->nama }}</span>
             </center>   
                                 @endforeach
+                                <center>
             <div class="tengah">
                 <div class="d-grid gap-2 col-6 mx-auto">
                     <button type="button" onclick="document.getElementById('id02').style.display='block'"
                         class="btn btn-dark centerr-block">Konfirmasi
                         Pembayaran</button>
                 </div>
-            </div>
+            </div></center>
         </section>
             <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>
             </script>

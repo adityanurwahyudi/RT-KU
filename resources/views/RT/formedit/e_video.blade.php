@@ -24,7 +24,7 @@
                     
                                 <div class="mb-3">
                                     <label for="URLVideo" class="form-label">URL Video</label>
-                                    <input type="text" class="form-control" id="URLVideo" name="URLVideo"
+                                    <input type="text" class="form-control" id="URLVideo" name="URLVideo" value="{{ $p->URLVideo }}"
                                         required>
                                 </div>
 

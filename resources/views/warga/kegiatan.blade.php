@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<section class="page-title bg-1">
+<section class="page-title bg-kegiatan">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -29,7 +29,6 @@
 
                     <div class="blog-item-content bg-white p-5">
                         <div class="blog-item-meta bg-gray py-1 px-2">
-
                             <span class="text-black text-capitalize mr-3"><i class="ti-time mr-1"></i>{{ $p->tanggal }}</span>
                         </div>
 
@@ -46,14 +45,11 @@
             <div class="col-lg-6 text-center">
                 <nav class="navigation pagination d-inline-block">
                     <div class="nav-links">
-                        <a class="prev page-numbers" href="#">Prev</a>
-                        <span aria-current="page" class="page-numbers current">1</span>
-                        <a class="page-numbers" href="#">2</a>
-                        <a class="next page-numbers" href="#">Next</a>
+                        {{ $kegiatan->links() }}
                     </div>
                 </nav>
             </div>
-        </div>
+        </div> 
     </div>
 </section>
 @endsection

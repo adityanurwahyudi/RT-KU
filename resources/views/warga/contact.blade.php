@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <section class="page-title bg-1">
+    <section class="page-title bg-contact">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
