@@ -13,9 +13,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 Route::get('/', function () {
     return view('landing');
 });
-//alert
-//Alert::success('Success Title', 'Success Message');
-Alert::toast('Toast Message', 'Toast Type');
 
 Route::get('/register-tamu', 'FrontController@register_tamu')->name('register_tamu');
 // Detail Event
