@@ -28,6 +28,5 @@
   <!--End wrapper-->
   @include('template.backend.footer_script.footer')
   @yield('script')
-  @include('sweetalert::alert')
 </body>
 </html>

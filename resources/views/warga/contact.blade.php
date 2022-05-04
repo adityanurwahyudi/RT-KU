@@ -123,8 +123,6 @@
 @endsection
 
 @section('script')
-@include('sweetalert::alert')
-
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){

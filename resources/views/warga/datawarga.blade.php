@@ -227,8 +227,6 @@
  
     </script>
 @section('script')
-
-@include('sweetalert::alert')
 <script type="text/javascript">
     $(document).ready(function(){
         

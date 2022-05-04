@@ -149,8 +149,6 @@
         document.getElementById(“retypepassword″).setCustomValidity(”); }>
     </script>
     
-@include('sweetalert::alert')
-    
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){

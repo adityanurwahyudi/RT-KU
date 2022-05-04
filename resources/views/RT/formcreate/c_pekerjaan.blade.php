@@ -35,7 +35,6 @@
         @endsection
        
 @section('script')
-@include('sweetalert::alert')
 <script type="text/javascript">
 </script>
 @endsection

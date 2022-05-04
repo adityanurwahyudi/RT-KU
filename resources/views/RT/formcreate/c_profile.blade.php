@@ -72,7 +72,6 @@
         @endsection
        
 @section('script')
-@include('sweetalert::alert')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="/sbadmin/js/scripts.js"></script>
