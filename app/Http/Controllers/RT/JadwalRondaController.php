@@ -25,7 +25,7 @@ class JadwalRondaController extends Controller
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
-        $data['jadwal'] = DB::table('jadwal_ronda')->where('rt', $rt)->where('rw', $rw)->orderBy('tanggal','ASC')->get();
+        $data['jadwal'] = DB::table('jadwal_ronda')->select('tanggal')->where('rt', $rt)->where('rw', $rw)->groupBy('tanggal')->orderBy('tanggal','ASC')->get();
 
         return view('RT.jadwalronda', $data);
     }
@@ -38,9 +38,11 @@ class JadwalRondaController extends Controller
 
         $jadwal = DB::table('jadwal_ronda')->select('jadwal_ronda.*','users.name')
                 ->join('users','users.id','jadwal_ronda.id_users')
+                ->leftjoin('detail_users','detail_users.id_users','users.id')
                 ->where('jadwal_ronda.rt', $rt)
                 ->where('jadwal_ronda.rw', $rw)
                 ->where('tanggal', $tanggal)
+                ->where('detail_users.jeniskelamin','Laki-laki')
                 ->orderBy('tanggal','ASC')
                 ->get();
 

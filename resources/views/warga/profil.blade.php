@@ -23,13 +23,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                    <form class="contact__form" method="post" action="{{ route('warga.profil_update') }}">
+                    <form class="form-akun" method="post" action="{{ route('warga.profil_update') }}">
                     @csrf
                         <center>
                             <h3 class="text-md mb-4">Akun Warga</h3>
                         </center>
                         <input type="hidden" id="id" name="id" value="{{ $users->id }}">
-                        <div class="form-group">
+                        <div class="form-group" style="display:none;">
                             <label>Nama</label>
                             <input type="text" class="form-control" id="nama" name="nama" value="{{ $users->name }}" required>
                         </div>

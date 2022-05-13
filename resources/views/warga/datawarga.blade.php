@@ -50,7 +50,7 @@
 
                     <div class="col-lg-6 col-md-12 col-sm-12">
                         <div class="contact-content pl-lg-5 mt-5 mt-lg-0">
-                        <form class="contact__form" method="post" action="{{ route('warga.datawarga_update') }}">
+                        <form class="form-bansos" method="post" action="{{ route('warga.datawarga_update') }}">
                     @csrf
                         <center>
                             <h3 class="text-md mb-4">Form Permohonan Bansos</h3>
