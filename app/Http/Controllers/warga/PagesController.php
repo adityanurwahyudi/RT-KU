@@ -21,7 +21,8 @@ class PagesController extends Controller
     }
 
     public function index()
-    { $rt = Auth::guard('user')->user()->rt;
+    { 
+        $rt = Auth::guard('user')->user()->rt;
 		$rw = Auth::guard('user')->user()->rw;
         
         $profile = DB::table('profile')
@@ -59,29 +60,117 @@ class PagesController extends Controller
 		compact('berita'));
     }
     public function datawargaa()
-    {
+    { 
         $rt = Auth::guard('user')->user()->rt;
-		$rw = Auth::guard('user')->user()->rw;
+        $rw = Auth::guard('user')->user()->rw;
+
+        $data['no_normalisasi'] = 1;
+        $data['no_rank'] = 1;
         
-		$no = 1;
-        $No = 1;
+
+        $kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
+        $data['kepentingan'] = $kepentingan / 2;
         
-        $datakependudukan = DB::table('datakependudukan')
-                    ->join('users','users.id','datakependudukan.id_users')
+
+        $data['detail_users'] = DB::table('detail_users')->select('detail_users.*','users.name','users.email','users.telpon')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->get();
+    //count jenis kelamin
+        $data['lakilaki'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Laki-laki') 
+                    ->count();
+        $data['perempuan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Perempuan') 
+                    ->count();
+        //count kewarganegaraan
+        $data['WNI'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNI') 
+                    ->count();
+        $data['WNA'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNA') 
+                    ->count();
+                    
+        //count status pernikahan
+        $data['Menikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Menikah') 
+            ->count();
+        $data['Belum_Menikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Belum_Menikah') 
+            ->count();
+         $data['Cerai'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Cerai') 
+            ->count();
+
+        //count agama             
+        $data['islam'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','islam') 
+                    ->count();
+        $data['katholik'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','katholik') 
+                    ->count();
+       $data['protestan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','protestan') 
+                    ->count();
+        $data['hindu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','hindu') 
+                    ->count();
+        $data['buddha'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','buddha') 
+                    ->count();
+        $data['konghucu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','konghucu') 
+                    ->count();
+
+        //kendaraan
+        $data['kendaraan'] = DB::table('kendaraan')
+                    ->join('users','users.id','kendaraan.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw)   
+                    ->whereIn('statuspermohonan', ['proses','selesai'])
                     ->get();
-
-        $kendaraan = DB::table('kendaraan')
-                ->leftjoin('users','users.id','kendaraan.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
-                ->whereIn('statuspermohonan', ['proses','selesai'])
-                ->get();
-		return view('warga.datawargaa',
-		compact('kendaraan','datakependudukan','no','No'));
+        return view('warga.datawargaa',$data);
     }
-    
     public function contact()
     {
         $rt = Auth::guard('user')->user()->rt;
@@ -92,8 +181,13 @@ class PagesController extends Controller
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
                 ->get();
+        $profile = DB::table('profile')
+                ->leftjoin('users','users.id','profile.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+                ->get();
 		return view('warga.contact',
-		compact('kritiksaran'));
+		compact('kritiksaran','profile'));
     }
     public function kegiatan()
     {
@@ -212,6 +306,103 @@ class PagesController extends Controller
 		return view('warga.galeri',
 		compact('foto','video'));
     }
+    
+	public function prosesdatawarga(Request $request)
+	{
+			$id_users = Auth::guard('user')->user()->id;
+	
+			if($request->hasFile('fotoprofile')){
+				$file = $request->file('fotoprofile');
+				$path = 'upload/detailusers';
+				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
+				$file->move($path, $namefile);
+			}else{
+				$namefile = null;
+			}
+			
+			DB::table('detail_users')->insert([
+				'id_users'	=> $id_users,
+				'nama' =>  $request->nama,
+				'nik' =>  $request->nik,
+                'nokk'	=> $request->nokk,
+				'email' =>  $request->email,
+				'telepon' =>  $request->telepon,
+                'alamat'	=> $request->alamat,
+				'agama' =>  $request->agama,
+				'jeniskelamin' =>  $request->jeniskelamin,
+                'tanggallahir'	=> $request->tanggallahir,
+				'usia' => $request->usia,
+				'kewarganegaraan' =>  $request->kewarganegaraan,
+				'pekerjaan' =>  $request->pekerjaan,
+                'statuspernikahan'	=> $request->statuspernikahan,
+				'fotoprofile' => $namefile,
+			]);
+			return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Ditambahkan!']);
+	}
+    public function storekritiksaran(Request $request)
+	{
+		$id_users = Auth::guard('user')->user()->id;
+		DB::table('kritiksaran')->insert([
+			'id_users'	=> $id_users,
+			'nama' => $request->nama,
+			'email' => $request->email,
+            'telepon' => $request->telepon,
+			'kritikdansaran' => $request->kritikdansaran,
+		]);
+		return redirect('warga/contact')->with(['success'=>'Data Berhasil Terkirim!']);
+	}
+    public function storekendaraan(Request $request)
+	{
+		$id_users = Auth::guard('user')->user()->id;
+
+		DB::table('kendaraan')->insert([
+			'id_users'	=> $id_users,
+			'nama' => $request->nama,
+			'nopol' => $request->nopol,
+			'tanggal' => date('Y-m-d'),
+			'jeniskendaraan' => $request->jeniskendaraan,
+			'alamat' => $request->alamat,
+			'statuspermohonan' => $request->statuspermohonan,
+		]);
+		return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Terkirim!']);
+	}
+    public function prosespindah(Request $request)
+	{
+		DB::table('pindah')->insert([
+			'nama' => $request->nama,
+			'tanggal' => $request->tanggal,
+            'alamat' => $request->alamat,
+			'alamatpindah' => $request->alamatpindah,
+			'deskripsi' => $request->deskripsi,
+		]);
+		return redirect('warga/index')->with(['success'=>'Data Berhasil Terkirim!']);;
+	
+	}
+    public function prosespengaduan(Request $request)
+	{
+		
+		$id_users = Auth::guard('user')->user()->id;
+		if($request->hasFile('bukti')){
+			$validated = $request->validate([
+				'bukti' => 'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts,jpg,png,jpeg,gif,svg||max:100040|required',
+			 ]);
+			$file = $request->file('bukti');
+			$path = 'upload/pengaduan';
+			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
+			$file->move($path, $namefile);
+		}else{
+			$namefile = null;
+		}
+			$bukti = DB::table('pengaduan')->insert([
+				'id_users'	=> $id_users,
+				'nama' =>  $request->nama,
+				'telepon' =>  $request->telepon,
+				'deskripsi' =>  $request->deskripsi,
+				'tanggal' =>  $request->tanggal,
+				'bukti' => $namefile,
+		]);
+		return redirect('warga/keamanan')->with(['success'=>'Data Berhasil Terkirim!']);
+	}
     public function keuangan()
     { 
         $rt = Auth::guard('user')->user()->rt;
@@ -240,6 +431,11 @@ class PagesController extends Controller
                 ->leftjoin('users','users.id','security.id_users')
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
+                ->get();    
+        $profile = DB::table('profile')
+                ->leftjoin('users','users.id','profile.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
                 ->get();
         $jadwal_ronda = DB::table('jadwal_ronda')
                         ->leftjoin('users','users.id','jadwal_ronda.id_users')
@@ -249,7 +445,7 @@ class PagesController extends Controller
                         
 		$no = 1;
 		return view('warga.keamanan',
-		compact('security','jadwal_ronda','no'));
+		compact('security','jadwal_ronda','profile','no'));
     }
     public function datawarga()
     {
@@ -261,6 +457,33 @@ class PagesController extends Controller
         $data['users'] = DB::table('detail_users')->where('id_users',$id_users)->first();
 
         return view('warga.datawarga',$data);
+    }
+    public function datadiri_update(Request $request)
+    {
+        try{
+            $id_users = Auth::guard('user')->user()->id;
+            $name = $request->name;
+            $email = $request->email;
+            $telpon = $request->telpon;
+
+            // InsertOrUpdate ke Detail Users
+            $cek_detail = DB::table('detail_users')->where('id_users',$id_users)->first();
+            $data = [
+                'id_users'       => $id_users,
+                'name'           => $name,
+                'email'          => $email,
+                'telpom'         => $telpon
+            ];
+            if(!empty($cek_detail)){
+                DB::table('detail_users')->where('id_users',$id_users)->update($data);
+            }else{
+                DB::table('detail_users')->insert($data);
+            } 
+            return redirect()->back()->with(['success'=>'Berhasil Update']);
+        }catch(Exception $e){
+                return redirect()->back()->with(['error'=>'Gagal Update']);
+            }
+
     }
     public function datawarga_update(Request $request)
     {

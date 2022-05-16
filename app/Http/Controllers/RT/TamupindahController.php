@@ -64,18 +64,8 @@ class TamupindahController extends Controller
 		]);
 		return redirect('/')->with(['success'=>'Data Berhasil Terkirim!']);;
 	
-	}public function proses1(Request $request)
-	{
-		DB::table('pindah')->insert([
-			'nama' => $request->nama,
-			'tanggal' => $request->tanggal,
-            'alamat' => $request->alamat,
-			'alamatpindah' => $request->alamatpindah,
-			'deskripsi' => $request->deskripsi,
-		]);
-		return redirect('warga/index')->with(['success'=>'Data Berhasil Terkirim!']);;
-	
 	}
+	
 	public function hapus($id)
 	{
 		DB::table('tamu')->where('id', $id)->delete();

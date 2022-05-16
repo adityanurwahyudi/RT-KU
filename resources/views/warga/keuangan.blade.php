@@ -130,29 +130,7 @@
         </div>
     </div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-7 text-center">
-                    <div class="section-title">
-                        <h2 class="mt-3 content-title">Scan untuk pembayaran kas</h2>
-                    </div>
-                </div>
-            </div>
-                            @foreach($qris as $p)
-            <center>
-                <img src="{{asset('upload/qris/'.$p->gambar)}}" width="200" height="250">
-            </center>
-            <center>
-                            <span class="h6 text-color">Atas Nama:{{ $p->nama }}</span>
-            </center>   
-                                @endforeach
-                                <center>
-            <div class="tengah">
-                <div class="d-grid gap-2 col-6 mx-auto">
-                    <button type="button" onclick="document.getElementById('id02').style.display='block'"
-                        class="btn btn-dark centerr-block">Konfirmasi
-                        Pembayaran</button>
-                </div>
-            </div></center>
+        
         </section>
             <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>
             </script>

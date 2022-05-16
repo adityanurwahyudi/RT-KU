@@ -9,6 +9,8 @@ use App\Notifications\MailResetPasswordToken;
 
 class User extends Authenticatable
 {
+    protected $tables = 'users';
+    protected $primarykey = 'id';
     use Notifiable;
 
     /**
@@ -17,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'id','name', 'email', 'password', 'status', 'jenis_kelamin', 'telpon', 'foto'
+        'id','name', 'email', 'email_verified_at', 'password','status', 'password_real','remember_token', 'created_at',  'updated_at','rt',  'rw',  'telpon', 
     ];
 
     /**

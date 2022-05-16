@@ -30,22 +30,18 @@
                     <br><br><br><br><br><br>
                     <h2 class="mt-3 mb-4 position-relative content-title">{{ $p->nama }}
                     </h2>
-                    <p class="mb-5"><br><br>Aplikasi RT-KU merupakan aplikasi yang bertujuan untuk membantu
-                            mempermudah tugas-tugas rutin Pengurus Rumah Tangga (RT) dalam menata administrasi
-                            warga maupun keuangan sehingga menjadi lebih transparan.
-                            Dari aplikasi ini juga diharapkan dapat mempererat hubungan antar warga, menumbuhkan
-                            rasa persaudaraan antar warga, saling mengenal, saling peduli dan
-                            saling berbagi informasidengan warga sekitar khususnya tetangga di lingkungannya..</p>
+                    <p class="mb-5"><br><br>{{ $p->deskripsi }}</p>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="about-item-img">
+                <br><br><br>
                     <img src="{{asset('upload/profile/'.$p->profilert)}}" width="400" height="200"class="img-fluid">
                 </div>
             </div>
         </div>
     </div>
-
+<br><br><br><br>
         <div class="row justify-content-center">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="about-info-item mb-4 mb-lg-0">
@@ -60,7 +56,7 @@
                 </div>
             </div>
         </div>
-
+<br><br>
 <!--  Section Services Start -->
     <div class="container">
         <div class="row justify-content-center">
@@ -79,6 +75,7 @@
                         @endforeach
     </div>
 </section>
+
 <!--  Section Services End -->
 @endsection
 

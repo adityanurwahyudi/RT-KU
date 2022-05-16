@@ -38,18 +38,17 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <a href="{{ route('admin.rt.datawarga.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
 		        <a href="{{ route('admin.rt.datawarga.cetak_datawarga')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
 		         <br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Nama</th>
-                            <th>NIK</th>
-                            <th>No KK</th>
+                            <th>Nama Warga</th>
                             <th>Email</th>
                             <th>Telepon</th>
+                            <th>NIK</th>
+                            <th>No KK</th>
                             <th>Agama</th>
                             <th>Jenis Kelamin</th>
                             <th>Alamat</th>
@@ -58,20 +57,19 @@
                             <th>Pekerjaan</th>
                             <th>Status Menikah</th>
                             <th>Kewarganegaraan</th>
-                            <th>Foto Profile</th>
                             <th style="width: auto;">Action</th>
                         </tr>
                     </thead>
 <tbody>
 				@php $No=1 @endphp
-                     @foreach($datakependudukan as $p)
+                     @foreach($detail_users as $p)
                         <tr>
                             <td>{{ $No++ }}</td>
-                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->name }}</td>
+                            <td>{{ $p->email }}</td>
+                            <td>{{ $p->telpon }}</td>
                             <td>{{ $p->nik }}</td>
                             <td>{{ $p->nokk }}</td>
-                            <td>{{ $p->email }}</td>
-                            <td>{{ $p->telepon }}</td>
                             <td>{{ $p->agama }}</td>
                             <td>{{ $p->jeniskelamin }}</td>
                             <td>{{ $p->alamat }}</td>
@@ -80,11 +78,8 @@
                             <td>{{ $p->pekerjaan }}</td>
                             <td>{{ $p->statuspernikahan }}</td>
                             <td>{{ $p->kewarganegaraan }}</td>
-                            <td><img width="100" height="100"src="{{asset('upload/datakependudukan/'.$p->fotoprofile)}}"></td>
                             
                             <td>
-
-                                <a title="Edit" href="{{route('admin.rt.datawarga.edit',$p->id)}} " class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
                                 <a title="Delete" href="{{route('admin.rt.datawarga.hapus',$p->id)}} " class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
@@ -103,28 +98,85 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
                     <thead>
                         <tr>
                             <th>No</th>
                             <th>Islam</th>
                             <th>Kristen Protestan</th>
-                            <th>Katholik</th>
+                            <th>Katolik</th>
                             <th>Hindu</th>
                             <th>Budha</th>
                             <th>Kong Hu Cu</th>
                         </tr>
                     </thead>
                     <tbody>
+				@php $i=1 @endphp
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$islam}}</td>
+                            <td>{{$protestan}}</td>
+                            <td>{{$katholik}}</td>
+                            <td>{{$hindu}}</td>
+                            <td>{{$buddha}}</td>
+                            <td>{{$konghucu}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+           Jumlah  Data Warga Berdasarkan Kewarganegaraan
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Warga Negara Indonesia</th>
+                            <th>Warga Negara Asing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				@php $i=1 @endphp
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$WNI}}</td>
+                            <td>{{$WNA}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+           Jumlah  Data Warga Berdasarkan Status Pernikahan
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Menikah</th>
+                            <th>Belum Menikah</th>
+                            <th>Cerai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				@php $i=1 @endphp
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$Menikah}}</td>
+                            <td>{{$BelumMenikah}}</td>
+                            <td>{{$Cerai}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -138,7 +190,6 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="usia-table">
                     <thead>
                         <tr>
@@ -212,7 +263,6 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="jeniskelamin-table">
                     <thead>
                         <tr>

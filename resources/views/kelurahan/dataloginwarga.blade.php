@@ -1,4 +1,4 @@
-@extends('template.backend.main')
+@extends('template.backend.main2')
 
 @section('content')
 <div class="container-fluid px-4">

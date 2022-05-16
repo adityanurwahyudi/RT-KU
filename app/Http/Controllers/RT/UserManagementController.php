@@ -31,26 +31,100 @@ class UserManagementController extends Controller
         $data['kepentingan'] = $kepentingan / 2;
         
 
-        $data['datakependudukan'] = DB::table('datakependudukan')->select('datakependudukan.*')
-                    ->join('users','users.id','datakependudukan.id_users')
+        $data['detail_users'] = DB::table('detail_users')->select('detail_users.*','users.name','users.email','users.telpon')
+                    ->join('users','users.id','detail_users.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
-                    ->whereIn('jeniskelamin',['Laki-laki','Perempuan'])
                     ->get();
-
-        $data['lakilaki'] = DB::table('datakependudukan')->select('datakependudukan.*')
-                    ->join('users','users.id','datakependudukan.id_users')
+    //count jenis kelamin
+        $data['lakilaki'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
                     ->where('jeniskelamin','Laki-laki') 
                     ->count();
-        $data['perempuan'] = DB::table('datakependudukan')->select('datakependudukan.*')
-                    ->join('users','users.id','datakependudukan.id_users')
+        $data['perempuan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
                     ->where('jeniskelamin','Perempuan') 
                     ->count();
-       
+                    // count usia
+        $data['usia'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw)
+                    ->count();
+        //count kewarganegaraan
+        $data['WNI'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNI') 
+                    ->count();
+        $data['WNA'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNA') 
+                    ->count();     
+        //count status pernikahan
+        $data['Menikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Menikah') 
+            ->count();
+        $data['BelumMenikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','BelumMenikah') 
+            ->count();
+         $data['Cerai'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rt',$rt)
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Cerai') 
+            ->count();
+
+        //count agama             
+        $data['islam'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','islam') 
+                    ->count();
+        $data['katholik'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','katholik') 
+                    ->count();
+       $data['protestan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','protestan') 
+                    ->count();
+        $data['hindu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','hindu') 
+                    ->count();
+        $data['buddha'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','buddha') 
+                    ->count();
+        $data['konghucu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('agama','konghucu') 
+                    ->count();
         $data['normalisasi'] = DB::table('hasil_normalisasi')
                     ->join('users','users.id','hasil_normalisasi.id_users')
                     ->where('rt',$rt)
@@ -58,7 +132,6 @@ class UserManagementController extends Controller
                     ->orderBy('rank','DESC') 
                     ->get();
         return view('RT.datawarga',$data);
-        
     }
 
 
@@ -69,7 +142,13 @@ class UserManagementController extends Controller
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no'] = 1;
-        $data['users'] = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',1)->orderBy('id','ASC')->get();
+        $data['No'] = 1;
+        $data['users'] = DB::table('users')
+        ->where('rt',$rt)
+        ->where('rw',$rw)
+        ->where('status',1)
+        ->orderBy('id','ASC')->get();
+        
 
         return view('RT.dataloginwarga', $data);
     }
@@ -81,7 +160,7 @@ class UserManagementController extends Controller
 
     public function dataloginwarga_save(Request $request)
     {
-        try{
+        //try{
             $rt = Auth::guard('admin')->user()->rt;
             $rw = Auth::guard('admin')->user()->rw;
 
@@ -95,12 +174,36 @@ class UserManagementController extends Controller
                 'rw'                => $rw,
                 'status'            => 1
             ];
-            DB::table('users')->insert($data);
+           $users = User::create($data);
+        
+            if($request->hasFile('fotoprofile')){
+				$file = $request->file('fotoprofile');
+				$path = 'upload/detailusers';
+				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
+				$file->move($path, $namefile);
+			}else{
+				$namefile = null;
+			}
+            $data_detail = [
+                'id_users'         => $users->id,
+                'nik'              => $request->nik,
+                'nokk'             => $request->nokk,
+                'agama'            => $request->agama,
+                'alamat'           => $request->alamat,
+                'jeniskelamin'     => $request->jeniskelamin,
+                'kewarganegaraan'  => $request->kewarganegaraan,
+                'pekerjaan'        => $request->pekerjaan,
+                'statuspernikahan' => $request->statuspernikahan,
+				'fotoprofile'      => $namefile,
+                'tanggallahir'     => $request->tanggallahir,
+                'usia'             => $request->usia,
+            ];
+            DB::table('detail_users')->insert($data_detail);
 
             return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
-        }catch(Exception $e){
-            return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
-        }
+        //catch(Exception $e){
+           // return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
+        //}
 
     }
 

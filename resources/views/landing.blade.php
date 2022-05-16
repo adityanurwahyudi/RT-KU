@@ -125,8 +125,7 @@
                             <div class="member-info">
                                 <h4>Warga</h4>
                                 <span>Fitur ini berfungsi untuk pengelolaan data dan penyajian informasi yang terkait
-                                    dengan warga, mulai dari kelahiran, warga tetap, warga pendatang, warga pindah
-                                    alamat, tamu warga, kematian, serta fasilitas-fasilitas lain yang dapat diakses
+                                    dengan warga, warga pendatang, warga pindah alamat, serta fasilitas-fasilitas lain yang dapat diakses
                                     langsung oleh warga.</span>
                             </div>
                         </div>
@@ -136,7 +135,7 @@
                         <div class="member">
                             <div class="member-info">
                                 <h4>Keuangan</h4>
-                                <span>Fitur ini berfungsi untuk mempermudah dan mempercepat proses pencatatan dan
+                                <span>Fitur ini berfungsi untuk mempermudah dan mempercepat proses pelaporan  dan
                                     pengelolaan transaksi - transaksi keuangan yang dikelola oleh Pengurus RT, sehingga
                                     tata kelola administrasi keuangan RT akan lebih tertib, transparan dan tertata
                                     dengan baik.</span>
@@ -148,10 +147,10 @@
                         <div class="member">
                             <div class="member-info">
                                 <h4>Admin</h4>
-                                <span>Fitur ini hanya diperuntukkan bagi Pengurus RT untuk mempersiapkan data-data yang
+                                <span>Fitur ini hanya diperuntukkan bagi Pengurus Desa, RW, dan RT untuk mempersiapkan data-data yang
                                     diperlukan, monitoring data, modifikasi data, setting dan konfigurasi, sehingga
                                     mempermudah proses pendataan dan penyajian informasi akan menjadi valid dan selalu
-                                    uptodate.</span>
+                                    up to date.</span>
                             </div>
                         </div>
                     </div>
@@ -160,7 +159,7 @@
                         <div class="member">
                             <div class="member-info">
                                 <h4>Informasi</h4>
-                                <span>Fitur ini merupakan fasilias untuk mendapatkan informasi - informasi yang sangat
+                                <span>Fitur ini merupakan fasilitas untuk mendapatkan informasi - informasi yang sangat
                                     berguna dan bermanfaat baik bagi warga, pengurus RT maupun bagi pihak-pihak lain
                                     yang membutuhkan. Informasi dapat diakses secara mudah setiap saat dan kapanpun dan
                                     dimanapun anda berada.</span>
@@ -190,10 +189,8 @@
                             <h4><a href="">Administratif</a></h4>
                             <p>Fitur Warga merupakan pendataan administrasi kependudukan yang terkait langsung dengan
                                 warga.</p>
-                            <p>Pendataan Tamu Warga, Pendataan Kendaraan Warga,Surat Keterangan dan Pengantar,Agenda
-                                dan galery,Pendataan warga meninggal dunia,
-                                Jadwal Ronda,Kritik dan saran,Pendataan warga dan upload foto,Struktur Organisasi
-                                .</p>
+                            <p>Pendataan warga, tamu warga, warga pindah, surat menyurat , agenda, kegiatan, gallery, laporan keuangan, pembuatan jadwal ronda, kritik saran, pengaduan atau pelaporan, permohonan kartu akses kendaraan, 
+                                dll.</p>
                         </div>
                     </div>
 
@@ -202,8 +199,7 @@
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-file"></i></div>
                             <h4><a href="">Monitoring</a></h4>
-                            <p>RW dapat melakukan monitoring data dan mendapatkan berbagai informasi dari semua RT
-                                dilingkungannya.</p>
+                            <p>Desa dan RW dapat melakukan monitoring data warga dilingkungannya.</p>
                         </div>
                     </div>
 
@@ -212,8 +208,7 @@
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-tachometer"></i></div>
                             <h4><a href="">Keuangan</a></h4>
-                            <p>Fitur Kas RT, merupakan fitur pengelolaan data terkait dengan keuangan (penerimaan dan
-                                pengeluaran kas).</p>
+                            <p> Keuangan merupakan fitur untuk RT dapat mengelola laporan pemasukan dan pengeluaran pada kas RT.</p>
                         </div>
                     </div>
 
@@ -222,7 +217,7 @@
                         <div class="icon-box">
                             <div class="icon"><i class="bx bx-world"></i></div>
                             <h4><a href="">Agenda</a></h4>
-                            <p>RT dapat mencatat semua agenda kegiatannya, menambahkan galery yang dapat diakses semua
+                            <p>RT dapat mencatat semua agenda kegiatannya, menambahkan galery meliputi foto dan video dokumentasi kegiatan yang dapat diakses semua
                                 warga.</p>
                         </div>
                     </div>
@@ -350,7 +345,7 @@
                         <div class="info-box mb-4">
                             <i class="bx bx-map"></i>
                             <h3>Our Address</h3>
-                            <p>Griya Alam Sentul A8/5 Kecamatan Babakan Madang</p>
+                            <p>Jl. Palm Hill No.107, Kadumangu, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810</p>
                         </div>
                     </div>
 
@@ -358,7 +353,7 @@
                         <div class="info-box  mb-4">
                             <i class="bx bx-envelope"></i>
                             <h3>Email Us</h3>
-                            <p>dityakayaa221@gmail.com</p>
+                            <p>sekretariatdesakadumanggu@gmail.com</p>
                         </div>
                     </div>
 
@@ -366,7 +361,7 @@
                         <div class="info-box  mb-4">
                             <i class="bx bx-phone-call"></i>
                             <h3>Call Us</h3>
-                            <p>0877-2235-0785</p>
+                            <p>021-87952146</p>
                         </div>
                     </div>
 
@@ -375,9 +370,9 @@
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
 
                     <div class="col-lg-6 ">
-
+                    
                         <iframe class="mb-4 mb-lg-0"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d990.9324369724593!2d106.86087982918471!3d-6.555761699703653!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c6d9b0b6e9a9%3A0x478b3e0b1eca9d20!2sKadumangu%2C%20Babakan%20Madang%2C%20Bogor%20Regency%2C%20West%20Java%2016810!5e0!3m2!1sen!2sid!4v1646812789458!5m2!1sen!2sid"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d253712.6492526185!2d106.71239820723446!3d-6.488706114702405!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c12da61d9c2f%3A0xccddbc04b7a0ffbc!2sKantor%20Ds.%20Kadumanggu!5e0!3m2!1sid!2sid!4v1651731559470!5m2!1sid!2sid"
                             frameborder="0" style="border:0; width: 100%; height: 384px;" allowfullscreen></iframe>
                     </div>
 

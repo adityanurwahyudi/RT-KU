@@ -58,43 +58,6 @@
         </div>
     </div>
     
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Tabel gambar QRIS
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <a href="{{route('admin.rt.qris.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Add</a>
-                <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="dua">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Nama</th>
-                            <th>Gambar QRIS</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                     @foreach($qris as $p)
-                        <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $p->nama }}</td>
-                            <td><img width="100" height="100"src="{{asset('upload/qris/'.$p->gambar)}}"></td>
-                            <td>
-
-                                <a title="Delete" href="{{route('admin.rt.qris.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
 </div>
 @endsection
 

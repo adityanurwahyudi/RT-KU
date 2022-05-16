@@ -1,5 +1,4 @@
 @extends('template.backend.main')
-
 @section('content')
 <div class="container-fluid px-4">
     <h1 class="mt-4">Profile RT</h1>
@@ -18,7 +17,7 @@
             <div class="table-responsive">
                 <a href="{{route('admin.rt.profile.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
                 <br><br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
+                <table  class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -40,13 +39,13 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $p->nama }}</td>
                             <td>{{ $p->tanggal }}</td>
-                            <td>{{ $p->deskripsi }}</td>
+                            <td style="word-wrap: break-word">{{ $p->deskripsi }}</td>
                             <td><img width="100" height="100"src="{{asset('upload/profile/'.$p->profilert)}}"></td>
                             <td><img width="100" height="100"src="{{asset('upload/profile/'.$p->strukturorganisasi)}}"></td>
                             <td>{{ $p->alamat }}</td>
                             <td>{{ $p->email }}</td>
                             <td>{{ $p->telepon }}</td>
-                            <td>{{ $p->urlmap }}</td>
+                            <td style="word-wrap: break-word">{{ $p->urlmap }}</td>
                             <td>
 
                                 <a title="Edit" href="{{route('admin.rt.profile.edit',$p->id)}}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>

@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers\RW;
 
-use Illuminate\View\View;
-use App\Models\Kehadiran;;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,16 +17,117 @@ class DataKependudukannController extends Controller
     {
         $this->middleware('auth');
     }
-
-    public function datawarga()
+    public function datatable()
     {
-        $No = 1;
-        
-		$datakependudukan = DB::table('datakependudukan')->get();   
+        $rt = $_GET['rt'];
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
 
-		return view('RW.datawarga',
-		compact('datakependudukan','No'));
+        $rt = DB::table('detail_users')->select('detail_users.*','users.name')
+                ->join('users','users.id','detail_users.id_users')
+                ->where('rt', $rt)
+                ->orderBy('rt','ASC')
+                ->get();
+
+        return $rt;
     }
+    public function datawarga()
+    { 
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
+
+        $data['no_normalisasi'] = 1;
+        $data['no_rank'] = 1;
+        
+
+        $data['rt'] = DB::table('users')->select('rt')
+                ->whereNotNull('rt')
+                ->groupBy('rt')
+                ->get();
+
+        $kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
+        $data['kepentingan'] = $kepentingan / 2;
+        
+
+        $data['detail_users'] = DB::table('detail_users')->select('detail_users.*','users.name','users.email','users.telpon')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->get();
+    //count jenis kelamin
+        $data['lakilaki'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Laki-laki') 
+                    ->count();
+        $data['perempuan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('jeniskelamin','Perempuan') 
+                    ->count();
+        //count kewarganegaraan
+        $data['WNI'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNI') 
+                    ->count();
+        $data['WNA'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('kewarganegaraan','WNA') 
+                    ->count();
+                    
+        //count status pernikahan
+        $data['Menikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Menikah') 
+            ->count();
+        $data['BelumMenikah'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','BelumMenikah') 
+            ->count();
+         $data['Cerai'] = DB::table('detail_users')->select('detail_users.*')
+            ->join('users','users.id','detail_users.id_users')
+            ->where('rw',$rw) 
+            ->where('statuspernikahan','Cerai') 
+            ->count();
+
+        //count agama             
+        $data['islam'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','islam') 
+                    ->count();
+        $data['katholik'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','katholik') 
+                    ->count();
+       $data['protestan'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','protestan') 
+                    ->count();
+        $data['hindu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','hindu') 
+                    ->count();
+        $data['buddha'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','buddha') 
+                    ->count();
+        $data['konghucu'] = DB::table('detail_users')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rw',$rw) 
+                    ->where('agama','konghucu') 
+                    ->count();
+        return view('RW.datawarga',$data);
+    }
+
+
 	public function cetak_datawarga()
     {
     	$datakependudukan = DB::table('datakependudukan')->get ();

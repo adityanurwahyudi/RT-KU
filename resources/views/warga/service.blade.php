@@ -5,89 +5,6 @@
 @endsection
 
 @section('content')
-<!-- Form Surat Domisili -->
-<div id="id02" class="modal">
-                    <form class="modal-content animate" action="/action_page.php" method="post">
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('id02').style.display='none'" class="close"
-                                title="Close Modal">&times;</span>
-                            <img src="/loginform/images/admin.png" alt="Avatar" class="avatar">
-                        </div>
-                        <div class="container">
-                            <label for="nama"><b>Nama</b></label>
-                            <input id="nama" type="text" name="nama" required>
-
-                            <label for="nik"><b>NIK</b></label>
-                            <input id="nik" type="text" name="nik" required>
-
-                            <label for="agama"><b>Agama</b></label>
-                            <input id="agama" type="text" name="agama" required>
-
-                            <label for="tempattanggallahir"><b>Tempat/Tanggal Lahir</b></label>
-                            <input id="tempattanggallahir" type="text" name="tempattanggallahir" required>
-
-                            <label>Jenis Kelamin</label>
-                            <select id="jeniskelamin" class="form-control" name="jeniskelamin">
-                                <option value="lakilaki">Laki-Laki</option>
-                                <option value="perempuan">Perempuan</option>
-                            </select><br>
-
-                            <label for="pekerjaan"><b>Pekerjaan</b></label>
-                            <input id="pekerjaan" type="text" name="pekerjaan" required>
-
-                            <label for="alamat"><b>Alamat Domisili</b></label>
-                            <input id="alamat" type="text" name="alamat" required>
-                            <button type="submit">Kirim</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- Surat Keterangan Kematian -->
-                <div id="id03" class="modal">
-                    <form class="modal-content animate" action="/action_page.php" method="post">
-                        <div class="imgcontainer">
-                            <span onclick="document.getElementById('id03').style.display='none'" class="close"
-                                title="Close Modal">&times;</span>
-                            <img src="/loginform/images/admin.png" alt="Avatar" class="avatar">
-                        </div>
-                        <div class="container">
-                            <label for="nama"><b>Nama</b></label>
-                            <input id="nama" type="text" name="nama" required>
-
-                            <label for="tempatlahir"><b>Tempat Lahir</b></label><br>
-                            <input id="tempatlahir" type="text" name=" tempatlahir" required>
-
-                            <label for="tanggallahir"><b>Tanggal Lahir</b></label>
-                            <input id="tanggallahir" type="date" name="tanggallahir" required><br>
-
-                            <label for="pekerjaan"><b>Pekerjaan</b></label>
-                            <input id="pekerjaan" type="text" name="pekerjaan" required>
-
-                            <label for="agama"><b>Agama</b></label>
-                            <input id="agama" type="text" name="agama" required>
-
-                            <label for="alamat"><b>Alamat</b></label>
-                            <input id="alamat" type="text" name="alamat" required>
-
-                            <label for="hari"><b>Hari</b></label>
-                            <input id="hari" type="text" name="hari" required>
-
-                            <label for="tanggalmeninggal"><b>Tanggal Meninggal</b></label><br>
-                            <input id="tanggalmeninggal" type="date" name="tanggalmeninggal" required><br>
-                            <br>
-
-                            <label for="pukul"><b>Pukul</b></label>
-                            <input id="pukul" type="text" name="pukul" required>
-                            <br>
-                            <label for="tempat"><b>Tempat</b></label>
-                            <input id="tempat" type="text" name="tempat" required>
-
-                            <label for="makam"><b>Dimakamkan Di</b></label>
-                            <input id="makam" type="text" name="makam" required>
-
-                            <button type="submit">Kirim</button>
-                        </div>
-                    </form>
-                </div>
     <section class="page-title bg-surat">
         <div class="container">
             <div class="row">
@@ -136,12 +53,12 @@
                                                     resmi seorang pendatang yang bertempat tinggal di daerah tertentu.
                                                     Surat domisili dapat berupa selembar kertas yang di dalamnya tercantum
                                                     data kependudukan seseorang seperti dalam KTP
-                                                </p>
-                                                <button type='button'
+                                                </p><center>                                          
+                                                 <button type='button'
                                                     data-toggle="modal" data-target="#modal-domisili"
                                                     class='btn btn-primary center-block'>
                                                     Ajukan Surat
-                                                </button>
+                                                </button></center>     
                                             </div>
                                         </div>
                                     </div>
@@ -152,17 +69,18 @@
                                                 alt="Sunset Over the Sea" />
                                             <div class="card-body">
                                                 <center>
-                                                    <h5 class="card-title">Card title</h5>
+                                                    <h5 class="card-title">Surat Pengantar</h5>
                                                 </center>
                                                 <p class="card-text">
-                                                    Some quick example text to build on the card title and make
-                                                    up the bulk
-                                                    of the card's content.
-                                                </p><button type='button'
-                                                    onclick="document.getElementById('id03').style.display='block'"
+                                                Surat pengantar dari ketua RT merupakan salah satu jenis surat yang sering kita jumpai dalam kehidupan sehari-hari. Biasanya pembuatan surat pengantar dimaksudkan sebagai bentuk kesopanan dalam proses administrasi baik untuk kebutuhan pribadi, lembaga, atau perusahaan.
+                                                </p>
+                                                <center>
+                                                <button type='button'
+                                                    data-toggle="modal" data-target="#modal-pengantar"
                                                     class='btn btn-primary center-block'>
                                                     Ajukan Surat
                                                 </button>
+                                                </center>
                                             </div>
                                         </div>
                                     </div>
@@ -173,17 +91,18 @@
                                                 alt="Sunset over the Sea" />
                                             <div class="card-body">
                                                 <center>
-                                                    <h5 class="card-title">Card title</h5>
+                                                    <h5 class="card-title">Surat Keterangan Kematian</h5>
                                                 </center>
                                                 <p class="card-text">
-                                                    Some quick example text to build on the card title and make
-                                                    up the bulk
-                                                    of the card's content.
-                                                </p><button type='button'
-                                                    onclick="document.getElementById('id04').style.display='block'"
+                                                Surat keterangan kematian berfungsi sebagai dokumen untuk menetapkan status seseorang, apakah itu janda atau duda terutama bagi pegawai negeri sipil. Hal ini nantinya akan digunakan sebagai syarat jika ingin menikah kembali.
+                                                </p>
+                                                <center>
+                                                <button type='button'
+                                                    data-toggle="modal" data-target="#modal-kematian"
                                                     class='btn btn-primary center-block'>
                                                     Ajukan Surat
                                                 </button>
+                                                </center>
                                             </div>
                                         </div>
                                     </div>
@@ -248,15 +167,15 @@
                                 </td>
                                 <td>
                                     @if($val->status==0)
-                                        <button type="button" class="btn btn-danger btn-round-full float-lg-right" onclick="kirim('{{$val->id}}')">KIRIM</button>
-                                        <button type="button" class="btn btn-primary btn-round-full float-lg-right" onclick="edit(this)" data-item="{{json_encode($val)}}">EDIT</button>
+                                        <button type="button" class="btn btn-danger btn-round-full " onclick="kirim('{{$val->id}}')"><i class="fa fa-file" aria-hidden="true"></i> Kirim</button>
+                                        <button type="button" class="btn btn-primary btn-round-full " onclick="edit(this)" data-item="{{json_encode($val)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button>
                                     @elseif($val->status==1)
                                         <button type="button" class="btn btn-primary" onclick="view(this)" data-item="{{json_encode($val)}}">VIEW</button>
                                     @elseif($val->status==2)
-                                        <button type="button" class="btn btn-danger" onclick="kirim('{{$val->id}}')">KIRIM</button>
-                                        <button type="button" class="btn btn-danger" onclick="edit(this)" data-item="{{json_encode($val)}}">EDIT</button>
+                                        <button type="button" class="btn btn-danger" onclick="kirim('{{$val->id}}')"><i class="fa fa-file" aria-hidden="true"></i> Kirim</button>
+                                        <button type="button" class="btn btn-danger" onclick="edit(this)" data-item="{{json_encode($val)}}"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button>
                                     @else
-                                        <a href="{{route('warga.cetak_domisili', $val->id)}}" target="_blank" class="btn btn-warning">CETAK</a>
+                                        <a href="{{route('warga.cetak_domisili', $val->id)}}" target="_blank" class="btn btn-warning btn-round-full"><i class="fa fa-file" aria-hidden="true"></i> CETAK</a>
                                     @endif
                                 </td>
                             </tr>
@@ -282,8 +201,82 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" maxlength="100" class="form-control" id="nama" name="nama" placeholder="Masukan Nama" required>
+                            <label color="#000000" for="nama">Nama Lengkap</label>
+                            <input type="text" maxlength="100" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="pekerjaan">Pekerjaan</label>
+                            <input type="text" maxlength="100" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="agama">Agama</label>
+                            <select  class="form-control" id="agama" name="agama" for="agama">
+                        <option value="Islam">Islam</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="jenis_kelamin">Jenis Kelamin</label>
+                            <p><input type='radio' name='jenis_kelamin' value='Laki-Laki' />Laki-laki</p>
+                            <p><input type='radio' name='jenis_kelamin' value='Perempuan' />Perempuan</p>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" maxlength="255" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label color="#000000" for="alamat">Alamat</label>
+                            <input type="text" maxlength="255" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Pengantar -->
+    <div class="modal fade" id="modal-pengantar" role="dialog" style="z-index:1500" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Surat Pengantar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formTambahSurat" action="{{ route('warga.tambah_pengantar') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" maxlength="100" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan">Pekerjaan</label>
+                            <input type="text" maxlength="100" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                        </div>
+                        <div class="form-group"> 
+                        <label color="#000000" for="agama">Agama</label>
+                            <select  class="form-control" id="agama" name="agama" for="agama">
+                        <option value="Islam">Islam</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                          </select>
                         </div>
                         <div class="form-group">
                             <label for="tempat_lahir">Tempat Lahir</label>
@@ -294,8 +287,101 @@
                             <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
                         </div>
                         <div class="form-group">
-                            <label for="agama">Agama</label>
-                            <input type="text" maxlength="20" class="form-control" name="agama" id="agama" placeholder="Masukan Agama" required>
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <p><input type='radio' name='jenis_kelamin' value='Laki-Laki' />Laki-laki</p>
+                            <p><input type='radio' name='jenis_kelamin' value='Perempuan' />Perempuan</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="keperluan">Keperluan</label>
+                            <input type="text" class="form-control" id="keperluan" name="keperluan" placeholder="Dipergunakan untukk" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+     <!-- Modal Kematian -->
+     <div class="modal fade" id="modal-kematian" role="dialog" style="z-index:1500" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Surat Keterangan Kematian</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formTambahSurat" action="{{ route('warga.tambah_kematian') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                    <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" maxlength="100" minlength="3" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                        </div> 
+                        <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <p><input type='radio' name='jenis_kelamin' value='Laki-Laki' />Laki-laki</p>
+                            <p><input type='radio' name='jenis_kelamin' value='Perempuan' />Perempuan</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" maxlength="255" minlength="5" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan">Pekerjaan</label>
+                            <input type="text" maxlength="100" minlength="5" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                        </div>
+                        <div class="form-group">
+                        <label color="#000000" for="agama">Agama</label>
+                            <select  class="form-control" id="agama" name="agama" for="agama">
+                        <option value="Islam">Islam</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" maxlength="100" minlength="15" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
+                        </div>
+                        <br>
+            <p>Telah Meninggal Dunia Pada:. </p>
+                        <div class="form-group">
+                       <font color="#000000">Hari  :</font><br>
+                          <select  required class="form-control" id="hari" name="hari" for="hari">
+                        <option value="senin">Senin</option>
+                        <option value="selasa">Selasa</option>
+                        <option value="rabu">Rabu</option>
+                        <option value="kamis">Kamis</option>
+                        <option value="jumat">Jumat</option>
+                        <option value="sabut">Sabtu</option>
+                        <option value="minggu">Minggu</option>
+                          </select>
+                        </div>  
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="text" class="form-control" id="tanggal" name="tanggal" placeholder="Masukan Tanggal Kematian" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="usia">Usia</label>
+                            <input type="number" maxlength="100"  class="form-control" id="usia" name="usia" placeholder="Masukan Usia " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyebab">Penyebab Kematian</label>
+                            <input type="text" maxlength="100" minlength="5" class="form-control" name="penyebab" id="penyebab" placeholder="Penyebab Kematian" required>
                         </div>
                     </div>
                     <div class="modal-footer">

@@ -167,25 +167,6 @@
 </section>
 
 
-<!-- Section About End -->
-<!--  Section Services Start -->
-<section class="section service border-top">
-</section>
-<!--  Section Services End -->
-<!-- Section Cta Start -->
-<section class="section cta">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-5">
-                <div class="cta-item  bg-white p-5 rounded">
-                    <span class="h6 text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
-                    <h3><i class="ti-mobile mr-3 text-color"></i>0877-2235-0785</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 @endsection
 

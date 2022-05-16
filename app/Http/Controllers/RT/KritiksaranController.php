@@ -25,19 +25,7 @@ class KritiksaranController extends Controller
 		return view('RT.kritiksaran',
 		compact('kritiksaran', 'no'));
 	}
-	public function store(Request $request)
-	{
-		$id_users = Auth::guard('admin')->user()->id;
-
-		DB::table('kritiksaran')->insert([
-			'id_users'	=> $id_users,
-			'nama' => $request->nama,
-			'email' => $request->email,
-            'telepon' => $request->telepon,
-			'kritikdansaran' => $request->kritikdansaran,
-		]);
-		return redirect('warga/contact')->with(['success'=>'Data Berhasil Terkirim!']);
-	}
+	
 	public function hapus($id)
 	{
 		DB::table('kritiksaran')->where('id', $id)->delete();

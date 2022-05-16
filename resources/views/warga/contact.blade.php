@@ -23,7 +23,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                        <form action="{{ route('admin.rt.kritiksaran.store') }}"  method="post" enctype="multipart/form-data">
+                        <form action="{{ route('warga.storekritiksaran') }}"  method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                     <!-- form message -->
                         <div class="row">
@@ -52,12 +52,15 @@
                             <textarea id="kritikdansaran" name="kritikdansaran" class="form-control" rows="4"
                                 placeholder="Kritik dan Saran "></textarea>
                         </div>
-                        <button class="btn btn-main" name="submit" type="submit">Kirim</button>
+                        <center>
+                        <button class="btn btn-main" name="submit" type="submit"> <i class="fa fa-save"></i>    Kirim</button>
+                        </center>
                     </form>
                 </div>
 
                 <div class="col-lg-5 col-sm-12">
                     <div class="contact-content pl-lg-5 mt-5 mt-lg-0">
+                    @foreach($profile as $p)
                         <center>
                             <h2 class="mb-5 mt-2">Hubungi Kami</h2>
                         </center>
@@ -65,24 +68,28 @@
                         <!--Google map-->
                         <div id="map-container-google-8" class="z-depth-1-half map-container-5" style="height: 350px">
                             <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d589.2122306812672!2d106.86157012434987!3d-6.555526114359381!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c74b5a8e24bb%3A0xffff055db8281c5e!2sBude%20Frozen%20Store!5e0!3m2!1sen!2sid!4v1646805800646!5m2!1sen!2sid"
+                                src="{{ $p->urlmap }}"
                                 width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
                         <!--/.Card content-->
-
+                        @endforeach
                     </div>
                     <br>
+                    <center>
                     <ul class="address-block list-unstyled center">
+                        
+                    @foreach($profile as $p)
                         <li>
-                            <i class="ti-direction mr-3"></i>Griya Alam Sentul A8/5
+                            <i class="ti-direction mr-3"></i>{{ $p->alamat }}
                         </li>
                         <li>
-                            <i class="ti-email mr-3"></i>Email: RT01GriyaAlam@gmail.com
+                            <i class="ti-email mr-3"></i>Email: {{ $p->email }}
                         </li>
                         <li>
-                            <i class="ti-mobile mr-3"></i>Phone:+6277-2235-0785
+                            <i class="ti-mobile mr-3"></i>Phone:{{ $p->telepon }}
                         </li>
-                    </ul>
+                        @endforeach
+                    </ul></center>
                 </div>
             </div>
         </div>

@@ -24,21 +24,7 @@ class KendaraanController extends Controller
 		return view('RT.kendaraan',
 		compact('kendaraan', 'no'));
 	}
-	public function store(Request $request)
-	{
-		$id_users = Auth::guard('admin')->user()->id;
-
-		DB::table('kendaraan')->insert([
-			'id_users'	=> $id_users,
-			'nama' => $request->nama,
-			'nopol' => $request->nopol,
-			'tanggal' => date('Y-m-d'),
-			'jeniskendaraan' => $request->jeniskendaraan,
-			'alamat' => $request->alamat,
-			'statuspermohonan' => $request->statuspermohonan,
-		]);
-		return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Terkirim!']);
-	}
+	
 	public function edit($id)
 	{
 		$kendaraan = DB::table('kendaraan')->where('id', $id)->get();

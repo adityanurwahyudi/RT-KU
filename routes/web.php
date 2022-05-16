@@ -99,8 +99,6 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/kegiatan/edit1/{id}', 'BeritadankegiatanController@edit1')->name('kegiatan.edit1');
 
         //datakependudukanwarga
-
-        Route::post('/datawarga/proses', 'DataKependudukanController@proses')->name('datawarga.proses');
         Route::get('/datawarga/cetak_datawarga', 'DataKependudukanController@cetak_datawarga')->name('datawarga.cetak_datawarga');
         Route::get('/datawarga/cetak_datawargatidakmampu', 'DataKependudukanController@cetak_datawargatidakmampu')->name('datawarga.cetak_datawargatidakmampu');;
         
@@ -115,7 +113,6 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/tamu/cetak_tamu', 'TamupindahController@cetak_tamu')->name('tamu.cetak_tamu');
         Route::post('/tamu/proses', 'TamupindahController@proses')->name('tamu.proses');
         Route::get('/tamu/hapus/{id}', 'TamupindahController@hapus')->name('tamu.hapus');
-         Route::post('/pidah/proses1', 'TamupindahController@proses1')->name('pindah.proses1');
          Route::get('/pindah/cetak_pindah', 'TamupindahController@cetak_pindah')->name('pindah.cetak_pindah');
         Route::get('/pindah/hapus/{id}', 'TamupindahController@hapus')->name('pindah.hapus');
 
@@ -179,20 +176,17 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         // Akses Kendaraan
         Route::get('/kendaraan', 'KendaraanController@index')->name('kendaraan');
         Route::get('/kendaraan/cetak_kendaraan', 'KendaraanController@cetak_kendaraan')->name('kendaraan.cetak_kendaraan');
-        Route::post('/kendaraan/proses', 'KendaraanController@proses')->name('kendaraan.proses');
         Route::get('/kendaraan/hapus/{id}', 'KendaraanController@hapus')->name('kendaraan.hapus');
         Route::post('/kendaraan/update', 'KendaraanController@update')->name('kendaraan.update');
         Route::get('/kendaraan/edit/{id}', 'KendaraanController@edit')->name('kendaraan.edit');
 
         // kritidansaran
         Route::get('/kritiksaran', 'KritiksaranController@index')->name('kritiksaran');
-        Route::post('/kritiksaran/store', 'KritiksaranController@store')->name('kritiksaran.store');
         Route::get('/kritiksaran/hapus/{id}', 'KritiksaranController@hapus')->name('kritiksaran.hapus');
    
         //pengaduan
         Route::get('/pengaduan', 'PengaduanController@index')->name('pengaduan');
         Route::get('/pengaduan/cetak_pengaduan', 'PengaduanController@cetak_pengaduan')->name('pengaduan.cetak_pengaduan');
-        Route::post('/pengaduan/proses', 'PengaduanController@proses')->name('pengaduan.proses');
         Route::get('/pengaduan/hapus/{id}', 'PengaduanController@hapus')->name('pengaduan.hapus');
         
         // kendaraan
@@ -219,6 +213,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
         Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
+        
+        Route::get('/rt/datatable', 'DataKependudukanController@datatable')->name('rt.datatable');
     
     
         Route::get('datawarga', 'DataKependudukannController@datawarga')->name('datawarga');
@@ -262,10 +258,22 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/galeri', 'PagesController@galeri')->name('galeri');
     Route::get('/contact', 'PagesController@contact')->name('contact');
     Route::get('/service', 'PagesController@service')->name('service');
+   // surat domisili
     Route::post('/service/domisili/tambah', 'PagesController@tambah_domisili')->name('tambah_domisili');
     Route::post('/service/domisili/edit', 'PagesController@edit_domisili')->name('edit_domisili');
     Route::get('/service/domisili/kirim/{id}', 'PagesController@kirim_domisili')->name('kirim_domisili');
     Route::get('/service/domisili/cetak/{id}', 'PagesController@cetak_domisili')->name('cetak_domisili');
+   // surat pengantar
+    Route::post('/service/pengantar/tambah', 'PagesController@tambah_pengantar')->name('tambah_pengantar');
+    Route::post('/service/pengantar/edit', 'PagesController@edit_pengantar')->name('edit_pengantar');
+    Route::get('/service/pengantar/kirim/{id}', 'PagesController@kirim_pengantar')->name('kirim_pengantar');
+    Route::get('/service/pengantar/cetak/{id}', 'PagesController@cetak_pengantar')->name('cetak_pengantar');
+    // surat keterangan kematian
+    Route::post('/service/kematian/tambah', 'PagesController@tambah_kematian')->name('tambah_kematian');
+    Route::post('/service/kematian/edit', 'PagesController@edit_kematian')->name('edit_kematian');
+    Route::get('/service/kematian/kirim/{id}', 'PagesController@kirim_kematian')->name('kirim_kematian');
+    Route::get('/service/kematian/cetak/{id}', 'PagesController@cetak_kematian')->name('cetak_kematian');
+    
     Route::get('/kegiatan', 'PagesController@kegiatan')->name('kegiatan');
     Route::get('/video', 'PagesController@video')->name('video');
     Route::get('/keuangan', 'PagesController@keuangan')->name('keuangan');
@@ -276,5 +284,14 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/pindah', 'PagesController@pindah')->name('pindah');
     Route::get('/profil', 'PagesController@profil')->name('profil');
     Route::post('/profil/update', 'PagesController@profil_update')->name('profil_update');
+
+    
+
+    Route::post('/datawarga/prosesdatawarga', 'PagesController@prosesdatawarga')->name('prosesdatawarga');
+    Route::post('/datawarga/prosespindah', 'PagesController@prosespindah')->name('prosespindah');
+    Route::post('/datawarga/akun', 'PagesController@akun')->name('akun');
+    Route::post('/kendaraan/storekendaraan', 'PagesController@storekendaraan')->name('storekendaraan');
+    Route::post('/kritiksaran/storekritiksaran', 'PagesController@storekritiksaran')->name('storekritiksaran');
+    Route::post('/pengaduan/prosespengaduan', 'PagesController@prosespengaduan')->name('prosespengaduan');
 });
 

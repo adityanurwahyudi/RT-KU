@@ -45,23 +45,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                     @foreach($datakependudukan as $p)
+				@php $i=1 @endphp
+                     @foreach($detail_users as $p)
                         <tr>
-                            <td>{{ $No++ }}</td>
-                            <td>{{ $p->nama }}</td>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $p->name }}</td>
                             <td>{{ $p->alamat }}</td>
-                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->telpon }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-    <div class="card mb-4">
+    </div><div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-           Tabel Data Warga Berdasarkan Agama
+           Jumlah  Data Warga Berdasarkan Agama
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -71,21 +71,50 @@
                             <th>No</th>
                             <th>Islam</th>
                             <th>Kristen Protestan</th>
-                            <th>Katholik</th>
+                            <th>Katolik</th>
                             <th>Hindu</th>
                             <th>Budha</th>
                             <th>Kong Hu Cu</th>
                         </tr>
                     </thead>
                     <tbody>
+				@php $i=1 @endphp
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$islam}}</td>
+                            <td>{{$protestan}}</td>
+                            <td>{{$katholik}}</td>
+                            <td>{{$hindu}}</td>
+                            <td>{{$buddha}}</td>
+                            <td>{{$konghucu}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+           Jumlah  Data Warga Berdasarkan Kewarganegaraan
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Warga Negara Indonesia</th>
+                            <th>Warga Negara Asing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				@php $i=1 @endphp
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$WNI}}</td>
+                            <td>{{$WNA}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,7 +124,36 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Tabel Data Warga Berdasarkan Usia
+           Jumlah  Data Warga Berdasarkan Status Pernikahan
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Menikah</th>
+                            <th>Belum Menikah</th>
+                            <th>Cerai</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				@php $i=1 @endphp
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$Menikah}}</td>
+                            <td>{{$Belum_Menikah}}</td>
+                            <td>{{$Cerai}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Jumlah Data Warga Berdasarkan Usia
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -124,11 +182,11 @@
             </div>
         </div>
     </div>
-   
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-           Tabel Data Warga Berdasarkan Jenis Kelamin
+            Jumlah Data Warga Berdasarkan Jenis Kelamin
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -141,27 +199,20 @@
                         </tr>
                     </thead>
                     <tbody>
+				@php $i=1 @endphp
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $i++ }}</td>
+                            <td>{{$lakilaki}}</td>
+                            <td>{{$perempuan}}</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-</section>
-<div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7 text-center">
-                <div class="section-title">
-                    <span class="h6 text-color">Tabel Pemohon Kartu Akses Warga</span>
-                </div>
-            </div>
-        </div>
+</div>
 
-       
+<div class="container">
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -183,8 +234,9 @@
                     </thead>
                     <tbody>
                      @foreach($kendaraan as $p)
+				@php $i=1 @endphp
                         <tr>
-                            <td>{{ $no++ }}</td>
+                            <td>{{ $i++ }}</td>
                             <td>{{ $p->nama }}</td>
                             <td>{{ $p->nopol }}</td>
                             <td>{{ $p->jeniskendaraan }}</td>
@@ -200,6 +252,7 @@
         </div>
     </div>
     </div>
+</section>
 <!--  Section Services Start -->
     <div class="container">
         <div class="row justify-content-center">

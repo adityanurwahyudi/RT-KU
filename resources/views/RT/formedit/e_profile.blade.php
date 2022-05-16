@@ -44,32 +44,8 @@
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal Lahir</label>
                                     <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}" disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="tanggal" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="tanggal" name="tanggal"  required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="profilert" class="form-label">Foto Profile RT</label>
-                                    <input type="text" class="form-control" id="profilert" name="profilert" value="{{ $p->profilert }}"
-                                        disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="profilert" class="form-label">Foto Profile RT</label>
-                                    <input type="file" class="form-control" id="profilert" name="profilert" 
-                                        required>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="strukturorganisasi" class="form-label">Struktur Organisasi</label>
-                                    <input type="text" class="form-control" id="strukturorganisasi" name="strukturorganisasi" 
-                                    value="{{ $p->strukturorganisasi }}" disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="strukturorganisasi" class="form-label">Struktur Organisasi</label>
-                                    <input type="file" class="form-control" id="strukturorganisasi" name="strukturorganisasi" 
-                                        required>
-                                </div>
-                                <div class="mb-3">
+                                </div>                              
+                                  <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat</label>
                                     <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" required>
                                 </div>

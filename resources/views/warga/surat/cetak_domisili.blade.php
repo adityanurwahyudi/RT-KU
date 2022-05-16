@@ -57,10 +57,9 @@
 <body>
     <!-- <body> -->
     <center>
-        <span style="font-size: 15px;"><b>PEMERINTAHAN PROVINSI DAERAH KHUSUS IBU KOTA JAKARTA</b></span><br>
-        <span style="font-size: 17px;"><b>RUKUN TETANGGA RT {{ $ttd->rt }} RW {{ $ttd->rw }}</b></span><br>
-        <span style="font-size: 17px;"><b>KELURAHAN CIRACAS, KECAMATAN CIRACAS</b></span><br>
-        <span style="font-size: 14px;">Jalan Centex Gg. Epatik II Dalam, RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }}, Ciracas</span>
+        <span style="font-size: 17px;"><b>PEMERINTAH KABUPATEN BOGOR</b></span><br>
+        <span style="font-size: 17px;"><b>DESA KADUMANGGU, KECAMATAN BABAKAN MADANG</b></span><br>
+        <span style="font-size: 17px;"><b> RT {{ $ttd->rt }} RW {{ $ttd->rw }}</b></span><br>
     </center>
     <br>
     <hr style="border:1px solid #000;">
@@ -78,8 +77,7 @@
     <br>
     <table border="0" style="width: 100%;">
         <span>
-            Yang bertanda tangan dibawah ini Pengurus RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }} Kelurahan Ciracas, Kecamatan Ciracas, Jakarta
-            Timur dengan ini menerangkan :
+            Yang bertanda tangan dibawah ini Pengurus RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }} Desa Kadumanggu, Kecamatan Babakan Madang, Kabupaten Bogor, Menerangkan Bahwa :
         </span>
     </table>
     <br><br>

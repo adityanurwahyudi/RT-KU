@@ -131,7 +131,7 @@
             <div class="col-lg-6 text-center">
                 <nav class="navigation pagination d-inline-block">
                     <div class="nav-links">
-                        {{ $foto->links() }}
+                    {{ $foto->links() }}
                     </div>
                 </nav>
             </div>

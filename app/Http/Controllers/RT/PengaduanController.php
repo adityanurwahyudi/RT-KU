@@ -41,31 +41,7 @@ class PengaduanController extends Controller
     	$pdf = PDF::loadview('RT.laporan.cetak_pengaduan',['pengaduan'=>$pengaduan]);
     	return $pdf->stream();
     }
-	public function proses(Request $request)
-	{
-		
-		$id_users = Auth::guard('admin')->user()->id;
-		if($request->hasFile('bukti')){
-			$validated = $request->validate([
-				'bukti' => 'mimes:mpeg,ogg,mp4,webm,3gp,mov,flv,avi,wmv,ts,jpg,png,jpeg,gif,svg||max:100040|required',
-			 ]);
-			$file = $request->file('bukti');
-			$path = 'upload/pengaduan';
-			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-			$file->move($path, $namefile);
-		}else{
-			$namefile = null;
-		}
-			$bukti = DB::table('pengaduan')->insert([
-				'id_users'	=> $id_users,
-				'nama' =>  $request->nama,
-				'telepon' =>  $request->telepon,
-				'deskripsi' =>  $request->deskripsi,
-				'tanggal' =>  $request->tanggal,
-				'bukti' => $namefile,
-		]);
-		return redirect('warga/keamanan')->with(['success'=>'Data Berhasil Terkirim!']);
-	}
+	
 	public function hapus($id)
 	{
 		DB::table('pengaduan')->where('id', $id)->delete();

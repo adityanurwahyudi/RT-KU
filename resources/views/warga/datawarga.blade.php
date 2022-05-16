@@ -24,7 +24,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12">
-                        <form action="{{ route('admin.rt.kendaraan.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('warga.storekendaraan') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                             <center>
                                 <h3 class="text-md mb-4">Form Kartu Akses Kendaraan</h3>
@@ -123,74 +123,64 @@
 
         <div class="row justify-content-center">
         <div class="col-lg-6 col-md-12 col-sm-12">
-        <form action="{{ route('admin.rt.datawarga.proses') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('warga.prosesdatawarga') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
-                        <div class="form-group">
-                           <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Lengkap">
+                       <div class="form-group">
+                       <font color="#000000">NIK </font><br>
+                           <input required id="nik" name="nik" type="number"  class="form-control"placeholder="Nomor Induk Kependudukan" >
+                              
                        </div>
                        <div class="form-group">
-                           <input id="nik" name="nik" type="tel"  class="form-control"
-                               placeholder="Nomor Induk Kependudukan">
+                       <font color="#000000">Kewarganegaraan </font><br>
+                        
+                        <input type="radio" name="kewarganegaraan" value="WNI">Warga Negara Indonesia
+                        <input type="radio" name="kewarganegaraan" value="WNA">Warga Negara Asing
+                        </div> 
+                      
+                       <div class="form-group">
+                       <font color="#000000">No Kartu Keluarga</font><br>
+                           <input required for="nokk" id="nokk" name="nokk" type="number" class="form-control" placeholder="Nomor Kartu Keluarga">
                        </div>
                        <div class="form-group">
-                           <input for="nokk" id="nokk" name="nokk" type="tel" class="form-control" placeholder="Nomor Kartu Keluarga">
-                       </div>
-                       <font color="#000000">Kewarganegaraan    : </font>
-                          <input type="radio" id="kewarganegaraan" name="kewarganegaraan" value="WNI"/> Warga Negara Indonesia
-                          <input type="radio" id="kewarganegaraan"  name="kewarganegaraan" value="WNA"/> Warga Negara Asing
-                        <br> 
+                       <font color="#000000">Jenis Kelamin </font><br>
+                        <input type="radio" name="jeniskelamin" value="Laki-laki">Laki-Laki
+                        <input type="radio" name="jeniskelamin" value="Perempuan">Perempuan
+                        </div>
                        <div class="form-group">
-                           <input id="email" name="email" type="email" class="form-control"
-                               placeholder="Alamat E-mail">
-                       </div>
-                       <font color="#000000">Status Menikah  : </font>
-                          <input type="radio" id="statuspernikahan" name="statuspernikahan" value="Menikah"/> Menikah
-                          <input type="radio" id="statuspernikahan"  name="statuspernikahan" value="Belum Menikah"/> Belum Menikah
-                          <input type="radio" id="statuspernikahan"  name="statuspernikahan" value="cerai"/> Cerai
-                        <br> 
-                       <div class="form-group">
-                           <input id="telepon" name="telepon" type="tel" class="form-control"
-                               placeholder="Nomer Handphone">
-                       </div>
-                       <font color="#000000">Jenis Kelamin  :</font>
-                          <input type="radio" id="jeniskelamin" name="jeniskelamin" value="Laki-laki"/> Laki-laki
-                          <input type="radio" id="jeniskelamin"  name="jeniskelamin" value="Perempuan"/> Perempuan
-                        <br>
-                       <div class="form-group">
+                       <font color="#000000">Pekerjaan :</font><br>
                            <input id="pekerjaan" name="pekerjaan" type="text" class="form-control"
-                               placeholder="Pekerjaan">
+                               placeholder="Pekerjaan" required>
                        </div>
                        <div class="form-group">
-                       <font color="#000000">Tanggal Lahir  :</font>
-                           <input id="tanggallahir" name="tanggallahir" type="date" class="form-control"
-                               placeholder="tanggal lahir">
-                               
+                       <font color="#000000">Tanggal Lahir </font>
+                           <input id="tanggallahir" name="tanggallahir" type="date" class="form-control"placeholder="tanggal lahir">
                             </div>
                             <div class="form-group">
                            <input id="usia" name="usia" type="tel" class="form-control"
                                placeholder="Usia" readonly>
                        </div>
                        <div class="form-group">
-                       <font color="#000000">Agama  :</font><br>
-                          <select id="agama" name="agama" for="agama">
+                       <font color="#000000">Status </font><br>
+                          <select  class="form-control" id="statuspernikahan" name="statuspernikahan" for="statuspernikahan">
+                        <option value="Menikah">Menikah</option>
+                        <option value="Belum_Menikah">Belum Menikah</option>
+                        <option value="Cerai">Cerai</optionv>
+                          </select> 
+                        </div>
+                       <div class="form-group">
+                       <font color="#000000">Agama  </font><br>
+                          <select  class="form-control" id="agama" name="agama" for="agama">
                         <option value="islam">Islam</option>
                         <option value="protestan">Protestan</option>
                         <option value="katholik">Khatolik</optionv>
                         <option value="buddha">Buddha</option>
                         <option value="khonghucu">Khonghucu</option>
                           </select>
-                       
-                        </div><br>   
-                       
-                       <div class="form-group">
-                           
-                       <font color="#000000">Foto Diri  :</font><br>
-                           <input id="fotoprofile" name="fotoprofile" type="file" class="form-control"
-                               placeholder="Foto Diri">
-                       </div>
+                        </div> 
                            <div class="form-group-2 mb-4">
+                       <font color="#000000">Alamat </font><br>
                                <textarea id="alamat" name="alamat" class="form-control" rows="4"
-                                   placeholder="Alamat"></textarea>
+                                   placeholder="Alamat" required></textarea>
                            </div>
                            
                         <center>

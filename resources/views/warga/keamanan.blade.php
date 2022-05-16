@@ -84,7 +84,7 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $p->tanggal }}</td>
-                                <td>{{ $p->id_users }}</td>
+                                <td>{{ $p->name }}</td>
                             </tr>
                                 @endforeach
                         </tbody>
@@ -95,7 +95,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="lapor col-lg-6 col-md-12 col-sm-12 center">
-                <form action="{{route('admin.rt.pengaduan.proses') }}"  method="post" enctype="multipart/form-data">
+                <form action="{{route('warga.prosespengaduan') }}"  method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}    
                         <!-- form message -->
                         <div class="row">
@@ -130,8 +130,10 @@
                         <div class="form-group-2 mb-4">
                             <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"
                                 placeholder="Keterangan Pengaduan dan Laporan" required></textarea>
-                        </div>
-                        <button class="btn btn-main" name="submit" type="submit">Kirim</button>
+                        </div> 
+                        <center>
+                        <button class="btn btn-main" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>      Kirim</button>
+                        </center>
                     </form>
                 </div>
             </div>
@@ -145,8 +147,10 @@
                     <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
                 </div>
                 <div class="col-lg-4">
-                    <a href="tel:+6287722350785" class="btn btn-main btn-round-full float-lg-right ">Hubungi
+                     @foreach($profile as $p)
+                    <a href="tel:+{{ $p->telepon }}" class="btn btn-main btn-round-full float-lg-right ">Hubungi
                         Kami</a>
+                        @endforeach
                 </div>
             </div>
         </div>

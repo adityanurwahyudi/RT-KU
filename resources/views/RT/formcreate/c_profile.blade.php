@@ -33,7 +33,7 @@
                                  <div class="form-group-2 mb-4">
                                     <label for="deskripsi" class="form-label">Deskripsi Singkat</label>
                                 <textarea id="deskripsi" name="deskripsi" class="form-control" rows="4"
-                                    placeholder="Deskripsi"></textarea>
+                                    placeholder="Deskripsi" required></textarea>
                             </div>
                                 
                                 <div class="mb-3">
@@ -57,8 +57,9 @@
                                     <input type="tel" class="form-control" id="telepon" name="telepon" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="urlmap" class="form-label">URL Lokasi Map</label>
-                                    <input type="text" class="form-control" id="urlmap" name="urlmap" required>
+                                    <label for="urlmap" class="form-label">URL Lokasi Maps</label>
+                                    <textarea id="urlmap" name="urlmap" class="form-control" rows="4"
+                                    placeholder="URL Lokasi Maps" required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />

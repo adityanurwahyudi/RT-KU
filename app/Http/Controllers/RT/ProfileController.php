@@ -73,32 +73,16 @@ public function proses(Request $request)
 		$id_users = Auth::guard('admin')->user()->id;
 
 		$profile = DB::table('profile')->where('id',$request->id)->first();
-		if($request->hasFile('profilert'))
-		if($request->hasFile('strukturorganisasi'))
-		{
-			$file = $request->file('profilert');
-			$file = $request->file('strukturorganisasi');
-			$path = 'upload/profile';
-			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-			$namefile1 = uniqid().'.'.$file->getClientOriginalExtension();
-			$file->move($path, $namefile);
-			$file->move($path, $namefile1);
-		}else{
-			$namefile = $profile->profilert;
-			$namefile1 = $profile->strukturorganisasi;
-		}
+		
 			  
 		$profilert = DB::table('profile')->where('id', $request->id)->update([
 				'id_users'	=> $id_users,
 				'nama' =>  $request->nama,
 				'deskripsi' =>  $request->deskripsi,
-				'profilert' => $namefile,
-				'strukturorganisasi' => $namefile1,
 				'email' =>  $request->email,
 				'alamat' =>  $request->alamat,
 				'telepon' =>  $request->telepon,
 				'urlmap' =>  $request->urlmap,
-				'status' =>  $request->status,
 			
 		]);
 		return redirect('RT/profile')->with(['success'=>'Data Berhasil Diupdate!']);;

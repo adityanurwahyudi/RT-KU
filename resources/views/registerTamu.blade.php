@@ -53,7 +53,7 @@
 
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="telepon"class="form-outline flex-fill mb-0">
-                                                        <input type="tel" id="telepon" name="telepon"
+                                                        <input type="number" id="telepon" name="telepon"
                                                             placeholder="Nomor Telepon" class="form-control"
                                                             minlength="10" maxlength="20" required />
                                                     </div>
@@ -81,9 +81,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center mb-4">
-                                                    <div for="status"class="form-outline flex-fill mb-0">
+                                                    <div >
                                                         <label >Status Tinggal:</label>
-                                                        <select name="tinggal" id="tinggal">
+                                                        <select for="status" class="form-outline flex-fill mb-0" name="tinggal" id="tinggal">
                                                             <option value="sementara">Sementara</option>
                                                             <option value="menetap">Menetap</option>
                                                         </select>

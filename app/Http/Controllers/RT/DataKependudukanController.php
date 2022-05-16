@@ -53,16 +53,7 @@ class DataKependudukanController extends Controller
 	{
 			$id_users = Auth::guard('admin')->user()->id;
 	
-			if($request->hasFile('fotoprofile')){
-				$file = $request->file('fotoprofile');
-				$path = 'upload/datakependudukan';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-			}else{
-				$namefile = null;
-			}
-			
-			DB::table('datakependudukan')->insert([
+			DB::table('detail_users')->insert([
 				'id_users'	=> $id_users,
 				'nama' =>  $request->nama,
 				'nik' =>  $request->nik,
@@ -77,7 +68,6 @@ class DataKependudukanController extends Controller
 				'kewarganegaraan' =>  $request->kewarganegaraan,
 				'pekerjaan' =>  $request->pekerjaan,
                 'statuspernikahan'	=> $request->statuspernikahan,
-				'fotoprofile' => $namefile,
 			]);
 		
 			return redirect('RT/data-warga')->with(['success'=>'Data Berhasil Ditambahkan!']);
@@ -87,7 +77,7 @@ class DataKependudukanController extends Controller
 	public function edit($id)
 	{
 		$datakependudukan = DB::table('datakependudukan')->where('id', $id)->get();
-		return view('RT.formedit.e_datakependudukan', ['datakependudukan' => $datakependudukan]);
+		return view('RT.formedit.e_datawarga', ['datakependudukan' => $datakependudukan]);
 	}
 	public function cetak_datawarga()
     {
@@ -126,17 +116,10 @@ class DataKependudukanController extends Controller
 	{
 		$id_users = Auth::guard('admin')->user()->id;
 
-		$datakependudukan = DB::table('datakependudukan')->where('id',$request->id)->first();
-		if($request->hasFile('fotoprofile')){
-			$file = $request->file('fotoprofile');
-			$path = 'upload/datakependudukan';
-			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-			$file->move($path, $namefile);
-		}else{
-			$namefile = $datakependudukan->fotoprofile;
-		}
+		$detail_users = DB::table('detail_users')->where('id',$request->id)->first();
+		
 			  
-		$fotoprofile = DB::table('datakependudukan')->where('id', $request->id)->update([
+		$fotoprofile = DB::table('detail_users')->where('id', $request->id)->update([
 			'id_users'	=> $id_users,
 			'nama' =>  $request->nama,
 			'nik' =>  $request->nik,
@@ -151,7 +134,6 @@ class DataKependudukanController extends Controller
 			'kewarganegaraan' =>  $request->kewarganegaraan,
 			'pekerjaan' =>  $request->pekerjaan,
 			'statuspernikahan'	=> $request->statuspernikahan,
-			'fotoprofile' => $namefile,
 	]);
 		return redirect('RT/data-warga')->with(['success'=>'Data Berhasil Diupdate!']);;
 	}

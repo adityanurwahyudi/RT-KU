@@ -47,6 +47,47 @@
     </a>
 </div>
 
+    <!-- Modal Pindah -->
+    <div class="modal fade" id="modal-Pindah" role="dialog" style="z-index:1500" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Surat Pindah</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form class="modal-content animate" action="{{ route('warga.prosespindah') }}" method="post">
+                {{ csrf_field() }}    
+                <div class="imgcontainer">
+                        <img src="{{asset('/loginform/images/pindah.jpg')}}" alt="Avatar" class="avatar">
+                    </div>
+
+                    <div class="container">
+                        <label for="nama"><b>Nama Lengkap</b></label>
+                        <input id="nama" type="text" placeholder="Nama Lengkap" name="nama" required>
+
+                        <label for="tanggal"><b>Tanggal</b></label><br>
+                        <input id="tanggal" type="date" placeholder="Tanggal" class="form-control" name="tanggal" required>
+                        <br>
+                        <label for="alamat"><b>Alamat</b></label>
+                        <input id="alamat" type="text" placeholder="Alamat Terkini" name="alamat" required>
+
+                        <label for="alamatpindah"><b>Alamat Pindah</b></label>
+                        <input id="alamatpindah" type="text" placeholder="Alamat Pindah" name="alamatpindah" required>
+
+                        <label for="deskripsi"><b>Keterangan Pindah</b></label>
+                        <input id="deskripsi" type="text" placeholder="deskripsi Pindah" name="deskripsi" required>
+
+                        <center>
+                        <button class="btn btn-main" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>      Kirim</button>
+                        </center>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 <!-- Header Start -->
 <header class="navigation">
     <nav class="navbar navbar-expand-lg" id="navbar">
@@ -62,7 +103,7 @@
             <!-- Button to open the modal login form -->
             <div id="id01" class="modal">
 
-                <form class="modal-content animate" action="{{ route('admin.rt.pindah.proses1') }}" method="post">
+                <form class="modal-content animate" action="{{ route('warga.prosespindah') }}" method="post">
                 {{ csrf_field() }}    
                 <div class="imgcontainer">
                         <span onclick="document.getElementById('id01').style.display='none'" class="close"
@@ -75,7 +116,7 @@
                         <input id="nama" type="text" placeholder="Nama Lengkap" name="nama" required>
 
                         <label for="tanggal"><b>Tanggal</b></label><br>
-                        <input id="tanggal" type="date" placeholder="Tanggal" name="tanggal" required>
+                        <input id="tanggal" type="date" placeholder="Tanggal" class="form-control" name="tanggal" required>
                         <br>
                         <label for="alamat"><b>Alamat</b></label>
                         <input id="alamat" type="text" placeholder="Alamat Terkini" name="alamat" required>
@@ -86,8 +127,35 @@
                         <label for="deskripsi"><b>Keterangan Pindah</b></label>
                         <input id="deskripsi" type="text" placeholder="deskripsi Pindah" name="deskripsi" required>
 
-                        <button type="submit">pindah</button>
+                        <center>
+                        <button class="btn btn-main" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>    
+                          Kirim</button>
+                        </center>
+                    </div>
+                </form>
+            </div>
+            <div id="id02" class="modal">
 
+                <form class="modal-content animate" action="{{ route('warga.akun') }}" method="post">
+                {{ csrf_field() }}    
+                <div class="imgcontainer">
+                        <span onclick="document.getElementById('id02').style.display='none'" class="close"
+                            title="Close Modal">&times;</span>
+                        <img src="{{asset('/loginform/images/akun.png')}}" alt="Avatar" class="avatar">
+                    </div>
+
+                    <div class="container">
+                        <label for="nama"><b>Nama Lengkap</b></label>
+                        <input id="nama" type="text" placeholder="Nama Lengkap" value="" name="nama" readonly>
+                        
+                        <label for="email"><b>Email</b></label>
+                        <input id="email" type="text" placeholder="Email" value="" name="email" >
+
+                        <label for="password"><b>Password</b></label>
+                        <input id="password" type="text" placeholder="Password" value="" name="password" > 
+                        <center>
+                        <button class="btn btn-main" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>      Kirim</button>
+                        </center>
                     </div>
                 </form>
             </div>
@@ -116,6 +184,8 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown06">
+                            <li><a class="dropdown-item"  onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Ubah Akun</a></li>
+                            <li><a class="dropdown-item"  data-toggle="modal" data-target="#modal-pindah" onclick="document.getElementById('id01').style.display='block'" style="width:auto;" >Pindah</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.profil') }}">Ubah Password</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.datawarga') }}">Formulir</a></li>
                             <li onclick="event.preventDefault();document.getElementById('logout').submit();"><a class="dropdown-item" href="#">Logout</a></li>
@@ -125,13 +195,6 @@
                         </ul>
                     </li>
                 </ul>
-
-                <form class="form-lg-inline my-2 my-md-0 ml-lg-4 text-center">
-                    <a class="btn btn-solid-border btn-round-full"
-                        onclick="document.getElementById('id01').style.display='block'" style="width:auto;">
-                        Pindah</button></a>
-
-                </form>
             </div>
         </div>
     </nav>

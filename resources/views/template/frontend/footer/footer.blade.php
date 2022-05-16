@@ -28,7 +28,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="widget">
                     <h4 class="text-capitalize mb-4">Alamat</h4>
-                    <p>Griya Alam Sentul A8/5 Kecamatan Babakan Madang</p>
+                    <p>Jl. Palm Hill No.107, Kadumangu, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810</p>
                 </div>
             </div>
 
@@ -37,8 +37,8 @@
                     <div class="logo mb-4">
                         <h3>Hubungi Kami</h3>
                     </div>
-                    <h6><a href="tel:+23-345-67890">RT01Griya@gmail.com</a></h6>
-                    <a href="mailto:support@gmail.com"><span class="text-color h4">+6277-2235-0785</span></a>
+                    <h6><a href="mailto:sekretariatdesakadumanggu@gmail.com?subject=RT-KU%20&body=Saya%20Warga%20Aplikasi%20RT-KU%20" >sekretariatdesakadumanggu@gmail.com</a></h6>
+                    <a href="tel:+021-87952146"><span class="text-color h4">021-87952146</span></a>
                 </div>
             </div>
         </div>
