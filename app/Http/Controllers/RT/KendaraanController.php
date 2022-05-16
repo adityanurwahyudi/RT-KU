@@ -21,6 +21,11 @@ class KendaraanController extends Controller
 				->where('users.rt', $rt)
 				->get();
 		$no = 1;
+
+		if(isset($_GET['id_notif'])){
+            DB::table('notification')->where('id',$_GET['id_notif'])->update(['is_read'=>true]);
+        }
+
 		return view('RT.kendaraan',
 		compact('kendaraan', 'no'));
 	}

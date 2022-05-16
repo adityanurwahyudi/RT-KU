@@ -246,28 +246,7 @@ class PagesController extends Controller
         $rt = Auth::guard('user')->user()->rt;
         $rw = Auth::guard('user')->user()->rw;
         $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
-        $notif = [
-            'url'           => url('/RT/surat'),
-            'deskripsi'     => 'Pengajuan Surat Domisili',
-            'id_pengirim'   => $id_users,
-            'id_penerima'   => $penerima->id,
-            'created_at'    => date('Y-m-d H:i:s'),
-            'is_read'       => false
-        ];
-        DB::table('notification')->insert($notif);
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
-        );
-        $pusher = new Pusher\Pusher(
-            'dc54755d5048301338f6',
-            'e1ce7abf10d456b68339',
-            '1403900',
-            $options
-        );
-    
-        $data['message'] = 'hello world';
-        $pusher->trigger('my-channel', 'my-event', $data);
+        PushNotification('/RT/surat','Pengajuan Surat Domisili',$id_users,$penerima->id);
         // End Notification
         
         return redirect()->back()->with(['success'=>'Data Kirim']);
@@ -364,6 +343,14 @@ class PagesController extends Controller
 			'alamat' => $request->alamat,
 			'statuspermohonan' => $request->statuspermohonan,
 		]);
+
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/kendaraan','Permohonan Kartu Akses Kendaraan',$id_users,$penerima->id);
+        // End Notification
 		return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Terkirim!']);
 	}
     public function prosespindah(Request $request)
@@ -401,6 +388,14 @@ class PagesController extends Controller
 				'tanggal' =>  $request->tanggal,
 				'bukti' => $namefile,
 		]);
+
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/pengaduan','Pengaduan / Pelaporan',$id_users,$penerima->id);
+        // End Notification
 		return redirect('warga/keamanan')->with(['success'=>'Data Berhasil Terkirim!']);
 	}
     public function keuangan()

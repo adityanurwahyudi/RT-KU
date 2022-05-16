@@ -21,7 +21,157 @@ class DashboardAdminController extends Controller
     {
         date_default_timezone_set("Asia/Bangkok");
         $data['user'] = Auth::user();
+        $data['rw'] = DB::table('users')->select('rw')->whereNotNull('rw')->groupBy('rw')->get();
+        $data['rt'] = DB::table('users')->select('rt')->whereNotNull('rt')->groupBy('rt')->get();
         
         return view('kelurahan.dashboard_admin', $data);
+    }
+
+    public function getJenisKelamin()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $data['laki'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('jeniskelamin','Laki-laki')
+                    ->count();
+        $data['perempuan'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('jeniskelamin','Perempuan')
+                    ->count();
+
+        echo json_encode($data);
+    }
+
+    public function getAgama()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $data['islam'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','islam')->count();
+        $data['protestan'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','protestan')->count();
+        $data['katholik'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','katholik')->count();
+        $data['buddha'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','buddha')->count();
+        $data['khonghucu'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','khonghucu')->count();
+
+        echo json_encode($data);
+    }
+
+    public function getKewarganegaraan()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $data['wni'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('kewarganegaraan','WNI')
+                    ->count();
+        $data['wna'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('kewarganegaraan','WNA')
+                    ->count();
+
+        echo json_encode($data);
+    }
+
+    public function getPerkawinan()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $data['menikah'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('statuspernikahan','Menikah')
+                    ->count();
+        $data['belum'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('statuspernikahan','Belum_Menikah')
+                    ->count();
+
+        $data['cerai'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->where('statuspernikahan','Cerai')
+                    ->count();
+
+        echo json_encode($data);
     }
 }

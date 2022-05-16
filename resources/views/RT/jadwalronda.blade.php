@@ -22,6 +22,7 @@
                 </div>
                 <div class="col-md-2">
                     <select class="form-control" name="filter_tanggal" id="filter_tanggal">
+                        <option value="">Semua</option>
                         @foreach ($jadwal as $val)
                         <option value="{{ $val->tanggal }}">{{ $val->tanggal }}</option>
                         @endforeach
@@ -109,24 +110,33 @@
 
     function sendEmail(){
         var tgl = $('#filter_tanggal').val();
-        Swal.fire({
-            icon: 'question',
-            title: 'Ingin Mengirim Jadwal via Email?',
-            showCancelButton: true,
-            cancelButtonText: "Batal",
-            confirmButtonText: "Kirim",
-        }).then(function(result) {
-            if(result.value){
-                window.location.href = "{{ URL::to('/RT/jadwal-ronda/mail-send')}}"+'/'+tgl;
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    text: "Batal Kirim",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            }
-        })
+        if(tgl != ""){
+            Swal.fire({
+                icon: 'question',
+                title: 'Ingin Mengirim Jadwal via Email?',
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                confirmButtonText: "Kirim",
+            }).then(function(result) {
+                if(result.value){
+                    window.location.href = "{{ URL::to('/RT/jadwal-ronda/mail-send')}}"+'/'+tgl;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Kirim",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+        }else{
+            Swal.fire({
+                icon: 'info',
+                text: "Silahkan Pilih Tanggal",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
     }
 </script>
 @endsection
