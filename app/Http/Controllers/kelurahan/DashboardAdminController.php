@@ -33,6 +33,8 @@ class DashboardAdminController extends Controller
         $rt = $_GET['rt'];
         $data['laki'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -43,6 +45,8 @@ class DashboardAdminController extends Controller
                     ->count();
         $data['perempuan'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -61,6 +65,8 @@ class DashboardAdminController extends Controller
         $rt = $_GET['rt'];
         $data['islam'] = DB::table('users')
                         ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
                         ->when($rw, function($q, $rw){
                             $q->where('users.rw', $rw);
                         })
@@ -70,6 +76,8 @@ class DashboardAdminController extends Controller
                         ->where('agama','islam')->count();
         $data['protestan'] = DB::table('users')
                         ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
                         ->when($rw, function($q, $rw){
                             $q->where('users.rw', $rw);
                         })
@@ -79,6 +87,8 @@ class DashboardAdminController extends Controller
                         ->where('agama','protestan')->count();
         $data['katholik'] = DB::table('users')
                         ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
                         ->when($rw, function($q, $rw){
                             $q->where('users.rw', $rw);
                         })
@@ -88,6 +98,8 @@ class DashboardAdminController extends Controller
                         ->where('agama','katholik')->count();
         $data['buddha'] = DB::table('users')
                         ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
                         ->when($rw, function($q, $rw){
                             $q->where('users.rw', $rw);
                         })
@@ -97,6 +109,8 @@ class DashboardAdminController extends Controller
                         ->where('agama','buddha')->count();
         $data['khonghucu'] = DB::table('users')
                         ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
                         ->when($rw, function($q, $rw){
                             $q->where('users.rw', $rw);
                         })
@@ -114,6 +128,8 @@ class DashboardAdminController extends Controller
         $rt = $_GET['rt'];
         $data['wni'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -124,6 +140,8 @@ class DashboardAdminController extends Controller
                     ->count();
         $data['wna'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -142,6 +160,8 @@ class DashboardAdminController extends Controller
         $rt = $_GET['rt'];
         $data['menikah'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -152,6 +172,8 @@ class DashboardAdminController extends Controller
                     ->count();
         $data['belum'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -163,6 +185,8 @@ class DashboardAdminController extends Controller
 
         $data['cerai'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
                     ->when($rw, function($q, $rw){
                         $q->where('users.rw', $rw);
                     })
@@ -171,6 +195,25 @@ class DashboardAdminController extends Controller
                     })
                     ->where('statuspernikahan','Cerai')
                     ->count();
+
+        echo json_encode($data);
+    }
+
+    public function getTable()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $data = DB::table('users')->select('users.*','detail_users.jeniskelamin','detail_users.agama')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
 
         echo json_encode($data);
     }

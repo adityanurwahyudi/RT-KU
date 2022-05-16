@@ -240,6 +240,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/dashboard-kelurahan/agama', 'DashboardAdminController@getAgama')->name('getAgama');
         Route::get('/dashboard-kelurahan/kewarganegaraan', 'DashboardAdminController@getKewarganegaraan')->name('getKewarganegaraan');
         Route::get('/dashboard-kelurahan/perkawinan', 'DashboardAdminController@getPerkawinan')->name('getPerkawinan');
+        Route::get('/dashboard-kelurahan/table', 'DashboardAdminController@getTable')->name('getTable');
 
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');

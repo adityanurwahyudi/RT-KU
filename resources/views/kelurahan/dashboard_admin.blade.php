@@ -116,6 +116,31 @@
             </div>
         </div>
     </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Data Warga
+        </div>
+        <div class="card-body">
+            <table id="datatable-users" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>RT</th>
+                        <th>RW</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 @endsection
 
@@ -127,12 +152,14 @@
         defaultKewarganegaraan();
         defaultPerkawinan();
         defaultColumnChart();
+        setTable();
 
         $('.filterData').change(function(){
             defaultJenisKelamin();
             defaultAgama();
             defaultKewarganegaraan();
             defaultPerkawinan();
+            setTable();
         })
     })
 
@@ -297,6 +324,32 @@
                     ['CERAI', data.cerai]
                 ]
             }]
+        });
+    }
+
+    function setTable()
+    {
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/table') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+            $.each(data, function(i ,val){
+                var no = i + 1;
+                html += '<tr>';
+                    html += '<td>'+no+'</td>';
+                    html += '<td>'+val.name+'</td>';
+                    html += '<td>'+val.email+'</td>';
+                    html += '<td>'+val.rt+'</td>';
+                    html += '<td>'+val.rw+'</td>';
+                    html += '<td>'+val.jeniskelamin+'</td>';
+                    html += '<td>'+val.agama+'</td>';
+                html += '</tr>';
+            })
+
+            $('#datatable-users tbody').html(html);
+            $('#datatable-users').DataTable();
         });
     }
 
