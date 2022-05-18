@@ -1,7 +1,14 @@
 @extends('template.frontend.main')
 
 @section('css')
-
+<style>
+    .maps1{ 
+    overflow: hidden;
+    /* padding-bottom: 56.25%; */
+    position: relative;
+    height: 0;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -60,19 +67,17 @@
 
                 <div class="col-lg-5 col-sm-12">
                     <div class="contact-content pl-lg-5 mt-5 mt-lg-0">
-                    @foreach($profile as $p)
                         <center>
                             <h2 class="mb-5 mt-2">Hubungi Kami</h2>
                         </center>
                         <!--Card content-->
                         <!--Google map-->
-                        <div id="map-container-google-8" class="z-depth-1-half map-container-5" style="height: 350px">
+                        <div id="map-container-google-8" class="maps1" style="height: 350px">
                             <iframe
-                                src="{{ $p->urlmap }}"
-                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                                src="{{ $userrt->urlmap }}"
+                                width="600" height="450" style="border:0;" allowfullscreen loading="lazy"></iframe>
                         </div>
                         <!--/.Card content-->
-                        @endforeach
                     </div>
                     <br>
                     <center>

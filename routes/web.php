@@ -281,13 +281,14 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/keamanan', 'PagesController@keamanan')->name('keamanan');
     Route::get('/data-warga', 'PagesController@datawarga')->name('datawarga');
     Route::post('/data-warga/update', 'PagesController@datawarga_update')->name('datawarga_update');
+    Route::post('/data-diri/update', 'PagesController@datadiri_update')->name('datadiri_update');
     Route::get('/pindah', 'PagesController@pindah')->name('pindah');
     Route::get('/profil', 'PagesController@profil')->name('profil');
     Route::post('/profil/update', 'PagesController@profil_update')->name('profil_update');
+    Route::post('/profil/updatert', 'PagesController@rt_update')->name('rt_update');
+    Route::post('/profil/updaterw', 'PagesController@rw_update')->name('rw_update');
 
     
-
-    Route::post('/datawarga/prosesdatawarga', 'PagesController@prosesdatawarga')->name('prosesdatawarga');
     Route::post('/datawarga/prosespindah', 'PagesController@prosespindah')->name('prosespindah');
     Route::post('/datawarga/akun', 'PagesController@akun')->name('akun');
     Route::post('/kendaraan/storekendaraan', 'PagesController@storekendaraan')->name('storekendaraan');

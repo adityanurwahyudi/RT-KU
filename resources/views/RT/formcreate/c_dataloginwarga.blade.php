@@ -28,7 +28,12 @@
                     <label for="nama" class="form-label">Nama Warga</label>
                     <input type="text" class="form-control" id="nama" name="nama" required>
                 </div>
-                
+                <div class="mb-3">
+                    <label for="jeniskelamin" class="form-label">Jenis Kelamin</label><br>
+                    <input id="jeniskelamin" type="radio" name="jeniskelamin" value="Laki-laki" required />Laki-laki
+                    <input id="jeniskelamin" type="radio" name="jeniskelamin" value="Perempuan" />Perempuan
+                <br/>    
+                </div>
                 <div class="mb-3">
                     <label for="nik" class="form-label">Nomor Induk Kependudukan </label>
                     <input type="number" class="form-control" id="nik" name="nik" >
@@ -67,12 +72,6 @@
                 <div class="form-group-2 mb-4">
                     <label for="alamat" class="form-label">Alamat </label>
                     <textarea id="alamat" name="alamat" class="form-control" rows="4" placeholder="Alamat"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="jeniskelamin" class="form-label">Jenis Kelamin</label><br>
-                    <input id="jeniskelamin" type="radio" name="jeniskelamin" value="Laki-laki"/>Laki-laki
-                    <input id="jeniskelamin" type="radio" name="jeniskelamin" value="Perempuan"/>Perempuan
-                <br/>    
                 </div>
                 <div class="mb-3">
                     <label for="pekerjaan" class="form-label">Pekerjaan</label>

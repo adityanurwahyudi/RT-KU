@@ -31,6 +31,7 @@
                             </center>
                             <div class="form-group">
                             <input id="nama" name="nama" class="form-control" placeholder="Nama Pemilik">
+                          
                         </div>
                         <div class="form-group">
                             <input id="nopol" name="nopol" type="text" class="form-control"
@@ -123,64 +124,70 @@
 
         <div class="row justify-content-center">
         <div class="col-lg-6 col-md-12 col-sm-12">
-        <form action="{{ route('warga.prosesdatawarga') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('warga.datadiri_update') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
                        <div class="form-group">
                        <font color="#000000">NIK </font><br>
-                           <input required id="nik" name="nik" type="number"  class="form-control"placeholder="Nomor Induk Kependudukan" >
-                              
+                           <input required id="nik" name="nik" type="number" value="{{ $users->nik }}" class="form-control"placeholder="Nomor Induk Kependudukan" >
                        </div>
                        <div class="form-group">
                        <font color="#000000">Kewarganegaraan </font><br>
-                        
-                        <input type="radio" name="kewarganegaraan" value="WNI">Warga Negara Indonesia
-                        <input type="radio" name="kewarganegaraan" value="WNA">Warga Negara Asing
+        
+                        <input type="radio" name="kewarganegaraan" value="WNI" 
+                        {{ $users->kewarganegaraan == 'WNI' ? 'checked' : '' }}
+                        >Warga Negara Indonesia
+                        <input type="radio" name="kewarganegaraan" value="WNA"
+                        {{ $users->kewarganegaraan == 'WNA' ? 'checked' : '' }}
+                        >Warga Negara Asing
                         </div> 
                       
                        <div class="form-group">
                        <font color="#000000">No Kartu Keluarga</font><br>
-                           <input required for="nokk" id="nokk" name="nokk" type="number" class="form-control" placeholder="Nomor Kartu Keluarga">
+                           <input required for="nokk" id="nokk" name="nokk"  value="{{ $users->nokk }}"  type="number" class="form-control" placeholder="Nomor Kartu Keluarga">
                        </div>
                        <div class="form-group">
                        <font color="#000000">Jenis Kelamin </font><br>
-                        <input type="radio" name="jeniskelamin" value="Laki-laki">Laki-Laki
-                        <input type="radio" name="jeniskelamin" value="Perempuan">Perempuan
+                        <input type="radio" name="jeniskelamin" value="Laki-laki"
+                         {{ ($users->jeniskelamin == 'Laki-laki') ? 'checked' : '' }}
+                        >Laki-Laki
+                        <input type="radio" name="jeniskelamin" value="Perempuan" {{ ($users->jeniskelamin == 'Perempuan') ? 'checked' : '' }}
+                        >Perempuan
                         </div>
                        <div class="form-group">
                        <font color="#000000">Pekerjaan :</font><br>
-                           <input id="pekerjaan" name="pekerjaan" type="text" class="form-control"
+                           <input id="pekerjaan" name="pekerjaan" type="text"  value="{{ $users->pekerjaan }}"  class="form-control"
                                placeholder="Pekerjaan" required>
                        </div>
                        <div class="form-group">
                        <font color="#000000">Tanggal Lahir </font>
-                           <input id="tanggallahir" name="tanggallahir" type="date" class="form-control"placeholder="tanggal lahir">
+                           <input id="tanggallahir" name="tanggallahir" type="date" value="{{ $users->tanggallahir }}" class="form-control"placeholder="tanggal lahir">
                             </div>
                             <div class="form-group">
-                           <input id="usia" name="usia" type="tel" class="form-control"
+                           <input id="usia" name="usia" type="tel" value="{{ $users->usia }}" class="form-control"
                                placeholder="Usia" readonly>
                        </div>
                        <div class="form-group">
                        <font color="#000000">Status </font><br>
-                          <select  class="form-control" id="statuspernikahan" name="statuspernikahan" for="statuspernikahan">
-                        <option value="Menikah">Menikah</option>
-                        <option value="Belum_Menikah">Belum Menikah</option>
-                        <option value="Cerai">Cerai</optionv>
+                          <select  class="form-control" id="statuspernikahan" value="{{ $users->statuspernikahan }}"  name="statuspernikahan" for="statuspernikahan">
+                        <option value="Menikah"{{ ($users->statuspernikahan == 'Menikah') ? 'selected' : '' }}>Menikah</option>
+                        <option value="Belum_Menikah"{{ ($users->statuspernikahan == 'Belum_Menikah') ? 'selected' : '' }}>Belum Menikah</option>
+                        <option value="Cerai"{{ ($users->statuspernikahan == 'Cerai') ? 'selected' : '' }}>Cerai</optionv>
                           </select> 
                         </div>
                        <div class="form-group">
                        <font color="#000000">Agama  </font><br>
-                          <select  class="form-control" id="agama" name="agama" for="agama">
-                        <option value="islam">Islam</option>
-                        <option value="protestan">Protestan</option>
-                        <option value="katholik">Khatolik</optionv>
-                        <option value="buddha">Buddha</option>
-                        <option value="khonghucu">Khonghucu</option>
+                          <select  class="form-control" id="agama"   name="agama" for="agama">
+                        <option value="islam" @if($users->agama == 'islam') selected @endif >Islam</option>
+                        <option value="protestan" @if($users->agama == 'protestan') selected @endif >Protestan</option>
+                        <option value="katholik" @if($users->agama == 'katholik') selected @endif>Khatolik</optionv>
+                        <option value="buddha" @if($users->agama == 'buddha') selected @endif>Buddha</option>
+                        <option value="khonghucu" @if($users->agama == 'khonghucu') selected @endif>Khonghucu</option>
                           </select>
                         </div> 
                            <div class="form-group-2 mb-4">
                        <font color="#000000">Alamat </font><br>
-                               <textarea id="alamat" name="alamat" class="form-control" rows="4"
-                                   placeholder="Alamat" required></textarea>
+                               <textarea id="alamat" name="alamat" value="{{ $users->alamat }}" class="form-control" rows="4"
+                                   placeholder="Alamat" required>{{ $users->alamat }} </textarea>
                            </div>
                            
                         <center>

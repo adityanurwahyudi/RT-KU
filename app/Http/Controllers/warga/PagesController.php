@@ -181,13 +181,19 @@ class PagesController extends Controller
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
                 ->get();
+        $userrt = DB::table('users')
+                ->where('users.rw', $rw)
+                ->where('users.rt', $rt)
+                ->join('profile','profile.id_users','users.id')
+                ->where('users.status', 2)->first();
+
         $profile = DB::table('profile')
                 ->leftjoin('users','users.id','profile.id_users')
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
                 ->get();
 		return view('warga.contact',
-		compact('kritiksaran','profile'));
+		compact('kritiksaran','profile','userrt'));
     }
     public function kegiatan()
     {
@@ -307,38 +313,7 @@ class PagesController extends Controller
 		compact('foto','video'));
     }
     
-	public function prosesdatawarga(Request $request)
-	{
-			$id_users = Auth::guard('user')->user()->id;
 	
-			if($request->hasFile('fotoprofile')){
-				$file = $request->file('fotoprofile');
-				$path = 'upload/detailusers';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-			}else{
-				$namefile = null;
-			}
-			
-			DB::table('detail_users')->insert([
-				'id_users'	=> $id_users,
-				'nama' =>  $request->nama,
-				'nik' =>  $request->nik,
-                'nokk'	=> $request->nokk,
-				'email' =>  $request->email,
-				'telepon' =>  $request->telepon,
-                'alamat'	=> $request->alamat,
-				'agama' =>  $request->agama,
-				'jeniskelamin' =>  $request->jeniskelamin,
-                'tanggallahir'	=> $request->tanggallahir,
-				'usia' => $request->usia,
-				'kewarganegaraan' =>  $request->kewarganegaraan,
-				'pekerjaan' =>  $request->pekerjaan,
-                'statuspernikahan'	=> $request->statuspernikahan,
-				'fotoprofile' => $namefile,
-			]);
-			return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Ditambahkan!']);
-	}
     public function storekritiksaran(Request $request)
 	{
 		$id_users = Auth::guard('user')->user()->id;
@@ -368,7 +343,10 @@ class PagesController extends Controller
 	}
     public function prosespindah(Request $request)
 	{
+		$id_users = Auth::guard('user')->user()->id;
+
 		DB::table('pindah')->insert([
+			'id_users'	=> $id_users,
 			'nama' => $request->nama,
 			'tanggal' => $request->tanggal,
             'alamat' => $request->alamat,
@@ -439,8 +417,10 @@ class PagesController extends Controller
                 ->get();
         $jadwal_ronda = DB::table('jadwal_ronda')
                         ->leftjoin('users','users.id','jadwal_ronda.id_users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
                         ->where('users.rw', $rw)
                         ->where('users.rt', $rt)
+                        ->where('detail_users.jeniskelamin', 'Laki-laki')
                         ->get();
                         
 		$no = 1;
@@ -454,6 +434,7 @@ class PagesController extends Controller
         $data['kendaraan'] = DB::table('master_kendaraan')->orderBy('id','ASC')->get();
         $data['pekerjaan'] = DB::table('master_pekerjaan')->orderBy('id','ASC')->get();
         $data['penghasilan'] = DB::table('master_penghasilan')->orderBy('id','ASC')->get();
+            
         $data['users'] = DB::table('detail_users')->where('id_users',$id_users)->first();
 
         return view('warga.datawarga',$data);
@@ -462,17 +443,21 @@ class PagesController extends Controller
     {
         try{
             $id_users = Auth::guard('user')->user()->id;
-            $name = $request->name;
-            $email = $request->email;
-            $telpon = $request->telpon;
 
             // InsertOrUpdate ke Detail Users
             $cek_detail = DB::table('detail_users')->where('id_users',$id_users)->first();
             $data = [
-                'id_users'       => $id_users,
-                'name'           => $name,
-                'email'          => $email,
-                'telpom'         => $telpon
+                'id_users'       => $id_users,           
+                'nik' =>  $request->nik,
+				'kewarganegaraan' =>  $request->kewarganegaraan,
+                'nokk' =>  $request->nokk,
+				'jeniskelamin' =>  $request->jeniskelamin,
+                'pekerjaan' =>  $request->pekerjaan,
+				'tanggallahir' =>  $request->tanggallahir,
+                'usia' =>  $request->usia,
+				'statuspernikahan' =>  $request->statuspernikahan,
+                'agama' =>  $request->agama,
+				'alamat' =>  $request->alamat,
             ];
             if(!empty($cek_detail)){
                 DB::table('detail_users')->where('id_users',$id_users)->update($data);
@@ -480,8 +465,8 @@ class PagesController extends Controller
                 DB::table('detail_users')->insert($data);
             } 
             return redirect()->back()->with(['success'=>'Berhasil Update']);
-        }catch(Exception $e){
-                return redirect()->back()->with(['error'=>'Gagal Update']);
+    }catch(Exception $e){
+             return redirect()->back()->with(['error'=>'Gagal Update']);
             }
 
     }
@@ -551,12 +536,12 @@ class PagesController extends Controller
             }else{
                 DB::table('hasil_normalisasi')->insert($data_normalisasi);
             }
-
             return redirect()->back()->with(['success'=>'Berhasil Update']);
         }catch(Exception $e){
             return redirect()->back()->with(['error'=>'Gagal Update']);
         }
     }
+    
     public function pindah()
     {
         return view('warga.pindah');
@@ -569,6 +554,38 @@ class PagesController extends Controller
         return view('warga.profil',$data);
     }
     public function profil_update(Request $request)
+    {
+        try{
+            $data = [
+                'name'          => $request->nama,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'password_real' => $request->password
+            ];
+            DB::table('users')->where('id', $request->id)->update($data);
+
+            return redirect()->back()->with(['success'=>'Data Update']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
+        }
+    }
+     public function rt_update(Request $request)
+    {
+        try{
+            $data = [
+                'name'          => $request->nama,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'password_real' => $request->password
+            ];
+            DB::table('users')->where('id', $request->id)->update($data);
+
+            return redirect()->back()->with(['success'=>'Data Update']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
+        }
+    } 
+    public function rw_update(Request $request)
     {
         try{
             $data = [

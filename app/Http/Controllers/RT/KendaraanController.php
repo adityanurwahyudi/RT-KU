@@ -12,22 +12,22 @@ class KendaraanController extends Controller
 {
 	public function index()
 	{
+        $id_users = Auth::guard('admin')->user()->id;
 		$rt = Auth::guard('admin')->user()->rt;
 		$rw = Auth::guard('admin')->user()->rw;
 
-		$kendaraan = DB::table('kendaraan')->select('kendaraan.*')
-				->leftjoin('users','users.id','kendaraan.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
-				->get();
-		$no = 1;
-		return view('RT.kendaraan',
-		compact('kendaraan', 'no'));
+        $data['kendaraan'] = DB::table('kendaraan')->select('kendaraan.*')
+                    ->join('users','users.id','kendaraan.id_users')
+                    ->where('users.rw', $rw)
+					->where('users.rt', $rt)
+                    ->get();
+		$data['admin'] = DB::table('kendaraan')->where('id_users',$id_users)->get();
+		return view('RT.kendaraan',$data);
 	}
 	
 	public function edit($id)
 	{
-		$kendaraan = DB::table('kendaraan')->where('id', $id)->get();
+		$kendaraan = DB::table('kendaraan')->where('id', $id)->first();
 		return view('RT.formedit.e_kendaraan', ['kendaraan' => $kendaraan]);
 	}
 	public function update(Request $request)

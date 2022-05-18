@@ -35,7 +35,7 @@
 				@php $no=1 @endphp
                      @foreach($pindah as $p)
                         <tr>
-                        <td>{{ $No++ }}</td>
+                        <td>{{ $no++ }}</td>
                             <td>{{ $p->nama }}</td>
                             <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->alamat }}</td>

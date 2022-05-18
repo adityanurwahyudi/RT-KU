@@ -99,7 +99,7 @@
                         <h3>RT-KU</h3>
                         <p class="fst-">
                             Aplikasi RT-KU merupakan aplikasi yang bertujuan untuk membantu mempermudah tugas-tugas
-                            rutin Pengurus Rumah Tangga (RT) dalam menata administrasi warga maupun keuangan sehingga
+                            rutin Pengurus Rukun Tetangga (RT) dalam menata administrasi warga maupun keuangan sehingga
                             menjadi lebih transparan.
                             Dari aplikasi ini juga diharapkan dapat mempererat hubungan antar warga, menumbuhkan rasa
                             persaudaraan antar warga, saling mengenal, saling peduli dan

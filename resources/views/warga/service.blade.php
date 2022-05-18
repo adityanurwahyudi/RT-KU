@@ -393,7 +393,7 @@
         </div>
     </div>
 
-    {{-- Modal Edit --}}
+    {{-- Modal Edit Domisili--}}
     <div class="modal fade" id="modal-edit-domisili" style="z-index:1500" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -432,6 +432,154 @@
                 </form>
             </div>
         </div>
+        
+    {{-- Modal Edit Pengantar--}}
+        <div class="modal fade" id="modal-edit-pengantar" style="z-index:1500" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="HeaderModal"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formEditSurat" action="{{route('warga.edit_pengantar')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                    <div class="modal-body">
+                            <input type="hidden" name="id" id="id">
+                            <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" maxlength="100" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan">Pekerjaan</label>
+                            <input type="text" maxlength="100" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                        </div>
+                        <div class="form-group"> 
+                        <label color="#000000" for="agama">Agama</label>
+                            <select  class="form-control" id="agama" name="agama" for="agama">
+                        <option value="Islam">Islam</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" maxlength="255" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <p><input type='radio' name='jenis_kelamin' value='Laki-Laki' />Laki-laki</p>
+                            <p><input type='radio' name='jenis_kelamin' value='Perempuan' />Perempuan</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="keperluan">Keperluan</label>
+                            <input type="text" class="form-control" id="keperluan" name="keperluan" placeholder="Dipergunakan untukk" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{-- Modal Edit Kematian--}}
+        <div class="modal fade" id="modal-edit-kematian" style="z-index:1500" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="HeaderModal"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formTambahSurat" action="{{ route('warga.edit_kematian') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                    <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" maxlength="100" minlength="3" class="form-control" id="nama" name="nama" placeholder="Masukan Nama Lengkap" required>
+                        </div> 
+                        <div class="form-group">
+                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                            <p><input type='radio' name='jenis_kelamin' value='Laki-Laki' />Laki-laki</p>
+                            <p><input type='radio' name='jenis_kelamin' value='Perempuan' />Perempuan</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="tempat_lahir">Tempat Lahir</label>
+                            <input type="text" maxlength="255" minlength="5" class="form-control" id="tempat_lahir" name="tempat_lahir" placeholder="Masukan Tempat Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tgl_lahir">Tanggal Lahir</label>
+                            <input type="text" class="form-control" id="tgl_lahir" name="tgl_lahir" placeholder="Masukan Tanggal Lahir" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan">Pekerjaan</label>
+                            <input type="text" maxlength="100" minlength="5" class="form-control" id="pekerjaan" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                        </div>
+                        <div class="form-group">
+                        <label color="#000000" for="agama">Agama</label>
+                            <select  class="form-control" id="agama" name="agama" for="agama">
+                        <option value="Islam">Islam</option>
+                        <option value="Katolik">Katolik</option>
+                        <option value="Kristen Protestan">Kristen Protestan</option>
+                        <option value="Hindu">Hindu</option>
+                        <option value="Buddha">Buddha</option>
+                        <option value="Konghucu">Konghucu</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="alamat">Alamat</label>
+                            <input type="text" maxlength="100" minlength="15" class="form-control" id="alamat" name="alamat" placeholder="Masukan Alamat" required>
+                        </div>
+                        <br>
+            <p>Telah Meninggal Dunia Pada:. </p>
+                        <div class="form-group">
+                       <font color="#000000">Hari  :</font><br>
+                          <select  required class="form-control" id="hari" name="hari" for="hari">
+                        <option value="senin">Senin</option>
+                        <option value="selasa">Selasa</option>
+                        <option value="rabu">Rabu</option>
+                        <option value="kamis">Kamis</option>
+                        <option value="jumat">Jumat</option>
+                        <option value="sabut">Sabtu</option>
+                        <option value="minggu">Minggu</option>
+                          </select>
+                        </div>  
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="text" class="form-control" id="tanggal" name="tanggal" placeholder="Masukan Tanggal Kematian" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="usia">Usia</label>
+                            <input type="number" maxlength="100"  class="form-control" id="usia" name="usia" placeholder="Masukan Usia " required>
+                        </div>
+                        <div class="form-group">
+                            <label for="penyebab">Penyebab Kematian</label>
+                            <input type="text" maxlength="100" minlength="5" class="form-control" name="penyebab" id="penyebab" placeholder="Penyebab Kematian" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     </div>
 @endsection
 

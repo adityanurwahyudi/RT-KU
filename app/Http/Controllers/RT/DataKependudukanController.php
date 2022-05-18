@@ -83,15 +83,14 @@ class DataKependudukanController extends Controller
     {
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
-		
-		$datakependudukan = DB::table('datakependudukan')
-				->select('datakependudukan.*')
-				->leftjoin('users','users.id','datakependudukan.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
-				->get ();
+
+		$data['detail_users'] = DB::table('detail_users')->select('detail_users.*','users.name','users.email','users.telpon')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->get();
  
-    	$pdf = PDF::loadview('RT.laporan.cetak_datawarga',['datakependudukan'=>$datakependudukan]);
+    	$pdf = PDF::loadview('RT.laporan.cetak_datawarga',$data);
     	return $pdf->stream();
     }
 	public function cetak_datawargatidakmampu()

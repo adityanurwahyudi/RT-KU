@@ -11,8 +11,19 @@ class TamupindahController extends Controller
 {
 	public function index()
 	{
-		$tamu = DB::table('tamu')->get();
-		$pindah = DB::table('pindah')->get();
+		$rt = Auth::guard('admin')->user()->rt;
+		$rw = Auth::guard('admin')->user()->rw;
+		
+		$tamu = DB::table('tamu')
+				->select('tamu.*')
+				->where('RW', $rw)
+				->where('RT', $rt)
+				->get ();
+		$pindah = DB::table('pindah')->select('pindah.*')
+				->leftjoin('users','users.id','pindah.id_users')
+				->where('users.rw', $rw)
+				->where('users.rt', $rt)
+				->get();
 		$no = 1;
 		$No = 1;
 		return view('RT.keluarmasukwarga', compact('tamu', 'pindah', 'no', 'No',));
@@ -25,9 +36,8 @@ class TamupindahController extends Controller
 		
 		$tamu = DB::table('tamu')
 				->select('tamu.*')
-				->leftjoin('users','users.id','tamu.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
+				->where('RW', $rw)
+				->where('RT', $rt)
 				->get ();
  
     	$pdf = PDF::loadview('RT.laporan.cetak_tamu',['tamu'=>$tamu]);
@@ -39,12 +49,11 @@ class TamupindahController extends Controller
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 		
-		$pindah = DB::table('pindah')
-				->select('pindah.*')
+		$pindah = DB::table('pindah')->select('pindah.*')
 				->leftjoin('users','users.id','pindah.id_users')
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
-				->get ();
+				->get();
  
     	$pdf = PDF::loadview('RT.laporan.cetak_pindah',['pindah'=>$pindah]);
     	return $pdf->stream();

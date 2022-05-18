@@ -34,14 +34,14 @@
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Warga</label>
                             <div class="mb-3 input-group control-group">
-                                <select class="form-control select2" name="nama" id="nama">
+                                <select class="form-control select2" name="nama" id="nama" >
                                     <option value="" selected>-- Pilih Nama --</option>
                                     @foreach($warga as $val)
                                     <option value="{{ $val->id }}">{{ $val->name }}</option>
                                     @endforeach
                                 </select>
-                                <div class="input-group-btn"><br>
-                                    <button onclick="addMultipleNama()" class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus"></i> Add</button>
+                                <div class="input-group-btn">
+                                    <button onclick="addMultipleNama()" class="btn btn-success add-more" type="button"><i class="glyphicon glyphicon-plus" width="100"></i> Add</button>
                                 </div>
                             </div>
                             <div id="multipleNama">

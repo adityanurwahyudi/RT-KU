@@ -15,8 +15,10 @@
         <div class="card-body 
   overflow-x: scroll;">
             <div class="table-responsive">
+                @if(count($profile)==0)
                 <a href="{{route('admin.rt.profile.tambah') }}" class="btn btn-primary"><i class="fa fa-plus"></i>  Add</a>
                 <br><br>
+                @endif
                 <table  class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
                     <thead>
                         <tr>

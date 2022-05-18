@@ -38,8 +38,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-		        <a href="{{ route('admin.rt.datawarga.cetak_datawarga')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
-		         <br><br>
+		        
                 <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
                     <thead>
                         <tr>

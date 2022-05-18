@@ -176,14 +176,6 @@ class UserManagementController extends Controller
             ];
            $users = User::create($data);
         
-            if($request->hasFile('fotoprofile')){
-				$file = $request->file('fotoprofile');
-				$path = 'upload/detailusers';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-			}else{
-				$namefile = null;
-			}
             $data_detail = [
                 'id_users'         => $users->id,
                 'nik'              => $request->nik,
@@ -194,7 +186,6 @@ class UserManagementController extends Controller
                 'kewarganegaraan'  => $request->kewarganegaraan,
                 'pekerjaan'        => $request->pekerjaan,
                 'statuspernikahan' => $request->statuspernikahan,
-				'fotoprofile'      => $namefile,
                 'tanggallahir'     => $request->tanggallahir,
                 'usia'             => $request->usia,
             ];

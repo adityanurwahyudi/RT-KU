@@ -1,4 +1,6 @@
+
 <style>
+
     .sb-topnav.navbar .navbar-nav > li.dropdown .badge.badge-default {
         background-color: #ffde00;
         color: #000000;
@@ -129,10 +131,6 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-
-                <li>
-                    <hr class="dropdown-divider" />
-                </li>
                 <li onclick="event.preventDefault();document.getElementById('logout').submit();">
                     <a class="dropdown-item" href="#!">Logout</a>
                 </li>
@@ -143,3 +141,15 @@
         </li>
     </ul>
 </nav>
+<script>
+// Get the modal
+var modal = document.getElementById('id02');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>

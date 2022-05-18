@@ -55,10 +55,10 @@
                                     <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" readonly >
                                 </div>
                                 <label>Status :</label><br>
-                                <select for="statuspermohonan" id="statuspermohonan" name="statuspermohonan" value="{{ $p->statuspermohonan }}" class="form-label">
-                                <option value="proses">Proses</option>
-                                <option value="selesai">Selesai</option>
-                                <option value="sudah di ambil">Sudah di ambil</option>
+                                <select for="statuspermohonan" id="statuspermohonan" value="{{ $p->statuspermohonan }}"  name="statuspermohonan" class="form-label">
+                                <option value="proses" {{ ($kendaraan->statuspermohonan == 'proses') ? 'selected' : '' }}>Proses</option>
+                                <option value="selesai" {{ ($kendaraan->statuspermohonan == 'selesai') ? 'selected' : '' }}>Selesai</option>
+                                <option value="sudah di ambil" {{ ($kendaraan->statuspermohonan == 'sudah di ambil') ? 'selected' : '' }}>Sudah di ambil</option>
                                 </select>
                                 <br>
                                 <div class="mb-3">

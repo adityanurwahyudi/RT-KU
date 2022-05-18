@@ -31,9 +31,10 @@
                         </tr>
                     </thead>
                     <tbody>
+				@php $No=1 @endphp
                      @foreach($kendaraan as $p)
                         <tr>
-                            <td>{{ $no++ }}</td>
+                            <td>{{ $No++ }}</td>
                             <td>{{ $p->nama }}</td>
                             <td>{{ $p->nopol }}</td>
                             <td>{{ $p->jeniskendaraan }}</td>

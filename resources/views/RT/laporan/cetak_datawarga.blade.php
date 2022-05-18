@@ -41,14 +41,14 @@
 		</thead>
 		<tbody>
 				@php $i=1 @endphp
-        @foreach($datakependudukan as $p)
+        @foreach($detail_users as $p)
                         <tr>
                             <td>{{ $i++ }}</td>
-                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->name }}</td>
                             <td>{{ $p->nik }}</td>
                             <td>{{ $p->nokk }}</td>
                             <td>{{ $p->email }}</td>
-                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->telpon }}</td>
                             <td>{{ $p->agama }}</td>
                             <td>{{ $p->jeniskelamin }}</td>
                             <td>{{ $p->alamat }}</td>
@@ -57,7 +57,6 @@
                             <td>{{ $p->pekerjaan }}</td>
                             <td>{{ $p->statuspernikahan }}</td>
                             <td>{{ $p->kewarganegaraan }}</td>
-                            <td><img width="100" height="100"src="{{asset('upload/datakependudukan/'.$p->fotoprofile)}}"></td>
                     </tr>
 			@endforeach
 		</tbody>
