@@ -42,17 +42,69 @@
     </div>
     <div class="row">
         <div class="col-xl-6">
+            <label>RW</label>
+            <select name="rw" id="rw" class="form-control filterData">
+                <option value="">Semua</option>
+                @foreach($rw as $val)
+                <option value="{{ $val->rw }}">{{ $val->rw }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-xl-6">
+            <label>RT</label>
+            <select name="rt" id="rt" class="form-control filterData">
+                <option value="">Semua</option>
+                @foreach($rt as $val)
+                <option value="{{ $val->rt }}">{{ $val->rt }}</option>
+                @endforeach
+            </select>
+        </div>
+        <br><br><br>
+        <div class="col-xl-6">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-columns me-1"></i>
-                    Pie Chart
+                    Jenis Kelamin
                 </div>
                 <div class="card-body">
-                    <div id="pie-chart" style="height:400px;"></div>
+                    <div id="jeniskelamin-chart" style="height:400px;"></div>
                 </div>
             </div>
         </div>
         <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-columns me-1"></i>
+                    Agama
+                </div>
+                <div class="card-body">
+                    <div id="agama-chart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-columns me-1"></i>
+                    Kewarganegaraan
+                </div>
+                <div class="card-body">
+                    <div id="kewarganegaraan-chart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-columns me-1"></i>
+                    Status Perkawinan
+                </div>
+                <div class="card-body">
+                    <div id="perkawinan-chart" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6" style="display:none;">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-bar me-1"></i>
@@ -64,22 +116,64 @@
             </div>
         </div>
     </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Data Warga
+        </div>
+        <div class="card-body">
+            <table id="datatable-users" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>RT</th>
+                        <th>RW</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 @endsection
 
 @section('script')
 <script type="text/javascript">
     $(document).ready(function(){
-        defaultPieChart();
+        defaultJenisKelamin();
+        defaultAgama();
+        defaultKewarganegaraan();
+        defaultPerkawinan();
         defaultColumnChart();
+        setTable();
+
+        $('.filterData').change(function(){
+            defaultJenisKelamin();
+            defaultAgama();
+            defaultKewarganegaraan();
+            defaultPerkawinan();
+            setTable();
+        })
     })
 
-    function defaultPieChart(){
-        pieChart();
+    function defaultJenisKelamin(){
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/jenis-kelamin') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            setJenisKelamin(data);
+        });
     }
 
-    function pieChart(){
-        Highcharts.chart('pie-chart', {
+    function setJenisKelamin(data){
+        Highcharts.chart('jeniskelamin-chart', {
             chart: {
                 type: 'pie',
                 options3d: {
@@ -102,10 +196,160 @@
             series: [{
                 name: 'Jumlah',
                 data: [
-                    ['Laki-Laki', 5],
-                    ['Perempuan', 10]
+                    ['Laki-Laki', data.laki],
+                    ['Perempuan', data.perempuan]
                 ]
             }]
+        });
+    }
+
+    function defaultAgama(){
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/agama') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            setAgama(data);
+        });
+    }
+
+    function setAgama(data){
+        Highcharts.chart('agama-chart', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: 'Agama Pada Kelurahan'
+            },
+            subtitle: {
+                text: 'Berikut adalah jumlah warga berdasarkan agama'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 100,
+                    depth: 45
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: [
+                    ['Islam', data.islam],
+                    ['Protestan', data.protestan],
+                    ['Katholik', data.katholik],
+                    ['Buddha', data.buddha],
+                    ['Khonghucu', data.khonghucu]
+                ]
+            }]
+        });
+    }
+
+    function defaultKewarganegaraan(){
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/kewarganegaraan') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            setKewarganegaraan(data);
+        });
+    }
+
+    function setKewarganegaraan(data){
+        Highcharts.chart('kewarganegaraan-chart', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: 'Kewarganegaraan Pada Kelurahan'
+            },
+            subtitle: {
+                text: 'Berikut adalah jumlah warga berdasarkan kewarganegaraan'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 100,
+                    depth: 45
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: [
+                    ['WNI', data.wni],
+                    ['WNA', data.wna]
+                ]
+            }]
+        });
+    }
+    
+    function defaultPerkawinan(){
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/perkawinan') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            setPerkawinan(data);
+        });
+    }
+
+    function setPerkawinan(data){
+        Highcharts.chart('perkawinan-chart', {
+            chart: {
+                type: 'pie',
+                options3d: {
+                    enabled: true,
+                    alpha: 45
+                }
+            },
+            title: {
+                text: 'Status Perkawinan Pada Kelurahan'
+            },
+            subtitle: {
+                text: 'Berikut adalah jumlah warga berdasarkan status perkawinan'
+            },
+            plotOptions: {
+                pie: {
+                    innerSize: 100,
+                    depth: 45
+                }
+            },
+            series: [{
+                name: 'Jumlah',
+                data: [
+                    ['MENIKAH', data.menikah],
+                    ['BELUM MENIKAH', data.belum],
+                    ['CERAI', data.cerai]
+                ]
+            }]
+        });
+    }
+
+    function setTable()
+    {
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/table') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+            $.each(data, function(i ,val){
+                var no = i + 1;
+                html += '<tr>';
+                    html += '<td>'+no+'</td>';
+                    html += '<td>'+val.name+'</td>';
+                    html += '<td>'+val.email+'</td>';
+                    html += '<td>'+val.rt+'</td>';
+                    html += '<td>'+val.rw+'</td>';
+                    html += '<td>'+val.jeniskelamin+'</td>';
+                    html += '<td>'+val.agama+'</td>';
+                html += '</tr>';
+            })
+
+            $('#datatable-users tbody').html(html);
+            $('#datatable-users').DataTable();
         });
     }
 

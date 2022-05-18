@@ -73,4 +73,31 @@
             return ($data) ? $data : array();
         }
     }
+    if(!function_exists('PushNotification')){
+        function PushNotification($url, $deskripsi, $id_users, $id_penerima)
+        {
+            $notif = [
+                'url'           => url($url),
+                'deskripsi'     => $deskripsi,
+                'id_pengirim'   => $id_users,
+                'id_penerima'   => $id_penerima,
+                'created_at'    => date('Y-m-d H:i:s'),
+                'is_read'       => false
+            ];
+            DB::table('notification')->insert($notif);
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+            $pusher = new Pusher\Pusher(
+                'dc54755d5048301338f6',
+                'e1ce7abf10d456b68339',
+                '1403900',
+                $options
+            );
+        
+            $data['message'] = 'hello world';
+            $pusher->trigger('my-channel', 'my-event', $data);
+        }
+    }
 ?>

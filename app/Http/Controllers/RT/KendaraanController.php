@@ -21,8 +21,13 @@ class KendaraanController extends Controller
                     ->where('users.rw', $rw)
 					->where('users.rt', $rt)
                     ->get();
-		$data['admin'] = DB::table('kendaraan')->where('id_users',$id_users)->get();
+		
+			if(isset($_GET['id_notif'])){
+						DB::table('notification')->where('id',$_GET['id_notif'])->update(['is_read'=>true]);
+					}
+					$data['admin'] = DB::table('kendaraan')->where('id_users',$id_users)->get();
 		return view('RT.kendaraan',$data);
+
 	}
 	
 	public function edit($id)

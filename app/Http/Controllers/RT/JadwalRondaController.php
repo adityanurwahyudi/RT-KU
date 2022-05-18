@@ -32,7 +32,7 @@ class JadwalRondaController extends Controller
 
     public function datatable()
     {
-        $tanggal = $_GET['tanggal'];
+        $tanggal = ($_GET['tanggal']) ? $_GET['tanggal'] : null;
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 
@@ -41,7 +41,9 @@ class JadwalRondaController extends Controller
                 ->leftjoin('detail_users','detail_users.id_users','users.id')
                 ->where('jadwal_ronda.rt', $rt)
                 ->where('jadwal_ronda.rw', $rw)
-                ->where('tanggal', $tanggal)
+                ->when($tanggal, function($q, $tanggal){
+                    $q->where('tanggal', $tanggal);
+                })
                 ->where('detail_users.jeniskelamin','Laki-laki')
                 ->orderBy('tanggal','ASC')
                 ->get();
@@ -54,7 +56,12 @@ class JadwalRondaController extends Controller
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 
-        $data['warga'] = DB::table('users')->where('rt', $rt)->where('rw', $rw)->where('status', 1)->get();
+        $data['warga'] = DB::table('users')->select('users.*')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->where('rt', $rt)
+                    ->where('rw', $rw)
+                    ->where('detail_users.jeniskelamin','Laki-laki')
+                    ->where('status', 1)->get();
 
         return view('RT.formcreate.c_jadwalronda', $data);
     }

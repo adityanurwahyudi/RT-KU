@@ -252,28 +252,7 @@ class PagesController extends Controller
         $rt = Auth::guard('user')->user()->rt;
         $rw = Auth::guard('user')->user()->rw;
         $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
-        $notif = [
-            'url'           => url('/RT/surat'),
-            'deskripsi'     => 'Pengajuan Surat Domisili',
-            'id_pengirim'   => $id_users,
-            'id_penerima'   => $penerima->id,
-            'created_at'    => date('Y-m-d H:i:s'),
-            'is_read'       => false
-        ];
-        DB::table('notification')->insert($notif);
-        $options = array(
-            'cluster' => 'ap1',
-            'useTLS' => true
-        );
-        $pusher = new Pusher\Pusher(
-            'dc54755d5048301338f6',
-            'e1ce7abf10d456b68339',
-            '1403900',
-            $options
-        );
-    
-        $data['message'] = 'hello world';
-        $pusher->trigger('my-channel', 'my-event', $data);
+        PushNotification('/RT/surat','Pengajuan Surat Domisili',$id_users,$penerima->id);
         // End Notification
         
         return redirect()->back()->with(['success'=>'Data Kirim']);
@@ -339,6 +318,14 @@ class PagesController extends Controller
 			'alamat' => $request->alamat,
 			'statuspermohonan' => $request->statuspermohonan,
 		]);
+
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/kendaraan','Permohonan Kartu Akses Kendaraan',$id_users,$penerima->id);
+        // End Notification
 		return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Terkirim!']);
 	}
     public function prosespindah(Request $request)
@@ -379,6 +366,14 @@ class PagesController extends Controller
 				'tanggal' =>  $request->tanggal,
 				'bukti' => $namefile,
 		]);
+
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/pengaduan','Pengaduan / Pelaporan',$id_users,$penerima->id);
+        // End Notification
 		return redirect('warga/keamanan')->with(['success'=>'Data Berhasil Terkirim!']);
 	}
     public function keuangan()
@@ -495,7 +490,18 @@ class PagesController extends Controller
             }
 
             // Get Bobot Terbesar Kepentingan
-            $rating = DB::table('bobot_kepentingan')->orderBy('rating_kepentingan','DESC')->first()->rating_kepentingan;
+            $rating_jumlah = DB::table('detail_users')
+                    ->leftjoin('master_jumlah_tanggungan','master_jumlah_tanggungan.id','detail_users.id_jumlah_tanggungan')    
+                    ->orderBy('master_jumlah_tanggungan.bobot','DESC')->first()->bobot;
+            $rating_kendaraan = DB::table('detail_users')
+                    ->leftjoin('master_kendaraan','master_kendaraan.id','detail_users.id_kendaraan')    
+                    ->orderBy('master_kendaraan.bobot','DESC')->first()->bobot;
+            $rating_pekerjaan = DB::table('detail_users')
+                    ->leftjoin('master_pekerjaan','master_pekerjaan.id','detail_users.id_pekerjaan')    
+                    ->orderBy('master_pekerjaan.bobot','DESC')->first()->bobot;
+            $rating_penghasilan = DB::table('detail_users')
+                    ->leftjoin('master_penghasilan','master_penghasilan.id','detail_users.id_penghasilan')    
+                    ->orderBy('master_penghasilan.bobot','DESC')->first()->bobot;
 
             // Get Bobot Berdasarkan Id
             $bobot_jumlah = getJumlahTanggungan($id_jumlah)->bobot;
@@ -504,10 +510,10 @@ class PagesController extends Controller
             $bobot_penghasilan = getPenghasilan($id_penghasilan)->bobot;
 
             // Bobot yang didapet diNormalisasi
-            $normalisasi_jumlah = Round($bobot_jumlah / $rating,2);
-            $normalisasi_kendaraan = Round($bobot_kendaraan / $rating,2);
-            $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $rating,2);
-            $normalisasi_penghasilan = Round($bobot_penghasilan / $rating,2);
+            $normalisasi_jumlah = Round($bobot_jumlah / $rating_jumlah,2);
+            $normalisasi_kendaraan = Round($bobot_kendaraan / $rating_kendaraan,2);
+            $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $rating_pekerjaan,2);
+            $normalisasi_penghasilan = Round($bobot_penghasilan / $rating_penghasilan,2);
 
             // Get Bobot Kepentingan
             $kepentingan_jumlah = DB::table('bobot_kepentingan')->where('kriteria','master_jumlah_tanggungan')->first()->rating_kepentingan;
