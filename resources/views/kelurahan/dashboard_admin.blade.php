@@ -5,6 +5,9 @@
         .highcharts-credits{
             display:none;
         }
+        #datatable-users_wrapper .col-sm-12{
+            overflow-x: auto;
+        }
     </style>
 @endsection
 
@@ -104,11 +107,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6" style="display:none;">
+        <div class="col-xl-12">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-bar me-1"></i>
-                    Column Chart
+                    Data Warga Tidak Mampu
                 </div>
                 <div class="card-body">
                     <div id="column-chart" style="height:400px;"></div>
@@ -123,16 +126,25 @@
             Data Warga
         </div>
         <div class="card-body">
+            <a href="" target="" class="btn btn-primary" id="setpdf" onclick="setPdf()">PDF</a>
+            <br><br>
             <table id="datatable-users" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>RT</th>
-                        <th>RW</th>
-                        <th>Jenis Kelamin</th>
+                        <th>Telpon</th>
+                        <th>NIK</th>
+                        <th>No KK</th>
                         <th>Agama</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Alamat</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Usia</th>
+                        <th>Pekerjaan</th>
+                        <th>Status Menikah</th>
+                        <th>Kewarganegaraan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -151,7 +163,7 @@
         defaultAgama();
         defaultKewarganegaraan();
         defaultPerkawinan();
-        defaultColumnChart();
+        defaultTidakMampu();
         setTable();
 
         $('.filterData').change(function(){
@@ -159,6 +171,7 @@
             defaultAgama();
             defaultKewarganegaraan();
             defaultPerkawinan();
+            defaultTidakMampu();
             setTable();
         })
     })
@@ -337,14 +350,34 @@
 
             $.each(data, function(i ,val){
                 var no = i + 1;
+                var name = (val.name==null) ? '-' : val.name;
+                var email = (val.email==null) ? '-' : val.email;
+                var telpon = (val.telpon==null) ? '-' : val.telpon;
+                var nik = (val.nik==null) ? '-' : val.nik;
+                var nokk = (val.nokk==null) ? '-' : val.nokk;
+                var agama = (val.agama==null) ? '-' : val.agama;
+                var jeniskelamin = (val.jeniskelamin==null) ? '-' : val.jeniskelamin;
+                var alamat = (val.alamat==null) ? '-' : val.alamat;
+                var tanggallahir = (val.tanggallahir==null) ? '-' : val.tanggallahir;
+                var usia = (val.usia==null) ? '-' : val.usia;
+                var pekerjaan = (val.pekerjaan==null) ? '-' : val.pekerjaan;
+                var statuspernikahan = (val.statuspernikahan==null) ? '-' : val.statuspernikahan;
+                var kewarganegaraan = (val.kewarganegaraan==null) ? '-' : val.kewarganegaraan;
                 html += '<tr>';
                     html += '<td>'+no+'</td>';
-                    html += '<td>'+val.name+'</td>';
-                    html += '<td>'+val.email+'</td>';
-                    html += '<td>'+val.rt+'</td>';
-                    html += '<td>'+val.rw+'</td>';
-                    html += '<td>'+val.jeniskelamin+'</td>';
-                    html += '<td>'+val.agama+'</td>';
+                    html += '<td>'+name+'</td>';
+                    html += '<td>'+email+'</td>';
+                    html += '<td>'+telpon+'</td>';
+                    html += '<td>'+nik+'</td>';
+                    html += '<td>'+nokk+'</td>';
+                    html += '<td>'+agama+'</td>';
+                    html += '<td>'+jeniskelamin+'</td>';
+                    html += '<td>'+alamat+'</td>';
+                    html += '<td>'+tanggallahir+'</td>';
+                    html += '<td>'+usia+'</td>';
+                    html += '<td>'+pekerjaan+'</td>';
+                    html += '<td>'+statuspernikahan+'</td>';
+                    html += '<td>'+kewarganegaraan+'</td>';
                 html += '</tr>';
             })
 
@@ -353,11 +386,17 @@
         });
     }
 
-    function defaultColumnChart(){
-        columnChart();
+    function defaultTidakMampu(){
+        var rw = $('#rw').val();
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/tidak-mampu') }}",{rw:rw,rt:rt},function(res){
+            var data = JSON.parse(res);
+            console.log(data);
+            setTidakMampu(data);
+        });
     }
 
-    function columnChart(){
+    function setTidakMampu(data){
         Highcharts.chart('column-chart', {
             chart: {
                 type: 'column',
@@ -369,10 +408,10 @@
                 }
             },
             title: {
-                text: 'Data Surat Pada Tahun 2020'
+                text: 'Data Warga Tidak Mampu'
             },
             subtitle: {
-                text: 'Berikut adalah beberapa surat pengajuan'
+                text: 'Berikut adalah data tidak mampu berdasarkan normalisasi'
             },
             plotOptions: {
                 column: {
@@ -380,7 +419,7 @@
                 }
             },
             xAxis: {
-                categories: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'],
+                categories: data.category,
                 labels: {
                     skew3d: true,
                     style: {
@@ -393,14 +432,16 @@
                     text: null
                 }
             },
-            series: [{
-                name: 'Domisili',
-                data: [2, 3, 0, 4, 0, 5, 1, 4, 6, 3, 2, 1]
-            },{
-                name: 'Menikah',
-                data: [2, 3, 0, 4, 0, 5, 1, 4, 6, 3 ,2 ,1]
-            }]
+            series: [data.series]
         });
+    }
+
+    function setPdf(){
+        var rw = ($('#rw').val()) ? $('#rw').val() : 0;
+        var rt = ($('#rt').val()) ? $('#rt').val() : 0;
+
+        $('#setpdf').attr("href", "{{ URL::to('kelurahan/dashboard-kelurahan/pdf-table/')}}"+'/'+rw+'/'+rt);
+        $('#setpdf').attr("target", "_blank");
     }
 </script>
 @endsection
