@@ -18,7 +18,7 @@
                                 {{ csrf_field() }}
 
                                 <div class="mb-3">
-                                    <label for="nama" class="form-label">Nama </label>
+                                    <label for="nama" class="form-label">Nama Berita</label>
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="form-group-2 mb-4">
@@ -41,5 +41,6 @@
 
 @section('script')
 <script type="text/javascript">
+ 
 </script>
 @endsection

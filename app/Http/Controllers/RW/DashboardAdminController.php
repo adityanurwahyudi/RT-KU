@@ -115,4 +115,85 @@ class DashboardAdminController extends Controller
                     ->count();
         return view('RW.dashboard_admin', $data);
     }
+
+    public function getWargaBerdasarkanUsia()
+    {
+        $rw = Auth::guard('admin')->user()->rw;
+        $rt = $_GET['rt'];
+
+            
+
+        $pertama = DB::table('users')
+                ->leftjoin('detail_users','detail_users.id_users','users.id')
+                ->where('users.status', 1)
+                ->where('users.rw', $rw)
+                ->when($rt, function($q,$rt){
+                    $q->where('users.rt', $rt);
+                })
+                ->where('usia','>=',0)->where('usia','<=',10)->count();
+        $kedua =  DB::table('users')
+            ->leftjoin('detail_users','detail_users.id_users','users.id')
+            ->where('users.status', 1)
+            ->where('users.rw', $rw)
+            ->when($rt, function($q,$rt){
+                $q->where('users.rt', $rt);
+            })
+        ->where('usia','>=',11)->where('usia','<=',25)->count();
+
+        $ketiga =DB::table('users')
+        ->leftjoin('detail_users','detail_users.id_users','users.id')
+        ->where('users.status', 1)
+        ->where('users.rw', $rw)
+        ->when($rt, function($q,$rt){
+            $q->where('users.rt', $rt);
+        }) 
+        ->where('usia','>=',26)->where('usia','<=',40)->count();
+        $keempat = DB::table('users')
+        ->leftjoin('detail_users','detail_users.id_users','users.id')
+        ->where('users.status', 1)
+        ->where('users.rw', $rw)
+        ->when($rt, function($q,$rt){
+            $q->where('users.rt', $rt);
+        })
+        ->where('usia','>=',41)->where('usia','<=',60)->count();
+        $kelima = DB::table('users')
+        ->leftjoin('detail_users','detail_users.id_users','users.id')
+        ->where('users.status', 1)
+        ->where('users.rw', $rw)
+        ->when($rt, function($q,$rt){
+            $q->where('users.rt', $rt);
+        })
+        ->where('usia','>=',61)->where('usia','<=',90)->count();
+
+        echo json_encode([
+            'pertama' => $pertama,
+            'kedua' => $kedua,
+            'ketiga' => $ketiga,
+            'keempat' => $keempat,
+            'kelima' => $kelima,
+        ]);
+    }
+    
+    public function wargaBerdasarkanStatusPernikahan()
+    {
+        $rw = Auth::guard('admin')->user()->rw;
+        $rt = $_GET['rt'];
+
+        $data = DB::table('users')
+            ->leftjoin('detail_users','detail_users.id_users','users.id')
+            ->where('rw', $rw)
+            ->when($rt, function($q,$rt){
+            $q->where('rt', $rt);
+            });
+
+        $menikah = $data->where('statuspernikahan','Menikah')->count();
+        $belummenikah = $data->where('statuspernikahan','BelumMenikah')->count();
+        $cerai = $data->where('statuspernikahan','Cerai')->count();
+
+        echo json_encode([
+            'menikah' => $menikah,
+            'belummenikah' => $belummenikah,
+            'cerai' => $cerai,
+        ]);
+    }
 }

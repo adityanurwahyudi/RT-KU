@@ -44,6 +44,11 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
 
         Route::get('/data-warga', 'UserManagementController@datawarga')->name('datawarga');\
         
+    //form create akun di rt
+    Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
+    Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
+    Route::get('/data-login-warga/nik', 'UserManagementController@getNik')->name('getNik');
+    
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
         Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
@@ -133,6 +138,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/video/edit/{id}', 'GaleriController@edit')->name('video.edit');
        
         //profileRT
+        Route::get('/profile/telpon', 'ProfileController@getTelpon')->name('getTelpon');
+        Route::get('/profile/email', 'ProfileController@getEmail')->name('getEmail');
         Route::get('/profile', 'ProfileController@index')->name('profile');
          Route::post('/profile/proses', 'ProfileController@proses')->name('profile.proses');
         Route::get('/profile/tambah', 'ProfileController@tambah')->name('profile.tambah');
@@ -205,6 +212,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
     Route::name('rw.')->namespace('RW')->prefix('RW')->group(function () {
         // Dashboard
         Route::get('/dashboard-rw', 'DashboardAdminController@index')->name('dashboard');
+        Route::get('/dashboard-rw/warga-berdasarkan-usia', 'DashboardAdminController@getWargaBerdasarkanUsia')->name('getWargaBerdasarkanUsia');
+        Route::get('/dashboard-rw/warga-berdasarkan-status-pernikahan', 'DashboardAdminController@wargaBerdasarkanStatusPernikahan')->name('wargaBerdasarkanStatusPernikahan');
         
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
@@ -215,6 +224,11 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
         
         Route::get('/rt/datatable', 'DataKependudukanController@datatable')->name('rt.datatable');
+        //validasi form rw
+        
+        Route::get('/data-login-warga/rt', 'UserManagementController@getRt')->name('getRt');
+        Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
+        Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
     
     
         Route::get('datawarga', 'DataKependudukannController@datawarga')->name('datawarga');
@@ -243,6 +257,12 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/dashboard-kelurahan/tidak-mampu', 'DashboardAdminController@getTidakMampu')->name('getTidakMampu');
         Route::get('/dashboard-kelurahan/table', 'DashboardAdminController@getTable')->name('getTable');
         Route::get('/dashboard-kelurahan/pdf-table/{rw}/{rt}', 'DashboardAdminController@cetak_table_pdf')->name('cetak_table_pdf');
+        
+        //form validasi
+
+        Route::get('/data-login-warga/rw', 'UserManagementController@getRw')->name('getRw');
+        Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
+        Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
 
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
@@ -280,7 +300,12 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::post('/service/kematian/edit', 'PagesController@edit_kematian')->name('edit_kematian');
     Route::get('/service/kematian/kirim/{id}', 'PagesController@kirim_kematian')->name('kirim_kematian');
     Route::get('/service/kematian/cetak/{id}', 'PagesController@cetak_kematian')->name('cetak_kematian');
+
+    //cek validasi
     
+    Route::get('/datawarga/nik', 'PagesController@getNik')->name('getNik');
+    Route::get('/datawarga/nokk', 'PagesController@getNokk')->name('getNokk');
+
     Route::get('/kegiatan', 'PagesController@kegiatan')->name('kegiatan');
     Route::get('/video', 'PagesController@video')->name('video');
     Route::get('/keuangan', 'PagesController@keuangan')->name('keuangan');

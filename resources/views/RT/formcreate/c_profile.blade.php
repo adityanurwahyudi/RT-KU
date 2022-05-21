@@ -24,7 +24,7 @@
 
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama RT</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" required>
+                                    <input type="text" class="form-control" onkeyup="Alphabet('nama','Nama Harus Huruf')" id="nama" name="nama" required>
                                 </div> 
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal Lahir</label>
@@ -50,11 +50,11 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" required>
+                                    <input type="email" onchange="cekEmail()" onkeyup="Email('email','Email Yang Bener')" class="form-control" id="email" name="email" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="telepon" class="form-label">Telepon</label>
-                                    <input type="tel" class="form-control" id="telepon" name="telepon" required>
+                                    <input type="text" onchange="cekTelpon()" onkeyup="Number('telepon','Telepon Harus Angka')" class="form-control" id="telepon" name="telepon" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="urlmap" class="form-label">URL Lokasi Maps</label>
@@ -96,5 +96,80 @@
             $(this).parents(".control-group").remove();
         });
     });
+    
+    </script>
+    <script>
+    function Alphabet(id, pesan) {
+                
+                var nilai = document.getElementById(id);
+                var alphaExp = /^[a-zA-Z]+$/;
+                if(nilai.value!= ''){
+                
+                if(nilai.value.match(alphaExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+            }
+            }
+            function Number(id, pesan) {
+                var nilai = document.getElementById(id);
+                var numberExp = /^[0-9]+$/;
+                if(nilai.value!= ''){
+                    
+                if(nilai.value.match(numberExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+
+                }
+                
+            }
+            function Email(nilai, pesan) {
+                var email = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+                if(nilai.value.match(email)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    return false;
+                }
+            }
+    
+            function cekTelpon(){
+              var telpon = $('#telepon').val();
+              $.get("{{ URL::to('RT/data-login-warga/telpon') }}",{telpon:telpon},
+              function(res){
+                  
+                console.log(res)
+                  if(res == 1){
+                    alert('Telpon Sudah Terdaftar');
+                    $('#telpon').val('');
+                  }
+              });
+                  console.log('aad')
+            }
+            function cekEmail(){
+              var email = $('#email').val();
+              $.get("{{ URL::to('RT/data-login-warga/email') }}",{email:email},
+              function(res){
+                  
+                console.log(res)
+                  if(res == 1){
+                    alert('Email Sudah Terdaftar');
+                    $('#email').val('');
+                  }
+              });
+            }
     </script>
 @endsection 

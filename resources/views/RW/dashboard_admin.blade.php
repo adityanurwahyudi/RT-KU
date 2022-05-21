@@ -44,6 +44,7 @@
                     <div for="rt" class="form-outline flex-fill mb-0">
                         <label >RT:</label>
                             <select name="filter_rt" id="filter_rt">
+                            <option value="">Semua</option>
                             @foreach($rt as $val)
                             <option value="{{ $val->rt }}">{{ $val->rt }}</option>
                             @endforeach
@@ -169,23 +170,16 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="status-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Menikah</th>
                             <th>Belum Menikah</th>
                             <th>Cerai</th>
                         </tr>
                     </thead>
                     <tbody>
-				@php $i=1 @endphp
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{$Menikah}}</td>
-                            <td>{{$BelumMenikah}}</td>
-                            <td>{{$Cerai}}</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -201,7 +195,6 @@
                 <table class="table table-striped table-bordered table-hover table-condensed" id="usia-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>0-10</th>
                             <th>10-25</th>
                             <th>25-40</th>
@@ -210,14 +203,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td> </td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -258,27 +244,41 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        getData();
+        wargaBerdasarkanUsia();
+        wargaBerdasarkanStatusPernikahan();
         $('#filter_rt').change(function(){
-            getData();
+            wargaBerdasarkanUsia();
+            wargaBerdasarkanStatusPernikahan();
         })
     });
-    function getData(){
-        var table = $('#satu').DataTable();
+
+    function wargaBerdasarkanUsia(){
         var rt = $('#filter_rt').val();
-        $.get("{{ URL::to('RW/rt/datatable') }}",{rt:rt},function(res){
-            // var data = JSON.parse(res);
-            $.each(res, function(i, val){
-                table.row.add([
-                    i+1,
-                    val.name,
-                    tgl_indo(val.rt),
-                    '<a title="Edit" href="{{ url("/RT/jadwal-ronda/edit/") }}/'+val.id+'" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>&nbsp;&nbsp;'+
-                    '<button title="Delete" class="btn btn-danger" onclick="hapus('+val.id+')"> <i class="fa fa-trash"></i> Delete</button>'
-                ]).draw();
-            })
-        });
-        table.clear();
+        var html = '';
+        $.get("{{ URL::to('RW/dashboard-rw/warga-berdasarkan-usia') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res)
+            html +='<tr>';
+            html +='<td>'+data.pertama+'</td>';
+            html +='<td>'+data.kedua+'</td>';
+            html +='<td>'+data.ketiga+'</td>';
+            html +='<td>'+data.keempat+'</td>';
+            html +='<td>'+data.kelima+'</td>';
+            html +='</tr>';
+            $('#usia-table tbody').html(html)
+        })
+    }
+    function wargaBerdasarkanStatusPernikahan(){
+        var rt = $('#filter_rt').val();
+        var html = '';
+        $.get("{{ URL::to('RW/dashboard-rw/warga-berdasarkan-status-pernikahan') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res)
+            html +='<tr>';
+            html +='<td>'+data.menikah+'</td>';
+            html +='<td>'+data.belummenikah+'</td>';
+            html +='<td>'+data.cerai+'</td>';
+            html +='</tr>';
+            $('#status-table tbody').html(html)
+        })
     }
 </script>
 

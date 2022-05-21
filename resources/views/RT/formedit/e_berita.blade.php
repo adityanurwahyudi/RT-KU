@@ -33,17 +33,21 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama Berita</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $berita->nama }}" required>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $berita->nama }}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="deskripsi" class="form-label">Deskripsi Berita</label>
                                     <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $berita->deskripsi }}"
-                                        required>
+                                        >
                                 </div>
                                 <div class="mb-3">
                                     <label for="gambar" class="form-label">Gambar</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" value="{{ $berita->gambar }}"
+                                    <input type="text" class="form-control" id="gambar" name="gambar" value="{{ $p->gambar }}"
                                         disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gambar" class="form-label">Gambar</label>
+                                    <input type="file" class="form-control" id="gambar" name="gambar" >
                                 </div>
                                 <div class="mb-3">
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />

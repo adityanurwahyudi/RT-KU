@@ -253,23 +253,6 @@
     </div>
     </div>
 </section>
-<!--  Section Services Start -->
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-7 text-center">
-                <div class="section-title">
-                    <span class="h6 text-color">Denah Lokasi</span>
-                    <h2 class="mt-3 content-title">Denah Lokasi</h2>
-                </div>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <img src="/sbwarga/images/struktur.jpg" width="500" height="500">
-
-        </div>
-    </div>
-<!--  Section Services End -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="{{asset('/sbadmin/js/scripts.js')}}"></script>

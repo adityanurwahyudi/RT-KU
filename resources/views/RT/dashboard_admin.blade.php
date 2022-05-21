@@ -192,7 +192,6 @@
                 <table class="table table-striped table-bordered table-hover table-condensed" id="usia-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>0-10</th>
                             <th>10-25</th>
                             <th>25-40</th>
@@ -202,12 +201,11 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td> </td>
+                            <td>{{ getRangeUsia('0','10') }}</td>
+                            <td>{{ getRangeUsia('10','25') }}</td>
+                            <td>{{ getRangeUsia('25','40') }}</td>
+                            <td>{{ getRangeUsia('40','60') }}</td>
+                            <td>{{ getRangeUsia('60','100') }}</td>
                         </tr>
                     </tbody>
                 </table>

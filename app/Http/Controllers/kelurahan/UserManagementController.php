@@ -32,6 +32,52 @@ class UserManagementController extends Controller
 
         return view('kelurahan.dataloginwarga', $data);
     }
+    public function getTelpon()
+    {
+        $telpon = $_GET['telpon'];
+        $data=DB::table('users')
+        ->where('telpon',$telpon)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    public function getEmail()
+    {
+        $email = $_GET['email'];
+        $data=DB::table('users')
+        ->where('email',$email)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    
+    public function getRw()
+    {
+        $rw = $_GET['rw'];
+        $data=DB::table('users')
+        ->where('rw',$rw)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
 
     public function dataloginwarga_create()
     {

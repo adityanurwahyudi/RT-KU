@@ -30,7 +30,7 @@
                                 <h3 class="text-md mb-4">Form Kartu Akses Kendaraan</h3>
                             </center>
                             <div class="form-group">
-                            <input id="nama" name="nama" class="form-control" placeholder="Nama Pemilik">
+                            <input id="nama" name="nama" class="form-control" value="{{ $users->name }}" placeholder="Nama Pemilik">
                           
                         </div>
                         <div class="form-group">
@@ -40,8 +40,8 @@
                                 <input value="mobil" id="jeniskendaraan" name="jeniskendaraan" type="hidden" class="form-control">
                                 <input value="Baru" id="statuspermohonan" name="statuspermohonan" type="hidden" class="form-control">
                             <div class="form-group-2 mb-4">
-                                <textarea id="alamat" name="alamat" class="form-control" rows="4"
-                                    placeholder="Alamat"></textarea>
+                                <textarea id="alamat" name="alamat" value="{{ $users->alamat}}" class="form-control" rows="4"
+                                    placeholder="Alamat">{{ $users->alamat}}</textarea>
                             </div>
                             <center>
                             <button class="btn btn-main " name="submit" type="submit"><i class="fa fa-save"></i> Simpan </button>
@@ -128,7 +128,7 @@
         {{ csrf_field() }}
                        <div class="form-group">
                        <font color="#000000">NIK </font><br>
-                           <input required id="nik" name="nik" type="number" value="{{ $users->nik }}" class="form-control"placeholder="Nomor Induk Kependudukan" >
+                           <input required id="nik" name="nik" type="text" onchange="cekNik()" onkeyup="Number('nik','Hanya bisa number')" value="{{ $users->nik }}" class="form-control"placeholder="Nomor Induk Kependudukan" >
                        </div>
                        <div class="form-group">
                        <font color="#000000">Kewarganegaraan </font><br>
@@ -143,7 +143,7 @@
                       
                        <div class="form-group">
                        <font color="#000000">No Kartu Keluarga</font><br>
-                           <input required for="nokk" id="nokk" name="nokk"  value="{{ $users->nokk }}"  type="number" class="form-control" placeholder="Nomor Kartu Keluarga">
+                           <input required for="nokk" id="nokk"  onkeyup="Number('nokk','Hanya bisa number')" name="nokk"  value="{{ $users->nokk }}"  type="text" class="form-control" placeholder="Nomor Kartu Keluarga">
                        </div>
                        <div class="form-group">
                        <font color="#000000">Jenis Kelamin </font><br>
@@ -155,7 +155,7 @@
                         </div>
                        <div class="form-group">
                        <font color="#000000">Pekerjaan :</font><br>
-                           <input id="pekerjaan" name="pekerjaan" type="text"  value="{{ $users->pekerjaan }}"  class="form-control"
+                           <input id="pekerjaan" onkeyup="Alphabet('pekerjaan','Pekerjaan Harus Huruf')" name="pekerjaan" type="text"  value="{{ $users->pekerjaan }}"  class="form-control"
                                placeholder="Pekerjaan" required>
                        </div>
                        <div class="form-group">
@@ -186,12 +186,12 @@
                         </div> 
                            <div class="form-group-2 mb-4">
                        <font color="#000000">Alamat </font><br>
-                               <textarea id="alamat" name="alamat" value="{{ $users->alamat }}" class="form-control" rows="4"
+                               <textarea id="alamat" name="alamat"  value="{{ $users->alamat }}" class="form-control" rows="4"
                                    placeholder="Alamat" required>{{ $users->alamat }} </textarea>
                            </div>
                            
                         <center>
-                           <button class="btn btn-main" name="submit" type="submit"><i class="fa fa-save"></i> Simpan</button>
+                           <button class="btn btn-main"  name="submit" type="submit"><i class="fa fa-save"></i> Simpan</button>
                            </center>
                        </form>
                              </div>
@@ -206,6 +206,68 @@
 @endsection
 
 @section('script')
+<!-- Validasi JavaScript -->
+<script language="JavaScript">
+            function Alphabet(id, pesan) {
+                
+                var nilai = document.getElementById(id);
+                var alphaExp = /^[a-zA-Z]+$/;
+                if(nilai.value!= ''){
+                
+                if(nilai.value.match(alphaExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+            }
+            }
+            function Number(id, pesan) {
+                var nilai = document.getElementById(id);
+                var numberExp = /^[0-9]+$/;
+                if(nilai.value!= ''){
+                    
+                if(nilai.value.match(numberExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+
+                }
+                
+            }
+            function cekEmail(nilai, pesan) {
+                var email = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+                if(nilai.value.match(email)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    return false;
+                }
+            }
+    
+            function cekNik(){
+              var nik = $('#nik').val();
+              $.get("{{ URL::to('warga/datawarga/nik') }}",{nik:nik},
+              function(res){
+                  if(res == 1){
+                    alert('Data Sudah Ada');
+                    $('#nik').val('');
+                  }
+              });
+            }
+        
+        </script>
+        
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>

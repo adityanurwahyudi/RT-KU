@@ -100,4 +100,22 @@
             $pusher->trigger('my-channel', 'my-event', $data);
         }
     }
+    if(!function_exists('getRangeUsia')){
+        function getRangeUsia($awal, $akhir)
+        {
+            
+        $rt = Auth::guard('admin')->user()->rt;
+        $rw = Auth::guard('admin')->user()->rw;
+            $data = DB::table('detail_users')
+            ->join ('users','users.id','detail_users.id_users')
+                    ->where('usia', '>=', $awal)
+                    ->where('usia', '<=',$akhir)
+                    ->where('rt',$rt) 
+                    ->where('rw',$rw) 
+                    ->count();
+
+            return $data;
+        }
+    }
+    
 ?>
