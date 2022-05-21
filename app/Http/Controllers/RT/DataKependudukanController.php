@@ -76,8 +76,10 @@ class DataKependudukanController extends Controller
 	
 	public function edit($id)
 	{
-		$datakependudukan = DB::table('datakependudukan')->where('id', $id)->get();
-		return view('RT.formedit.e_datawarga', ['datakependudukan' => $datakependudukan]);
+		$datawarga = DB::table('users')->where('users.id', $id)
+		->leftjoin('detail_users','detail_users.id_users','users.id')
+		->first();
+		return view('RT.formedit.e_datawarga', ['datawarga' => $datawarga]);
 	}
 	public function cetak_datawarga()
     {
@@ -117,7 +119,6 @@ class DataKependudukanController extends Controller
 
 		$detail_users = DB::table('detail_users')->where('id',$request->id)->first();
 		
-			  
 		$fotoprofile = DB::table('detail_users')->where('id', $request->id)->update([
 			'id_users'	=> $id_users,
 			'nama' =>  $request->nama,

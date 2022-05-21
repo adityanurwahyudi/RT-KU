@@ -30,10 +30,6 @@
                     <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
                     Data Login RT
                 </a>
-                <a class="nav-link" href="{{ route('admin.rw.datawarga') }}">
-                    <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
-                    Data Warga
-                </a>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError"
                     aria-expanded="false" aria-controls="pagesCollapseError">
                     <div class="sb-nav-link-icon"><i class="fa fa-lock"></i></div>
@@ -56,10 +52,6 @@
                     Dashboard
                 </a>
                 <div class="sb-sidenav-menu-heading">Data-Data</div>
-                <a class="nav-link" href="{{ route('admin.rt.datawarga') }}">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Data Kependudukan
-                </a>
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
                     aria-expanded="false" aria-controls="collapseLayouts">
                     <div class="sb-nav-link-icon"><i class="fa fa-file"></i></div>

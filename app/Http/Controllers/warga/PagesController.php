@@ -173,6 +173,7 @@ class PagesController extends Controller
     }
     public function contact()
     {
+        $id_users = Auth::guard('user')->user()->id;
         $rt = Auth::guard('user')->user()->rt;
 		$rw = Auth::guard('user')->user()->rw;
         
@@ -192,8 +193,12 @@ class PagesController extends Controller
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
                 ->get();
+                
+        $users = DB::table('users')->where('users.id',$id_users)
+        ->leftjoin('detail_users','detail_users.id_users','users.id')
+        ->first();
 		return view('warga.contact',
-		compact('kritiksaran','profile','userrt'));
+		compact('kritiksaran','profile','userrt','users'));
     }
     public function kegiatan()
     {
@@ -403,6 +408,7 @@ class PagesController extends Controller
     }
     public function keamanan()
     {
+        $id_users = Auth::guard('user')->user()->id;
         $rt = Auth::guard('user')->user()->rt;
 		$rw = Auth::guard('user')->user()->rw;
         
@@ -423,10 +429,13 @@ class PagesController extends Controller
                         ->where('users.rt', $rt)
                         ->where('detail_users.jeniskelamin', 'Laki-laki')
                         ->get();
+        $users = DB::table('users')->where('users.id',$id_users)
+        ->leftjoin('detail_users','detail_users.id_users','users.id')
+        ->first();
                         
 		$no = 1;
 		return view('warga.keamanan',
-		compact('security','jadwal_ronda','profile','no'));
+		compact('security','jadwal_ronda','profile','no','users'));
     }
     public function datawarga()
     {

@@ -45,15 +45,15 @@
                             <h3 class="text-md mb-4">Kritik dan Saran</h3>
                         </center>
                         <div class="form-group">
-                            <input id="nama" name="nama" type="text" class="form-control" placeholder="Nama Lengkap">
+                            <input id="nama" name="nama" type="text" value="{{ $users->name }}" class="form-control" placeholder="Nama Lengkap"readonly>
                         </div>
                         <div class="form-group">
-                            <input id="email" name="email" type="email" class="form-control"
-                                placeholder="Alamat E-Mail">
+                            <input id="email" name="email" type="email" value="{{ $users->email }}" class="form-control"
+                                placeholder="Alamat E-Mail" readonly>
                         </div>
                         <div class="form-group">
-                            <input id="telepon" name="telepon" type="tel" class="form-control"
-                                placeholder="Nomor Handphone">
+                            <input id="telepon" name="telepon" type="tel" value="{{ $users->telpon }}" class="form-control"
+                                placeholder="Nomor Handphone" readonly>
                         </div>
                         <div class="form-group-2 mb-4">
                             <textarea id="kritikdansaran" name="kritikdansaran" class="form-control" rows="4"

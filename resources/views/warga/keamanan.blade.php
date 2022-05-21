@@ -111,11 +111,11 @@
                             <h3 class="text-md mb-4">Pengaduan / Pelaporan</h3>
                         </center>
                         <div class="form-group">
-                            <input id="nama" name="nama" class="form-control" placeholder="Nama Lengkap">
+                            <input id="nama" name="nama" class="form-control" value="{{ $users->name }}"placeholder="Nama Lengkap" readonly>
                         </div>
                         <div class="form-group">
-                            <input id="telepon" name="telepon" type="tel" class="form-control"
-                                placeholder="Nomor Telepon">
+                            <input id="telepon" name="telepon" type="tel" value="{{ $users->telpon }}" class="form-control"
+                                placeholder="Nomor Telepon" readonly>
                         </div>
                         <div class="form-group">
                             <label>Tanggal</label>

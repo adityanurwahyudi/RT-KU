@@ -11,6 +11,7 @@ class BeritadankegiatanController extends Controller
 {
 	public function index()
 	{
+        $id_users = Auth::guard('admin')->user()->id;
 		$rt = Auth::guard('admin')->user()->rt;
 		$rw = Auth::guard('admin')->user()->rw;
 
@@ -24,9 +25,12 @@ class BeritadankegiatanController extends Controller
 				->where('users.rw', $rw)
 				->where('users.rt', $rt)
 				->get();
+				
+		$beritas = DB::table('berita')->where('id_users',$id_users)->get();
+		$kegiatans = DB::table('kegiatan')->where('id_users',$id_users)->get();
 		$no = 1;
 		$No = 1;
-		return view('RT.beritadankegiatan', compact('berita', 'kegiatan', 'no', 'No',));
+		return view('RT.beritadankegiatan', compact('berita', 'kegiatan', 'beritas','no', 'No',));
 	}
 	public function tambah()
 	{
@@ -86,7 +90,7 @@ class BeritadankegiatanController extends Controller
 	
 	public function edit($id)
 	{
-		$berita = DB::table('berita')->where('id', $id)->get();
+		$berita = DB::table('berita')->where('id', $id)->first();
 		return view('RT.formedit.e_berita', ['berita' => $berita]);
 	}
     public function edit1($id)
