@@ -55,10 +55,10 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $val->name }}</td>
-                            <td>{{ getPenghasilan($val->id_penghasilan)->keterangan }}</td>
-                            <td>{{ getPekerjaan($val->id_pekerjaan)->keterangan }}</td>
-                            <td>{{ getJumlahTanggungan($val->id_jumlah_tanggungan)->keterangan }}</td>
-                            <td>{{ getKendaraan($val->id_kendaraan)->keterangan }}</td>
+                            <td>{{ ($val->id_penghasilan) ? getPenghasilan($val->id_penghasilan)->keterangan : '' }}</td>
+                            <td>{{ ($val->id_pekerjaan) ? getPekerjaan($val->id_pekerjaan)->keterangan : '' }}</td>
+                            <td>{{ ($val->id_jumlah_tanggungan) ? getJumlahTanggungan($val->id_jumlah_tanggungan)->keterangan : '' }}</td>
+                            <td>{{ ($val->id_kendaraan) ? getKendaraan($val->id_kendaraan)->keterangan : '' }}</td>
                             {{-- <td>
                                 <a title="Edit" href="" class="btn btn-info">Edit</a>
                                 <a title="Delete" href=" " class="btn btn-danger"
@@ -97,10 +97,10 @@
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $val->name }}</td>
-                            <td>{{ number_format(getPenghasilan($val->id_penghasilan)->bobot,2) }}</td>
-                            <td>{{ number_format(getPekerjaan($val->id_pekerjaan)->bobot,2) }}</td>
-                            <td>{{ number_format(getJumlahTanggungan($val->id_jumlah_tanggungan)->bobot,2) }}</td>
-                            <td>{{ number_format(getKendaraan($val->id_kendaraan)->bobot,2) }}</td>
+                            <td>{{ !empty($val->id_penghasilan) ? number_format(getPenghasilan($val->id_penghasilan)->bobot,2) : '' }}</td>
+                            <td>{{ !empty($val->id_pekerjaan) ? number_format(getPekerjaan($val->id_pekerjaan)->bobot,2) : '' }}</td>
+                            <td>{{ !empty($val->id_jumlah_tanggungan) ? number_format(getJumlahTanggungan($val->id_jumlah_tanggungan)->bobot,2) : '' }}</td>
+                            <td>{{ !empty($val->id_kendaraan) ? number_format(getKendaraan($val->id_kendaraan)->bobot,2) : '' }}</td>
                             {{-- <td>
                                 <a title="Edit" href="" class="btn btn-info">Edit</a>
                                 <a title="Delete" href=" " class="btn btn-danger"
