@@ -1,4 +1,5 @@
 
+<link href="{{asset('/sbadmin/css/styles2.css')}}" rel="stylesheet" />
 <style>
 
     .sb-topnav.navbar .navbar-nav > li.dropdown .badge.badge-default {
@@ -62,7 +63,10 @@
     .waves-effect li:hover{
         background-color: #858585;
     }
+  
+
 </style>
+
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <!-- Navbar Brand-->
     <a class="navbar-brand ps-3" href="homeRT">Administrator</a>
@@ -131,6 +135,7 @@
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
                 aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            
                 <li onclick="event.preventDefault();document.getElementById('logout').submit();">
                     <a class="dropdown-item" href="#!">Logout</a>
                 </li>
@@ -143,7 +148,7 @@
 </nav>
 <script>
 // Get the modal
-var modal = document.getElementById('id02');
+var modal = document.getElementById('id01');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {

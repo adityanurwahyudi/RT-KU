@@ -54,7 +54,12 @@
         </div>
     </div>
 
-            <!-- Button to open the modal login form -->
+    <?php
+            $id_users = Auth::guard('user')->user()->id;
+            $users = DB::table('users')->where('users.id',$id_users)
+            ->leftjoin('detail_users','detail_users.id_users','users.id')
+            ->first();
+            ?>
             <div id="id01" class="modal">
 
                 <form class="modal-content animate" action="{{ route('warga.prosespindah') }}" method="post">
@@ -68,13 +73,13 @@
 
                     <div class="container">
                         <label for="nama"><b>Nama Lengkap</b></label>
-                        <input id="nama" type="text" placeholder="Nama Lengkap" name="nama" required>
+                        <input id="nama" type="text" placeholder="Nama Lengkap" value="{{ $users->name }}" name="nama" readonly>
 
                         <label for="tanggal"><b>Tanggal</b></label><br>
                         <input id="tanggal" type="date" placeholder="Tanggal" class="form-control" name="tanggal" required>
                         <br>
                         <label for="alamat"><b>Alamat</b></label>
-                        <input id="alamat" type="text" placeholder="Alamat Terkini" name="alamat" required>
+                        <input id="alamat" type="text" placeholder="Alamat Terkini" value="{{ $users->alamat }}" name="alamat" readonly>
 
                         <label for="alamatpindah"><b>Alamat Pindah</b></label>
                         <input id="alamatpindah" type="text" placeholder="Alamat Pindah" name="alamatpindah" required>

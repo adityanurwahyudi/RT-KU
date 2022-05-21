@@ -28,38 +28,26 @@
                             @endif
                             <form action="{{ route('admin.rt.berita.update') }}" method="post" enctype="multipart/form-data">
                                 {{ csrf_field() }}
-
-                                @foreach($berita as $p)
                                 <div class="mb-3">
-                                    <input type="hidden" class="form-control" id="id" name="id" value="{{ $p->id }}" required>
+                                    <input type="hidden" class="form-control" id="id" name="id" value="{{ $berita->id }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nama" class="form-label">Nama </label>
-                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}" required>
+                                    <label for="nama" class="form-label">Nama Berita</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $berita->nama }}" required>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="deskripsi" class="form-label">Deskripsi</label>
-                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $p->deskripsi }}"
+                                    <label for="deskripsi" class="form-label">Deskripsi Berita</label>
+                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $berita->deskripsi }}"
                                         required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="gambar" class="form-label">Gambar</label>
-                                    <input type="text" class="form-control" id="gambar" name="gambar" value="{{ $p->gambar }}"
+                                    <input type="file" class="form-control" id="gambar" name="gambar" value="{{ $berita->gambar }}"
                                         disabled>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="gambar" class="form-label">Gambar</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" value="" required>
-                                </div>
-                                <div class="d-flex flex-row align-items-center mb-4">
-                                    <div class="form-outline flex-fill mb-0">
-                                        <input type="hidden" id="status" name="status" value="" class="form-control" />
-                                    </div>
                                 </div>
                                 <div class="mb-3">
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />
                                 </div>
-                                @endforeach
                             </form>
                         </div>
                     </div>

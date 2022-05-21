@@ -106,7 +106,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/datawarga/tambah', 'DataKependudukanController@tambah')->name('datawarga.tambah');
         Route::get('/datawarga/hapus/{id}', 'DataKependudukanController@hapus')->name('datawarga.hapus');
         Route::post('/datawarga/update', 'DataKependudukanController@update')->name('datawarga.update');
-        Route::get('/datawarga/edit/{id}', 'DataKependudukanController@edit')->name('datawarga.edit');
+        Route::get('/datawarga/edit/{id}', 'UserManagementController@edit')->name('datawarga.edit');
 
         //keluarmasukwarga
         Route::get('/keluarmasukwarga', 'TamupindahController@index')->name('keluarmasukwarga');

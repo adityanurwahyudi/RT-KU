@@ -90,7 +90,6 @@
                             <td>{{ $p->pekerjaan }}</td>
                             <td>{{ $p->statuspernikahan }}</td>
                             <td>{{ $p->kewarganegaraan }}</td>
-                            <td><img width="100" height="100"src="{{asset('upload/detailusers/'.$p->fotoprofile)}}"></td>
                             
                         </tr>
                         @endforeach

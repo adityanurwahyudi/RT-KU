@@ -17,16 +17,22 @@ class UserManagementController extends Controller
     {
         $this->middleware('auth');
     }
+    
 
     public function datawarga()
     { 
+        $id_users = Auth::guard('admin')->user()->id;
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 
         $data['no_normalisasi'] = 1;
         $data['no_rank'] = 1;
         
-
+  
+		$data['datawarga'] = DB::table('users')->where('users.id',$id_users)
+                            ->leftjoin('detail_users','detail_users.id_users','users.id')
+                            ->first();
+        
         $kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
         $data['kepentingan'] = $kepentingan / 2;
         
@@ -133,7 +139,13 @@ class UserManagementController extends Controller
                     ->get();
         return view('RT.datawarga',$data);
     }
-
+    public function edit($id)
+	{
+		$datawarga = DB::table('detail_users')->where('detail_users.id_users', $id)
+        ->join('users','users.id','detail_users.id_users')->select('detail_users.*','users.name','users.telpon','users.email')
+        ->get();
+		return view('RT.formedit.e_datawarga', ['datawarga' => $datawarga]);
+	}
 
 
     public function dataloginwarga()
