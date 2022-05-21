@@ -224,6 +224,9 @@ class PagesController extends Controller
             'tempat_lahir'  => $request->tempat_lahir,
             'tgl_lahir'     => $request->tgl_lahir,
             'agama'         => $request->agama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
             'status'        => 0,
         ];
         DB::table('surat_domisili')->insert($data);
@@ -238,6 +241,9 @@ class PagesController extends Controller
             'tempat_lahir'  => $request->tempat_lahir,
             'tgl_lahir'     => $request->tgl_lahir,
             'agama'         => $request->agama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
         ];
         DB::table('surat_domisili')->where('id',$request->id)->update($data);
 
@@ -467,7 +473,7 @@ class PagesController extends Controller
     }
     public function datawarga_update(Request $request)
     {
-        // try{
+        try{
             $id_users = Auth::guard('user')->user()->id;
             $id_jumlah = $request->jumlah;
             $id_kendaraan = $request->kendaraan;
@@ -562,9 +568,9 @@ class PagesController extends Controller
                 DB::table('hasil_normalisasi')->insert($data_normalisasi);
             }
             return redirect()->back()->with(['success'=>'Berhasil Update']);
-        // }catch(Exception $e){
-        //     return redirect()->back()->with(['error'=>'Gagal Update']);
-        // }
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update']);
+        }
     }
     
     public function pindah()

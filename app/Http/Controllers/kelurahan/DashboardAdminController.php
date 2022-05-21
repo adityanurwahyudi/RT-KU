@@ -239,9 +239,11 @@ class DashboardAdminController extends Controller
                         $q->where('users.rt', $rt);
                     })
                     ->get();
+        $bobot_kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
+        $kepentingan = $bobot_kepentingan / 2;
 
         foreach($data as $val){
-            $normalisasi = DB::table('hasil_normalisasi')->where('id_users', $val->id_users)->first();
+            $normalisasi = DB::table('hasil_normalisasi')->where('rank','>', $kepentingan)->where('id_users', $val->id_users)->first();
             if(!empty($normalisasi)){
                 $category[] = $val->name;
                 $tempCategory[] = $val->id_users;

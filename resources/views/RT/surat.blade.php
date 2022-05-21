@@ -209,9 +209,12 @@
                             <th>No</th>
                             <th>Created By</th>
                             <th>Nama</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Pekerjaan</th>
                             <th>Tempat Lahir</th>
                             <th>Tanggal Lahir</th>
                             <th>Agama</th>
+                            <th>Alamat</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -222,9 +225,12 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ getUser($val->id_users)->name }}</td>
                             <td>{{ $val->nama }}</td>
+                            <td>{{ $val->jenis_kelamin }}</td>
+                            <td>{{ $val->pekerjaan }}</td>
                             <td>{{ $val->tempat_lahir }}</td>
                             <td>{{ $val->tgl_lahir }}</td>
                             <td>{{ $val->agama }}</td>
+                            <td>{{ $val->alamat }}</td>
                             <td>
                                 @if($val->status==0)
                                 <span class="badge badge-info">Draft</span>
