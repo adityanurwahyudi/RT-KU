@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use App\Models\Kehadiran;
+use PDF;
 
 class DashboardAdminController extends Controller
 {
@@ -203,7 +203,7 @@ class DashboardAdminController extends Controller
     {
         $rw = $_GET['rw'];
         $rt = $_GET['rt'];
-        $data = DB::table('users')->select('users.*','detail_users.jeniskelamin','detail_users.agama')
+        $data = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
                     ->whereNotNull('rw')
                     ->whereNotNull('rt')
@@ -216,5 +216,83 @@ class DashboardAdminController extends Controller
                     ->get();
 
         echo json_encode($data);
+    }
+
+    public function getTidakMampu()
+    {
+        $rw = $_GET['rw'];
+        $rt = $_GET['rt'];
+        $series = [];
+        $seriesData = [];
+        $category = [];
+        $tempCategory = [];
+
+        $data = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
+                    ->where('users.status',1)
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
+        $bobot_kepentingan = DB::table('bobot_kepentingan')->sum('rating_kepentingan');
+        $kepentingan = $bobot_kepentingan / 2;
+
+        foreach($data as $val){
+            $normalisasi = DB::table('hasil_normalisasi')->where('rank','>', $kepentingan)->where('id_users', $val->id_users)->first();
+            if(!empty($normalisasi)){
+                $category[] = $val->name;
+                $tempCategory[] = $val->id_users;
+            }
+        }
+
+        $seriesData['showInLegend'] = false;
+        foreach($tempCategory as $val){
+            $normalisasi = DB::table('hasil_normalisasi')->where('id_users', $val)->first();
+            if(!empty($normalisasi)){
+                $seriesData['name'] = 'Rank';
+                $seriesData['data'][] = (float)$normalisasi->rank;
+            }
+        }
+        $series = $seriesData;
+        $seriesData = [];
+
+        echo json_encode([
+            'series' => $series,
+            'category' => $category
+        ]); 
+    }
+
+    public function cetak_table_pdf($rw, $rt)
+    {
+        $rw = ($rw!=0) ? $rw : null;
+        $rt = ($rt!=0) ? $rt : null;
+
+        $data['no']= 1;
+        $data['data'] = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rw')
+                    ->whereNotNull('rt')
+                    ->when($rw, function($q, $rw){
+                        $q->where('users.rw', $rw);
+                    })
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
+
+        // return view('kelurahan.cetak_pdf_dashboard', $data);
+        $size_paper = [0, 0, 595.28, 841.89];
+        $pdf = PDF::setOptions([
+            'isRemoteEnabled' => true,
+            'images' => true,
+        ])
+        ->loadView('kelurahan.cetak_pdf_dashboard', $data)
+        ->setPaper($size_paper, 'landscape');
+        return $pdf->stream('Data Warga Dashboard Kelurahan.pdf');
     }
 }

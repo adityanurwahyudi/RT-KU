@@ -229,6 +229,9 @@ class PagesController extends Controller
             'tempat_lahir'  => $request->tempat_lahir,
             'tgl_lahir'     => $request->tgl_lahir,
             'agama'         => $request->agama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
             'status'        => 0,
         ];
         DB::table('surat_domisili')->insert($data);
@@ -243,6 +246,9 @@ class PagesController extends Controller
             'tempat_lahir'  => $request->tempat_lahir,
             'tgl_lahir'     => $request->tgl_lahir,
             'agama'         => $request->agama,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'pekerjaan'     => $request->pekerjaan,
+            'alamat'        => $request->alamat,
         ];
         DB::table('surat_domisili')->where('id',$request->id)->update($data);
 
@@ -499,17 +505,31 @@ class PagesController extends Controller
             }
 
             // Get Bobot Terbesar Kepentingan
+            $rt = Auth::guard('user')->user()->rt;
+            $rw = Auth::guard('user')->user()->rw;
             $rating_jumlah = DB::table('detail_users')
-                    ->leftjoin('master_jumlah_tanggungan','master_jumlah_tanggungan.id','detail_users.id_jumlah_tanggungan')    
+                    ->leftjoin('users','users.id','detail_users.id_users')
+                    ->leftjoin('master_jumlah_tanggungan','master_jumlah_tanggungan.id','detail_users.id_jumlah_tanggungan')
+                    ->where('users.rt',$rt)
+                    ->where('users.rw',$rw)
                     ->orderBy('master_jumlah_tanggungan.bobot','DESC')->first()->bobot;
             $rating_kendaraan = DB::table('detail_users')
-                    ->leftjoin('master_kendaraan','master_kendaraan.id','detail_users.id_kendaraan')    
+                    ->leftjoin('users','users.id','detail_users.id_users')
+                    ->leftjoin('master_kendaraan','master_kendaraan.id','detail_users.id_kendaraan')
+                    ->where('users.rt',$rt)
+                    ->where('users.rw',$rw)
                     ->orderBy('master_kendaraan.bobot','DESC')->first()->bobot;
             $rating_pekerjaan = DB::table('detail_users')
-                    ->leftjoin('master_pekerjaan','master_pekerjaan.id','detail_users.id_pekerjaan')    
+                    ->leftjoin('users','users.id','detail_users.id_users')
+                    ->leftjoin('master_pekerjaan','master_pekerjaan.id','detail_users.id_pekerjaan')
+                    ->where('users.rt',$rt)
+                    ->where('users.rw',$rw)
                     ->orderBy('master_pekerjaan.bobot','DESC')->first()->bobot;
             $rating_penghasilan = DB::table('detail_users')
-                    ->leftjoin('master_penghasilan','master_penghasilan.id','detail_users.id_penghasilan')    
+                    ->leftjoin('users','users.id','detail_users.id_users')
+                    ->leftjoin('master_penghasilan','master_penghasilan.id','detail_users.id_penghasilan')
+                    ->where('users.rt',$rt)
+                    ->where('users.rw',$rw)
                     ->orderBy('master_penghasilan.bobot','DESC')->first()->bobot;
 
             // Get Bobot Berdasarkan Id
@@ -519,10 +539,15 @@ class PagesController extends Controller
             $bobot_penghasilan = getPenghasilan($id_penghasilan)->bobot;
 
             // Bobot yang didapet diNormalisasi
-            $normalisasi_jumlah = Round($bobot_jumlah / $rating_jumlah,2);
-            $normalisasi_kendaraan = Round($bobot_kendaraan / $rating_kendaraan,2);
-            $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $rating_pekerjaan,2);
-            $normalisasi_penghasilan = Round($bobot_penghasilan / $rating_penghasilan,2);
+            $cek_rating_jumlah = !empty($rating_jumlah) ? $rating_jumlah : 1;
+            $cek_rating_kendaraan = !empty($rating_kendaraan) ? $rating_kendaraan : 1;
+            $cek_rating_pekerjaan = !empty($rating_pekerjaan) ? $rating_pekerjaan : 1;
+            $cek_rating_penghasilan = !empty($rating_penghasilan) ? $rating_penghasilan : 1;
+
+            $normalisasi_jumlah = Round($bobot_jumlah / $cek_rating_jumlah,3);
+            $normalisasi_kendaraan = Round($bobot_kendaraan / $cek_rating_kendaraan,3);
+            $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $cek_rating_pekerjaan,3);
+            $normalisasi_penghasilan = Round($bobot_penghasilan / $cek_rating_penghasilan,3);
 
             // Get Bobot Kepentingan
             $kepentingan_jumlah = DB::table('bobot_kepentingan')->where('kriteria','master_jumlah_tanggungan')->first()->rating_kepentingan;
@@ -535,7 +560,7 @@ class PagesController extends Controller
             $rank_kendaraan = $kepentingan_kendaraan * $normalisasi_kendaraan;
             $rank_pekerjaaan = $kepentingan_pekerjaaan * $normalisasi_pekerjaaan;
             $rank_penghasilan = $kepentingan_penghasilan * $normalisasi_penghasilan;
-            $rank = Round($rank_jumlah + $rank_kendaraan + $rank_pekerjaaan + $rank_penghasilan,2);
+            $rank = Round($rank_jumlah + $rank_kendaraan + $rank_pekerjaaan + $rank_penghasilan,3);
             $data_normalisasi = [
                 'id_users'              => $id_users,
                 'jumlah_tanggungan'     => $normalisasi_jumlah,

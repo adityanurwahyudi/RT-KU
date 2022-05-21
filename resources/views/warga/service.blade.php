@@ -211,12 +211,12 @@
                         <div class="form-group">
                             <label color="#000000" for="agama">Agama</label>
                             <select  class="form-control" id="agama" name="agama" for="agama">
-                        <option value="Islam">Islam</option>
-                        <option value="Katolik">Katolik</option>
-                        <option value="Kristen Protestan">Kristen Protestan</option>
-                        <option value="Hindu">Hindu</option>
-                        <option value="Buddha">Buddha</option>
-                        <option value="Konghucu">Konghucu</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Kristen Protestan">Kristen Protestan</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Buddha">Buddha</option>
+                                <option value="Konghucu">Konghucu</option>
                           </select>
                         </div>
                         <div class="form-group">
@@ -406,10 +406,30 @@
                 <form id="formEditSurat" action="{{route('warga.edit_domisili')}}" method="post" enctype="multipart/form-data">
                 @csrf
                     <div class="modal-body">
-                            <input type="hidden" name="id" id="id">
+                            <input type="hidden" name="id" id="id_domisili">
                             <div class="form-group">
                                 <label for="nama">Nama</label>
                                 <input type="text" maxlength="100" class="form-control" id="nama_e" name="nama" placeholder="Masukan Nama">
+                            </div>
+                            <div class="form-group">
+                                <label color="#000000" for="pekerjaan">Pekerjaan</label>
+                                <input type="text" maxlength="100" class="form-control" id="pekerjaan_e" name="pekerjaan" placeholder="Masukan Pekerjaan" required>
+                            </div>
+                            <div class="form-group">
+                                <label color="#000000" for="agama">Agama</label>
+                                <select  class="form-control" id="agama_e" name="agama">
+                                    <option value="Islam">Islam</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Kristen Protestan">Kristen Protestan</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                                <label color="#000000" for="jenis_kelamin">Jenis Kelamin</label>
+                                <p><input type='radio' name='jenis_kelamin' id="laki_radio" value='Laki-Laki'/>Laki-laki</p>
+                                <p><input type='radio' name='jenis_kelamin' id="perempuan_radio" value='Perempuan'/>Perempuan</p>
                             </div>
                             <div class="form-group">
                                 <label for="tempat_lahir">Tempat Lahir</label>
@@ -420,8 +440,8 @@
                                 <input type="text" class="form-control" id="tgl_lahir_e" name="tgl_lahir" placeholder="Masukan Tanggal Lahir">
                             </div>
                             <div class="form-group">
-                                <label for="agama">Agama</label>
-                                <input type="text" maxlength="20" class="form-control" name="agama" id="agama_e" placeholder="Masukan Agama">
+                                <label color="#000000" for="alamat">Alamat</label>
+                                <input type="text" maxlength="255" class="form-control" id="alamat_e" name="alamat" placeholder="Masukan Alamat" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -625,11 +645,18 @@
             var item = $(obj).data('item');
             $('#HeaderModal').text('Edit Surat Domisili');
             
-            $('#id').val(item.id);
+            $('#id_domisili').val(item.id);
             $('#nama_e').val(item.nama);
+            $('#pekerjaan_e').val(item.pekerjaan);
             $('#tempat_lahir_e').val(item.tempat_lahir);
             flatpickr("#tgl_lahir_e").setDate(item.tgl_lahir);
             $('#agama_e').val(item.agama);
+            $('#alamat_e').val(item.alamat);
+            if(item.alamat == 'Perempuan'){
+                $("#perempuan_radio").attr('checked', 'checked');
+            }else{
+                $("#laki_radio").attr('checked', 'checked');
+            }
             
             $('#modal-edit-domisili').modal('show');
         }

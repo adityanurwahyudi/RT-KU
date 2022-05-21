@@ -136,10 +136,10 @@
                         <tr>
                             <td>{{ $no_normalisasi++ }}</td>
                             <td>{{ $val->name }}</td>
+                            <td>{{ $val->penghasilan }}</td>
+                            <td>{{ $val->pekerjaan }}</td>
                             <td>{{ $val->jumlah_tanggungan }}</td>
                             <td>{{ $val->kendaraan }}</td>
-                            <td>{{ $val->pekerjaan }}</td>
-                            <td>{{ $val->penghasilan }}</td>
                         </tr>
                         @endforeach
                     </tbody>
