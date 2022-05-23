@@ -377,32 +377,25 @@
                     </div>
 
                     <div class="col-lg-6">
-                        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                            <div class="row">
-                                <div class="col form-group">
-                                    <input id="nama" type="text" name="nama" class="form-control" id="nama"
-                                        placeholder="Your Name" required>
-                                </div>
-                                <div class="col form-group">
-                                    <input id="email" type="email" class="form-control" name="email" id="email"
-                                        placeholder="Your Email" required>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <input id="telepon " type="tel" class="form-control" name="telepon" id="telepon"
-                                    placeholder="Phone Number" required>
-                            </div>
-                            <div class="form-group">
-                                <textarea id="pesan" class="form-control" name="pesan" rows="5" placeholder="Message"
-                                    required></textarea>
-                            </div>
-                            <div class="my-3">
-                                <div class="loading">Loading</div>
-                                <div class="error-message"></div>
-                                <div class="sent-message">Your message has been sent. Thank you!</div>
-                            </div>
-                            <div class="text-center"><button type="submit">kirim</button></div>
-                        </form>
+                    <form action="{{ route('admin.kelurahan.contact_save') }}" method="post" enctype="multipart/form-data">
+            @csrf
+
+                <div class="mb-3">
+                    <input type="text" for="nama" placeholder="Nama Lengkap" onkeyup="Alphabet('nama','Nama Harus Huruf')" class="form-control" id="nama" name="nama" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" for="email" placeholder="E-Mail" onchange="cekEmail()" onkeyup="Email('email','Email Yang Bener')" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" for="telepon" placeholder="Nomor Telepon" onchange="cekTelpon()" onkeyup="Nomor('telepon','Telepon Harus Angka')" class="form-control" id="telepon" name="telepon" required>
+                </div>
+                <div class="mb-3">
+                    <textarea type="text" for="keterangan" id="keterangan" placeholder="Pesan"  rows="5" class="form-control" id="keterangan" name="keterangan" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-info" value="Simpan Data" />
+                </div>
+            </form>
                     </div>
 
                 </div>
@@ -422,11 +415,11 @@
                     <div class="col-lg-3 col-md-6 footer-contact">
                         <h3>RT-KU<span>.</span></h3>
                         <p>
-                            Griya Alam Sentul <br>
-                            A8 no 5 Kecamatan<br>
-                            Babakan Madang <br><br>
-                            <strong>Phone:</strong> 0877-2235-0785<br>
-                            <strong>Email:</strong> dityakayaa221@gmail.com<br>
+                        Jl. Palm Hill No.107, Kadumangu, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810<br>
+                        
+                       
+                            <strong>Phone:</strong>021-87952146<br>
+                            <strong>Email:</strong> sekretariatdesakadumanggu@gmail.com<br>
                         </p>
                     </div>
 
@@ -438,21 +431,6 @@
                             <li><i class="bx bx-chevron-right"></i> <a href="#fitur">Fitur</a></li>
                             <li><i class="bx bx-chevron-right"></i> <a href="#faq">F.A.Q</a></li>
                         </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4>Our Social Networks</h4>
-                        <p>Hubungi Sosial Media Kami</p>
-                        <div class="social-links mt-3">
-                            <a href="https://mobile.twitter.com/_23aditya06_" class="twitter"><i
-                                    class="bx bxl-twitter"></i></a>
-                            <a href="https://www.facebook.com/profile.php?id=100006485602157" class="facebook"><i
-                                    class="bx bxl-facebook"></i></a>
-                            <a href="https://instagram.com/adityanurwahyudi?utm_medium=copy_link" class="instagram"><i
-                                    class="bx bxl-instagram"></i></a>
-                            <a href="https://id.linkedin.com/in/aditya-nurwahyudi-56898115a" class="linkedin"><i
-                                    class="bx bxl-linkedin"></i></a>
-                        </div>
                     </div>
 
                 </div>
@@ -476,6 +454,54 @@
     <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
+            <script type="text/javascript">
+function Alphabet(id, pesan) {
+                
+                var nilai = document.getElementById(id);
+                var alphaExp = /^[a-zA-Z]+$/;
+                if(nilai.value!= ''){
+                
+                if(nilai.value.match(alphaExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+            }
+            }
+            function Nomor(id, pesan) {
+                var nilai = document.getElementById(id);
+                var numberExp = /^[0-9]+$/;
+                if(nilai.value!= ''){
+                    
+                if(nilai.value.match(numberExp)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    nilai.value='';
+                    return false;
+                }
+
+                }
+                
+            }
+            function Email(nilai, pesan) {
+                var email = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+                if(nilai.value.match(email)) {
+                    return true;
+                }
+                else {
+                    alert(pesan);
+                    nilai.focus();
+                    return false;
+                }
+            }
+</script>
     <!-- Vendor JS Files -->
 
     <script src="{{asset('/superwarga/assets/vendor/purecounter/purecounter.js')}}"></script>
@@ -547,5 +573,6 @@
             'error'
         )
     </script>
+    
 @endif
 </html>

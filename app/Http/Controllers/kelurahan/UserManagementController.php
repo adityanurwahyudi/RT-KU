@@ -105,6 +105,23 @@ class UserManagementController extends Controller
         }
 
     }
+    public function contact_save(Request $request)
+    {
+        DB::table('contact')->insert([
+			'nama' => $request->nama,
+			'email' => $request->email,
+            'telepon' => $request->telepon,
+			'keterangan' => $request->keterangan,
+		]);
+		return redirect('/')->with(['success'=>'Data Berhasil Terkirim!']);;
+    }
+    
+    public function contact_hapus($id)
+    {
+       
+		DB::table('contact')->where('id', $id)->delete();
+		return redirect('kelurahan/dashboard-kelurahan');
+    }
 
     public function dataloginwarga_edit($id)
     {

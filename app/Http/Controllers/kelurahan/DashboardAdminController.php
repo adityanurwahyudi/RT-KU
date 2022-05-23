@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
-use PDF;
-
 class DashboardAdminController extends Controller
 {
 
@@ -23,10 +21,12 @@ class DashboardAdminController extends Controller
         $data['user'] = Auth::user();
         $data['rw'] = DB::table('users')->select('rw')->whereNotNull('rw')->groupBy('rw')->get();
         $data['rt'] = DB::table('users')->select('rt')->whereNotNull('rt')->groupBy('rt')->get();
+        $data['contact'] = DB::table('contact')->get();
         
         return view('kelurahan.dashboard_admin', $data);
     }
-
+   
+	
     public function getJenisKelamin()
     {
         $rw = $_GET['rw'];

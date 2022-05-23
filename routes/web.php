@@ -121,6 +121,7 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
          Route::get('/pindah/cetak_pindah', 'TamupindahController@cetak_pindah')->name('pindah.cetak_pindah');
         Route::get('/pindah/hapus/{id}', 'TamupindahController@hapus')->name('pindah.hapus');
 
+
         //galeri
         Route::get('/galeri', 'GaleriController@index')->name('galeri');
 
@@ -212,8 +213,14 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
     Route::name('rw.')->namespace('RW')->prefix('RW')->group(function () {
         // Dashboard
         Route::get('/dashboard-rw', 'DashboardAdminController@index')->name('dashboard');
-        Route::get('/dashboard-rw/warga-berdasarkan-usia', 'DashboardAdminController@getWargaBerdasarkanUsia')->name('getWargaBerdasarkanUsia');
+        Route::get('/dashboard-rw/warga-berdasarkan-usia', 'DashboardAdminController@getWargaBerdasarkanUsia')->name('getWargaBerdasarkanUsia'); 
+        Route::get('/dashboard-rw/warga-berdasarkan-jenis-kelamin', 'DashboardAdminController@wargaBerdasarkanJeniskelamin')->name('wargaBerdasarkanJeniskelamin');
         Route::get('/dashboard-rw/warga-berdasarkan-status-pernikahan', 'DashboardAdminController@wargaBerdasarkanStatusPernikahan')->name('wargaBerdasarkanStatusPernikahan');
+        Route::get('/dashboard-rw/warga-berdasarkan-agama', 'DashboardAdminController@wargaBerdasarkanAgama')->name('wargaBerdasarkanAgama'); 
+        Route::get('/dashboard-rw/warga-berdasarkan-kewarganegaraan', 'DashboardAdminController@wargaBerdasarkanKewarganegaraan')->name('wargaBerdasarkanKewarganegaraan');
+
+        Route::get('/dashboard-rw/table', 'DashboardAdminController@getTable')->name('getTable');
+        Route::get('/dashboard-rw/pdf-table/{rt}', 'DashboardAdminController@cetak_table_pdf')->name('cetak_table_pdf');
         
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
@@ -258,6 +265,10 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/dashboard-kelurahan/table', 'DashboardAdminController@getTable')->name('getTable');
         Route::get('/dashboard-kelurahan/pdf-table/{rw}/{rt}', 'DashboardAdminController@cetak_table_pdf')->name('cetak_table_pdf');
         
+
+        //contact
+        Route::post('contact/save', 'UserManagementController@contact_save')->name('contact_save');
+        Route::get('contact/hapus/{id}', 'UserManagementController@contact_hapus')->name('contact_hapus');
         //form validasi
 
         Route::get('/data-login-warga/rw', 'UserManagementController@getRw')->name('getRw');

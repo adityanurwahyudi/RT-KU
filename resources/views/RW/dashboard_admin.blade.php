@@ -20,6 +20,9 @@
         .badge-warning {
             color: #212529;
             background-color: #ffc107;
+        } 
+        #datatable-users_wrapper .col-sm-12{
+            overflow-x: auto;
         }
     </style>
 @endsection
@@ -38,8 +41,8 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-		        <a href="{{ route('admin.rw.datawarga.cetak_datawarga')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
-		         <br><br>
+            <a href="" target="" class="btn btn-primary" id="setpdf" onclick="setPdf()">PDF</a>
+            <br><br>
                  <div class="d-flex flex-row align-items-center mb-4">
                     <div for="rt" class="form-outline flex-fill mb-0">
                         <label >RT:</label>
@@ -52,7 +55,7 @@
                          </div>
                     </div>
                     
-                <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatable-users">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -64,39 +67,17 @@
                             <th>Agama</th>
                             <th>Jenis Kelamin</th>
                             <th>Alamat</th>
-                            <th>rt Lahir</th>
+                            <th>Tanggal Lahir</th>
                             <th>Usia</th>
                             <th>Pekerjaan</th>
                             <th>Status Menikah</th>
                             <th>Kewarganegaraan</th>
-                            <th>Foto Profile</th>
-                            <th style="width: auto;">Action</th>
                         </tr>
                     </thead>
-<tbody>
-				@php $No=1 @endphp
-                     @foreach($detail_users as $p)
-                        <tr>
-                            <td>{{ $No++ }}</td>
-                            <td>{{ $p->name }}</td>
-                            <td>{{ $p->email }}</td>
-                            <td>{{ $p->telpon }}</td>
-                            <td>{{ $p->nik }}</td>
-                            <td>{{ $p->nokk }}</td>
-                            <td>{{ $p->agama }}</td>
-                            <td>{{ $p->jeniskelamin }}</td>
-                            <td>{{ $p->alamat }}</td>
-                            <td>{{ $p->tanggallahir }}</td>
-                            <td>{{ $p->usia }}</td>
-                            <td>{{ $p->pekerjaan }}</td>
-                            <td>{{ $p->statuspernikahan }}</td>
-                            <td>{{ $p->kewarganegaraan }}</td>
-                            
-                        </tr>
-                        @endforeach
+                    <tbody>
+				
                     </tbody>
-
-                                    </table>
+                    </table>
             </div>
         </div>
     </div>
@@ -110,26 +91,16 @@
                 <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Islam</th>
                             <th>Kristen Protestan</th>
                             <th>Katolik</th>
                             <th>Hindu</th>
-                            <th>Budha</th>
+                            <th>Buddha</th>
                             <th>Kong Hu Cu</th>
                         </tr>
                     </thead>
                     <tbody>
-				@php $i=1 @endphp
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{$islam}}</td>
-                            <td>{{$protestan}}</td>
-                            <td>{{$katholik}}</td>
-                            <td>{{$hindu}}</td>
-                            <td>{{$buddha}}</td>
-                            <td>{{$konghucu}}</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -143,21 +114,14 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="agama-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="kewarganegaraan-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Warga Negara Indonesia</th>
                             <th>Warga Negara Asing</th>
                         </tr>
                     </thead>
                     <tbody>
-				@php $i=1 @endphp
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{$WNI}}</td>
-                            <td>{{$WNA}}</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -220,18 +184,12 @@
                 <table class="table table-striped table-bordered table-hover table-condensed" id="jeniskelamin-table">
                     <thead>
                         <tr>
-                            <th>No</th>
                             <th>Laki-Laki</th>
                             <th>Perempuan</th>
                         </tr>
                     </thead>
                     <tbody>
-				@php $i=1 @endphp
-                        <tr>
-                            <td>{{ $i++ }}</td>
-                            <td>{{$lakilaki}}</td>
-                            <td>{{$perempuan}}</td>
-                        </tr>
+			
                     </tbody>
                 </table>
             </div>
@@ -246,11 +204,69 @@
     $(document).ready(function(){
         wargaBerdasarkanUsia();
         wargaBerdasarkanStatusPernikahan();
+        wargaBerdasarkanJenisKelamin();
+        wargaBerdasarkanAgama();
+        setTable();
+        wargaBerdasarkanKewarganegaraan();
         $('#filter_rt').change(function(){
             wargaBerdasarkanUsia();
             wargaBerdasarkanStatusPernikahan();
+            wargaBerdasarkanJenisKelamin();
+            wargaBerdasarkanAgama();
+            wargaBerdasarkanKewarganegaraan();
+            setTable();
         })
     });
+    function setPdf(){
+        var rt = ($('#rt').val()) ? $('#rt').val() : 0;
+
+        $('#setpdf').attr("href", "{{ URL::to('RW/dashboard-kelurahan/pdf-table/')}}"+'/'+rw+'/'+rt);
+        $('#setpdf').attr("target", "_blank");
+    }
+    function setTable()
+    {
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('RW/dashboard-rw/table') }}",{rt:rt},function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+            $.each(data, function(i ,val){
+                var no = i + 1;
+                var name = (val.name==null) ? '-' : val.name;
+                var email = (val.email==null) ? '-' : val.email;
+                var telpon = (val.telpon==null) ? '-' : val.telpon;
+                var nik = (val.nik==null) ? '-' : val.nik;
+                var nokk = (val.nokk==null) ? '-' : val.nokk;
+                var agama = (val.agama==null) ? '-' : val.agama;
+                var jeniskelamin = (val.jeniskelamin==null) ? '-' : val.jeniskelamin;
+                var alamat = (val.alamat==null) ? '-' : val.alamat;
+                var tanggallahir = (val.tanggallahir==null) ? '-' : val.tanggallahir;
+                var usia = (val.usia==null) ? '-' : val.usia;
+                var pekerjaan = (val.pekerjaan==null) ? '-' : val.pekerjaan;
+                var statuspernikahan = (val.statuspernikahan==null) ? '-' : val.statuspernikahan;
+                var kewarganegaraan = (val.kewarganegaraan==null) ? '-' : val.kewarganegaraan;
+                html += '<tr>';
+                    html += '<td>'+no+'</td>';
+                    html += '<td>'+name+'</td>';
+                    html += '<td>'+email+'</td>';
+                    html += '<td>'+telpon+'</td>';
+                    html += '<td>'+nik+'</td>';
+                    html += '<td>'+nokk+'</td>';
+                    html += '<td>'+agama+'</td>';
+                    html += '<td>'+jeniskelamin+'</td>';
+                    html += '<td>'+alamat+'</td>';
+                    html += '<td>'+tanggallahir+'</td>';
+                    html += '<td>'+usia+'</td>';
+                    html += '<td>'+pekerjaan+'</td>';
+                    html += '<td>'+statuspernikahan+'</td>';
+                    html += '<td>'+kewarganegaraan+'</td>';
+                html += '</tr>';
+            })
+
+            $('#datatable-users tbody').html(html);
+            $('#datatable-users').DataTable();
+        });
+    }
 
     function wargaBerdasarkanUsia(){
         var rt = $('#filter_rt').val();
@@ -280,6 +296,48 @@
             $('#status-table tbody').html(html)
         })
     }
+    function wargaBerdasarkanJenisKelamin(){
+        var rt = $('#filter_rt').val();
+        var html = '';
+        $.get("{{ URL::to('RW/dashboard-rw/warga-berdasarkan-jenis-kelamin') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res)
+            html +='<tr>';
+            html +='<td>'+data.Lakilaki+'</td>';
+            html +='<td>'+data.Perempuan+'</td>';
+            html +='</tr>';
+            $('#jeniskelamin-table tbody').html(html)
+        })
+    }
+    function wargaBerdasarkanAgama(){
+        var rt = $('#filter_rt').val();
+        var html = '';
+        $.get("{{ URL::to('RW/dashboard-rw/warga-berdasarkan-agama') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res)
+            html +='<tr>';
+            html +='<td>'+data.islam+'</td>';
+            html +='<td>'+data.katholik+'</td>';
+            html +='<td>'+data.protestan+'</td>';
+            html +='<td>'+data.khonghucu+'</td>';
+            html +='<td>'+data.hindu+'</td>';
+            html +='<td>'+data.buddha+'</td>';
+            html +='</tr>';
+            $('#agama-table tbody').html(html)
+        })
+    }
+    
+function wargaBerdasarkanKewarganegaraan(){
+        var rt = $('#filter_rt').val();
+        var html = '';
+        $.get("{{ URL::to('RW/dashboard-rw/warga-berdasarkan-kewarganegaraan') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res)
+            html +='<tr>';
+            html +='<td>'+data.WNI+'</td>';
+            html +='<td>'+data.WNA+'</td>';
+            html +='</tr>';
+            $('#kewarganegaraan-table tbody').html(html)
+        })
+    }
+    
 </script>
 
 @if(Session::has('success'))

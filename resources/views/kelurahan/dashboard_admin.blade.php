@@ -153,6 +153,47 @@
             </table>
         </div>
     </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Data Hubungi Kami
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th>Telepon</th>
+                            <th>Keterangan</th>
+                            <th style="width: auto;">Action</th>
+                        </tr>
+                    </thead>
+<tbody>
+@php $No=1 @endphp
+                     @foreach($contact as $p)
+                        <tr>
+                            <td>{{ $No++ }}</td>
+                            <td>{{ $p->nama }}</td>
+                            <td>{{ $p->email }}</td>
+                            <td>{{ $p->telepon }}</td>
+                            <td>{{ $p->keterangan }}</td>
+                            
+                            <td>
+                                <a title="Delete" href="{{route('admin.kelurahan.contact_hapus',$p->id)}} " class="btn btn-danger"
+                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+                                    </table>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

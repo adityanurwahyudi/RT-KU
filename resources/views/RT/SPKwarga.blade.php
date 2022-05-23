@@ -74,7 +74,7 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Data Bobot Warga Tidak Mampu
+            Matriks Keputusan X
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -93,9 +93,10 @@
                         </tr>
                     </thead>
                     <tbody>
+				@php $No=1 @endphp
                         @foreach($users as $val)
                         <tr>
-                            <td>{{ $no++ }}</td>
+                            <td>{{ $No++ }}</td>
                             <td>{{ $val->name }}</td>
                             <td>{{ !empty($val->id_penghasilan) ? number_format(getPenghasilan($val->id_penghasilan)->bobot,2) : '' }}</td>
                             <td>{{ !empty($val->id_pekerjaan) ? number_format(getPekerjaan($val->id_pekerjaan)->bobot,2) : '' }}</td>

@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="telepon" class="form-label">Telepon</label>
-                                    <input type="text" onchange="cekTelpon()" onkeyup="Number('telepon','Telepon Harus Angka')" class="form-control" id="telepon" name="telepon" required>
+                                    <input type="text" onchange="cekTelpon()" onkeyup="Nomor('telepon','Telepon Harus Angka')" class="form-control" id="telepon" name="telepon" required>
                                 </div>
                                 <div class="mb-3">
                                     <label for="urlmap" class="form-label">URL Lokasi Maps</label>
@@ -116,7 +116,7 @@
                 }
             }
             }
-            function Number(id, pesan) {
+            function Nomor(id, pesan) {
                 var nilai = document.getElementById(id);
                 var numberExp = /^[0-9]+$/;
                 if(nilai.value!= ''){

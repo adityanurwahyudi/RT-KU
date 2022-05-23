@@ -186,7 +186,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index">Home <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('warga.profile') }}">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('warga.profile') }}">Profile RT</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('warga.service') }}">Pengajuan Surat</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('warga.galeri') }}">Galeri</a></li>
                     <li class="nav-item dropdown">

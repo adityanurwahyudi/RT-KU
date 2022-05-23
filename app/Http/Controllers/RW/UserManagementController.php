@@ -69,15 +69,6 @@ class UserManagementController extends Controller
         echo $check;
     }
     
-    function setTable()
-    {
-        var rt = $('#rt').val();
-        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/table') }}",{rt:rt},function(res){
-            var data = JSON.parse(res);
-            var html = '';
-
-        });
-    }
 
     public function getEmail()
     {
