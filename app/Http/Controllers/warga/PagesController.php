@@ -553,25 +553,25 @@ class PagesController extends Controller
                     ->leftjoin('master_jumlah_tanggungan','master_jumlah_tanggungan.id','detail_users.id_jumlah_tanggungan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
-                    ->orderBy('master_jumlah_tanggungan.bobot','DESC')->first()->bobot;
+                    ->orderBy('master_jumlah_tanggungan.bobot','DESC')->first();
             $rating_kendaraan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_kendaraan','master_kendaraan.id','detail_users.id_kendaraan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
-                    ->orderBy('master_kendaraan.bobot','DESC')->first()->bobot;
+                    ->orderBy('master_kendaraan.bobot','DESC')->first();
             $rating_pekerjaan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_pekerjaan','master_pekerjaan.id','detail_users.id_pekerjaan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
-                    ->orderBy('master_pekerjaan.bobot','DESC')->first()->bobot;
+                    ->orderBy('master_pekerjaan.bobot','DESC')->first();
             $rating_penghasilan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_penghasilan','master_penghasilan.id','detail_users.id_penghasilan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
-                    ->orderBy('master_penghasilan.bobot','DESC')->first()->bobot;
+                    ->orderBy('master_penghasilan.bobot','DESC')->first();
 
             // Get Bobot Berdasarkan Id
             $bobot_jumlah = getJumlahTanggungan($id_jumlah)->bobot;
@@ -580,10 +580,10 @@ class PagesController extends Controller
             $bobot_penghasilan = getPenghasilan($id_penghasilan)->bobot;
 
             // Bobot yang didapet diNormalisasi
-            $cek_rating_jumlah = !empty($rating_jumlah) ? $rating_jumlah : 1;
-            $cek_rating_kendaraan = !empty($rating_kendaraan) ? $rating_kendaraan : 1;
-            $cek_rating_pekerjaan = !empty($rating_pekerjaan) ? $rating_pekerjaan : 1;
-            $cek_rating_penghasilan = !empty($rating_penghasilan) ? $rating_penghasilan : 1;
+            $cek_rating_jumlah = !empty($rating_jumlah) ? $rating_jumlah->bobot : 1;
+            $cek_rating_kendaraan = !empty($rating_kendaraan) ? $rating_kendaraan->bobot : 1;
+            $cek_rating_pekerjaan = !empty($rating_pekerjaan) ? $rating_pekerjaan->bobot : 1;
+            $cek_rating_penghasilan = !empty($rating_penghasilan) ? $rating_penghasilan->bobot : 1;
 
             $normalisasi_jumlah = Round($bobot_jumlah / $cek_rating_jumlah,3);
             $normalisasi_kendaraan = Round($bobot_kendaraan / $cek_rating_kendaraan,3);
