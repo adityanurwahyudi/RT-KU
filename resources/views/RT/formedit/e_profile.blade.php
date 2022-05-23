@@ -35,32 +35,47 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama RT</label>
-                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}" required>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="deskripsi" class="form-label">Deskripsi Singkat</label>
-                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $p->deskripsi }}" required>
+                                    <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $p->deskripsi }}" >
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="gambar" class="form-label">Foto Profile</label>
+                                    <input type="text" class="form-control" id="profilert" name="profilert" value="{{ $p->profilert }}"
+                                        disabled>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="tanggal" class="form-label">Tanggal Lahir</label>
-                                    <input type="text" class="form-control" id="tanggal" name="tanggal" value="{{ $p->tanggal }}" disabled>
-                                </div>                              
+                                    <label for="gambar" class="form-label">Foto Profile</label>
+                                    <input type="file" class="form-control" id="profilert" name="profilert" >
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gambar" class="form-label">Struktur Organisasi</label>
+                                    <input type="text" class="form-control" id="strukturorganisasi" name="strukturorganisasi" value="{{ $p->strukturorganisasi }}"
+                                        disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="gambar" class="form-label">Struktur Organisasi</label>
+                                    <input type="file" class="form-control" id="strukturorganisasi" name="strukturorganisasi" >
+                                </div>                           
                                   <div class="mb-3">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" required>
+                                    <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $p->alamat }}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="{{ $p->email }}" required>
+                                    <input type="email" class="form-control" id="email" name="email" value="{{ $p->email }}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="telepon" class="form-label">Telepon</label>
                                     <input type="tel" class="form-control" id="telepon" name="telepon" value="{{ $p->telepon }}"
-                                        required>
+                                        >
                                 </div>
                                 <div class="mb-3">
                                     <label for="urlmap" class="form-label">URL Lokasi Map</label>
-                                    <input type="text" class="form-control" id="urlmap" name="urlmap" value="{{ $p->urlmap }}" required>
+                                    <input type="text" class="form-control" id="urlmap" name="urlmap" value="{{ $p->urlmap }}" >
                                 </div>
                                 <div class="mb-3">
                                     <input type="submit" class="btn btn-info" value="Simpan Data" />

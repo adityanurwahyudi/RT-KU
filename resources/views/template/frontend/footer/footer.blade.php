@@ -12,7 +12,19 @@
                     </p>
 
                 </div>
+                <?php
+            
+        $rt = Auth::guard('user')->user()->rt;
+		$rw = Auth::guard('user')->user()->rw;
+
+            $userrt = DB::table('users')
+            ->where('users.rw', $rw)
+            ->where('users.rt', $rt)
+            ->join('profile','profile.id_users','users.id')
+            ->where('users.status', 2)->first();
+            ?>
             </div>
+
             <div class="col-lg-2 col-md-6 col-sm-6">
                 <div class="widget">
                     <h4 class="text-capitalize mb-4">Links</h4>
@@ -28,7 +40,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="widget">
                     <h4 class="text-capitalize mb-4">Alamat</h4>
-                    <p>Jl. Palm Hill No.107, Kadumangu, Kec. Babakan Madang, Kabupaten Bogor, Jawa Barat 16810</p>
+                    <p>{{ $userrt->alamat }}"</p>
                 </div>
             </div>
 
@@ -37,8 +49,9 @@
                     <div class="logo mb-4">
                         <h3>Hubungi Kami</h3>
                     </div>
-                    <h6><a href="mailto:sekretariatdesakadumanggu@gmail.com?subject=RT-KU%20&body=Saya%20Warga%20Aplikasi%20RT-KU%20" >sekretariatdesakadumanggu@gmail.com</a></h6>
-                    <a href="tel:+021-87952146"><span class="text-color h4">021-87952146</span></a>
+                    <h6><a href="mailto:{{ $userrt->email }}?subject=RT-KU%20&body=Saya%20Warga%20Aplikasi%20RT-KU%20" >
+                    {{ $userrt->email }}</a></h6>
+                    <a href="tel:{{ $userrt->telepon }}"><span class="text-color h4">{{ $userrt->telepon }}</span></a>
                 </div>
             </div>
         </div>

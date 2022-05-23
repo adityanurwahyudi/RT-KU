@@ -13,10 +13,6 @@
                     <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
                     Data Login RW
                 </a>
-                <a class="nav-link" href="{{ route('admin.kelurahan.datawarga') }}">
-                    <div class="sb-nav-link-icon"><i class="fa fa-user"></i></div>
-                    Data Warga
-                </a>
             </div>
             @elseif(Auth::guard('admin')->user()->status == 3) {{-- RW --}}
             <div class="nav">

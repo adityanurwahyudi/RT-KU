@@ -23,12 +23,12 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="nama" class="form-label">Nama </label>
-                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}" required>
+                                    <input type="text" class="form-control" id="nama" name="nama" value="{{ $p->nama }}" >
                                 </div>
                                 <div class="mb-3">
                                     <label for="deskripsi" class="form-label">Deskripsi</label>
                                     <input type="text" class="form-control" id="deskripsi" name="deskripsi" value="{{ $p->deskripsi }}"
-                                        required>
+                                        >
                                 </div>
                                 <div class="mb-3">
                                     <label for="gambar" class="form-label">Gambar</label>
@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="gambar" class="form-label">Gambar</label>
-                                    <input type="file" class="form-control" id="gambar" name="gambar" value="" required>
+                                    <input type="file" class="form-control" id="gambar" name="gambar" >
                                 </div>
                                 <div class="d-flex flex-row align-items-center mb-4">
                                     <div class="form-outline flex-fill mb-0">

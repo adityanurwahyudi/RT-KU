@@ -412,6 +412,13 @@ class PagesController extends Controller
         $rt = Auth::guard('user')->user()->rt;
 		$rw = Auth::guard('user')->user()->rw;
         
+        
+        
+        $userrt = DB::table('users')
+        ->where('users.rw', $rw)
+        ->where('users.rt', $rt)
+        ->join('profile','profile.id_users','users.id')
+        ->where('users.status', 2)->first();
         $security = DB::table('security')
                 ->leftjoin('users','users.id','security.id_users')
 				->where('users.rw', $rw)
@@ -435,8 +442,40 @@ class PagesController extends Controller
                         
 		$no = 1;
 		return view('warga.keamanan',
-		compact('security','jadwal_ronda','profile','no','users'));
+		compact('security','jadwal_ronda','profile','no','users','userrt'));
     }
+    public function getNik()
+    {
+        $nik = $_GET['nik'];
+        $data=DB::table('detail_users')
+        ->where('nik',$nik)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    
+    public function getNokk()
+    {
+        $nokk = $_GET['nokk'];
+        $data=DB::table('detail_users')
+        ->where('nokk',$nokk)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+
     public function datawarga()
     {
         $id_users = Auth::guard('user')->user()->id;
@@ -445,7 +484,9 @@ class PagesController extends Controller
         $data['pekerjaan'] = DB::table('master_pekerjaan')->orderBy('id','ASC')->get();
         $data['penghasilan'] = DB::table('master_penghasilan')->orderBy('id','ASC')->get();
             
-        $data['users'] = DB::table('detail_users')->where('id_users',$id_users)->first();
+        $data['users'] = DB::table('detail_users')
+                        ->join('users','users.id','detail_users.id_users')
+        ->where('id_users',$id_users)->first();
 
         return view('warga.datawarga',$data);
     }

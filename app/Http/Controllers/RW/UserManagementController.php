@@ -36,6 +36,64 @@ class UserManagementController extends Controller
 
         return view('RW.dataloginwarga', $data);
     }
+    
+    public function getTelpon()
+    {
+        $telpon = $_GET['telpon'];
+        $data=DB::table('users')
+        ->where('telpon',$telpon)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    
+    public function getRt()
+    {
+        $rt = $_GET['rt'];
+        $data=DB::table('users')
+        ->where('rt',$rt)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    
+    function setTable()
+    {
+        var rt = $('#rt').val();
+        $.get("{{ URL::to('kelurahan/dashboard-kelurahan/table') }}",{rt:rt},function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+        });
+    }
+
+    public function getEmail()
+    {
+        $email = $_GET['email'];
+        $data=DB::table('users')
+        ->where('email',$email)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
 
     public function dataloginwarga_create()
     {

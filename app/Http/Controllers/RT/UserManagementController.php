@@ -169,7 +169,82 @@ class UserManagementController extends Controller
     {
         return view('RT.formcreate.c_dataloginwarga');
     }
+    public function getNik()
+    {
+        $nik = $_GET['nik'];
+        $data=DB::table('detail_users')
+        ->where('nik',$nik)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
 
+        echo $check;
+    } 
+    public function getTelpon()
+    {
+        $telpon = $_GET['telpon'];
+        $data=DB::table('users')
+        ->where('telpon',$telpon)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    public function getRw()
+    {
+        $rw = $_GET['rw'];
+        $data=DB::table('users')
+        ->where('rw',$rw)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    public function getEmail()
+    {
+        $email = $_GET['email'];
+        $data=DB::table('users')
+        ->where('email',$email)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
+    
+    public function getNokk()
+    {
+        $nokk = $_GET['nokk'];
+        $data=DB::table('detail_users')
+        ->where('nokk',$nokk)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
+
+        echo $check;
+    }
     public function dataloginwarga_save(Request $request)
     {
         //try{

@@ -144,13 +144,11 @@
             <div class="row justify-content-center align-items-center ">
                 <div class="col-lg-7">
                     <span class="text-color">Hubungi Kami</span>
-                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Kami Untuk Informasi Lebih Lanjut</h2>
+                    <h2 class="mt-2 mb-4 mb-lg-0">Hubungi Kami t</h2>
                 </div>
                 <div class="col-lg-4">
-                     @foreach($profile as $p)
-                    <a href="tel:+{{ $p->telepon }}" class="btn btn-main btn-round-full float-lg-right ">Hubungi
+                    <a href="tel:+{{ $userrt->telepon }}" class="btn btn-main btn-round-full float-lg-right ">Hubungi
                         Kami</a>
-                        @endforeach
                 </div>
             </div>
         </div>
