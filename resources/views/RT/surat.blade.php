@@ -122,36 +122,62 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Surat Keterangan Tidak Mampu
+            Surat Pengantar
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x:auto;">
                 <br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-table" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Created By</th>
                             <th>Nama</th>
-                            <th>Tanggal</th>
-                            <th>Deskripsi</th>
-                            <th>Gambar</th>
+                            <th>Pekerjaan</th>
+                            <th>Agama</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Alamat</th>
+                            <th>Keperluan</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($pengantar as $val)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no_pengantar++ }}</td>
+                            <td>{{ getUser($val->id_users)->name }}</td>
+                            <td>{{ $val->nama }}</td>
+                            <td>{{ $val->pekerjaan }}</td>
+                            <td>{{ $val->agama }}</td>
+                            <td>{{ $val->tempat_lahir }}</td>
+                            <td>{{ $val->tgl_lahir }}</td>
+                            <td>{{ $val->jenis_kelamin }}</td>
+                            <td>{{ $val->alamat }}</td>
+                            <td>{{ $val->keperluan }}</td>
                             <td>
-
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                @if($val->status==0)
+                                <span class="badge badge-info">Draft</span>
+                                @elseif($val->status==1)
+                                <span class="badge badge-warning">On Process</span>
+                                @elseif($val->status==2)
+                                <span class="badge badge-danger" style="cursor: pointer;" onclick="catatan('{{$val->catatan}}')">Revisi</span>
+                                @else
+                                <span class="badge badge-success">Approve</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($val->status==1)
+                                <button type="button" title="Edit" onclick="editPengantar('{{ $val->id }}','{{ $val->status }}','{{ $val->catatan }}')" class="btn btn-info">Edit</button>
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusPengantar('{{ $val->id }}')">Delete</button>
+                                @elseif($val->status==2)
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusPengantar('{{ $val->id }}')">Delete</button>
+                                @endif
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -163,33 +189,63 @@
             Surat Kematian
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x:auto;">
                 <br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-table">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-table" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Created By</th>
                             <th>Nama</th>
-                            <th>Tanggal</th>
-                            <th>Deskripsi</th>
-                            <th>Gambar</th>
+                            <th>Jenis Kelamin</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Pekerjaan</th>
+                            <th>Agama</th>
+                            <th>Alamat</th>
+                            <th>Hari / Tanggal Kematian</th>
+                            <th>Usia</th>
+                            <th>Penyebab Kematian</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($kematian as $val)
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ $no_kematian++ }}</td>
+                            <td>{{ getUser($val->id_users)->name }}</td>
+                            <td>{{ $val->nama }}</td>
+                            <td>{{ $val->jenis_kelamin }}</td>
+                            <td>{{ $val->tempat_lahir }}</td>
+                            <td>{{ $val->tgl_lahir }}</td>
+                            <td>{{ $val->pekerjaan }}</td>
+                            <td>{{ $val->agama }}</td>
+                            <td>{{ $val->alamat }}</td>
+                            <td>{{ $val->hari }} {{ $val->tgl_kematian }}</td>
+                            <td>{{ $val->usia }}</td>
+                            <td>{{ $val->penyebab_kematian }}</td>
                             <td>
-
-                                <a title="Edit" href="" class="btn btn-info">Edit</a>
-                                <a title="Delete" href=" " class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')">Delete</a>
+                                @if($val->status==0)
+                                <span class="badge badge-info">Draft</span>
+                                @elseif($val->status==1)
+                                <span class="badge badge-warning">On Process</span>
+                                @elseif($val->status==2)
+                                <span class="badge badge-danger" style="cursor: pointer;" onclick="catatan('{{$val->catatan}}')">Revisi</span>
+                                @else
+                                <span class="badge badge-success">Approve</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($val->status==1)
+                                <button type="button" title="Edit" onclick="editKematian('{{ $val->id }}','{{ $val->status }}','{{ $val->catatan }}')" class="btn btn-info">Edit</button>
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusKematian('{{ $val->id }}')">Delete</button>
+                                @elseif($val->status==2)
+                                <button type="button" title="Delete" class="btn btn-danger" onclick="hapusKematian('{{ $val->id }}')">Delete</button>
+                                @endif
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -201,9 +257,9 @@
             Surat Domisili
         </div>
         <div class="card-body">
-            <div class="table-responsive">
+            <div class="table-responsive" style="overflow-x:auto;">
                 <br>
-                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="surat-domisili" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -222,7 +278,7 @@
                     <tbody>
                         @foreach($domisili as $val)
                         <tr>
-                            <td>{{ $no++ }}</td>
+                            <td>{{ $no_domisili++ }}</td>
                             <td>{{ getUser($val->id_users)->name }}</td>
                             <td>{{ $val->nama }}</td>
                             <td>{{ $val->jenis_kelamin }}</td>
@@ -405,6 +461,160 @@
             }).then((result) => {
                 if(result.value){
                     window.location.href = "{{ URL::to('RT/surat/domisili/delete')}}"+'/'+id;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Hapus",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+        })
+    }
+
+    function editPengantar(id, status, catatan){
+        var verif='';var tolak='';var approve='';
+        if(status == 1){
+            verif = 'selected';
+        }else if(status == 2){
+            tolak = 'selected';
+        }else{
+            approve = 'selected';
+        }
+        var html = '<form id="verifikasiPengantar" method="post" action="{{ route("admin.rt.verifikasi_pengantar") }}" width="100%">'+
+                    '@csrf'+
+                      '<input type="hidden" name="id" value="'+id+'">'+
+                      '<label>Status</label>'+
+                      '<select class="form-control" id="status_pengantar" onchange="HideCatatanPengantar()" name="status" value="'+status+'">'+
+                            '<option value="1" '+verif+'>Verifikasi</option>'+
+                            '<option value="2" '+tolak+'>Ditolak</option>'+
+                            '<option value="3" '+approve+'>Approve</option>'+
+                        '</select>'+
+                        '<br>'+
+                        '<label class="catatan" style="display:none;">Catatan</label>'+
+                        '<textarea class="form-control catatanPengantar" name="catatan" value="'+catatan+'" style="display:none;">'+catatan+'</textarea>'+
+                  '</form>';
+        Swal.fire({
+            position: 'mid-end',
+            title: 'Edit Surat Pengantar',
+            html: html,
+            showCancelButton: true,
+            cancelButtonText:'Batal',
+          }).then(function(result) {
+                if (result.value) {
+                    document.getElementById("verifikasiPengantar").submit();
+                } else if (result.value === 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Simpan"
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Simpan"
+                    });
+                }
+          })
+    }
+    
+    function HideCatatanPengantar(){
+        if($('#status_pengantar').val() == 2){
+            $('.catatanPengantar').show();
+        }else{
+            $('.catatanPengantar').hide();
+        }
+    }
+
+    function hapusPengantar(id)
+    {
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Ingin Menghapus Akun Tersebut",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.value){
+                    window.location.href = "{{ URL::to('RT/surat/pengantar/delete')}}"+'/'+id;
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Hapus",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+        })
+    }
+
+    function editKematian(id, status, catatan){
+        var verif='';var tolak='';var approve='';
+        if(status == 1){
+            verif = 'selected';
+        }else if(status == 2){
+            tolak = 'selected';
+        }else{
+            approve = 'selected';
+        }
+        var html = '<form id="verifikasiKematian" method="post" action="{{ route("admin.rt.verifikasi_kematian") }}" width="100%">'+
+                    '@csrf'+
+                      '<input type="hidden" name="id" value="'+id+'">'+
+                      '<label>Status</label>'+
+                      '<select class="form-control" id="status_kematian" onchange="HideCatatanKematian()" name="status" value="'+status+'">'+
+                            '<option value="1" '+verif+'>Verifikasi</option>'+
+                            '<option value="2" '+tolak+'>Ditolak</option>'+
+                            '<option value="3" '+approve+'>Approve</option>'+
+                        '</select>'+
+                        '<br>'+
+                        '<label class="catatan" style="display:none;">Catatan</label>'+
+                        '<textarea class="form-control catatanKematian" name="catatan" value="'+catatan+'" style="display:none;">'+catatan+'</textarea>'+
+                  '</form>';
+        Swal.fire({
+            position: 'mid-end',
+            title: 'Edit Surat Kematian',
+            html: html,
+            showCancelButton: true,
+            cancelButtonText:'Batal',
+          }).then(function(result) {
+                if (result.value) {
+                    document.getElementById("verifikasiKematian").submit();
+                } else if (result.value === 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Simpan"
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        text: "Batal Simpan"
+                    });
+                }
+          })
+    }
+    
+    function HideCatatanKematian(){
+        if($('#status_kematian').val() == 2){
+            $('.catatanKematian').show();
+        }else{
+            $('.catatanKematian').hide();
+        }
+    }
+
+    function hapusKematian(id)
+    {
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: "Ingin Menghapus Akun Tersebut",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Delete'
+            }).then((result) => {
+                if(result.value){
+                    window.location.href = "{{ URL::to('RT/surat/kematian/delete')}}"+'/'+id;
                 }else{
                     Swal.fire({
                         icon: 'error',

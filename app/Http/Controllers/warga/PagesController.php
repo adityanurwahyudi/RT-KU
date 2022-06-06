@@ -11,6 +11,7 @@ use Auth;
 use PDF;
 use Illuminate\Support\Facades\Hash;
 use Pusher;
+Use DateTime;
 
 class PagesController extends Controller
 {
@@ -77,7 +78,7 @@ class PagesController extends Controller
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
                     ->get();
-    //count jenis kelamin
+        //count jenis kelamin
         $data['lakilaki'] = DB::table('detail_users')->select('detail_users.*')
                     ->join('users','users.id','detail_users.id_users')
                     ->where('rt',$rt)
@@ -218,6 +219,8 @@ class PagesController extends Controller
         $id_users = Auth::guard('user')->user()->id;
         $data['no'] = 1;
         $data['domisili'] = DB::table('surat_domisili')->where('id_users',$id_users)->get();
+        $data['pengantar'] = DB::table('surat_pengantar')->where('id_users',$id_users)->get();
+        $data['kematian'] = DB::table('surat_kematian')->where('id_users',$id_users)->get();
 
         return view('warga.service', $data);
     }
@@ -272,7 +275,10 @@ class PagesController extends Controller
 
         $rt = Auth::guard('user')->user()->rt;
         $rw = Auth::guard('user')->user()->rw;
-        $data['surat'] = DB::table('surat_domisili')->where('id', $id)->first();
+        $data['surat'] = DB::table('surat_domisili')->select('surat_domisili.*','detail_users.nik')
+                    ->leftjoin('detail_users','detail_users.id_users','surat_domisili.id_users')
+                    ->where('surat_domisili.id', $id)
+                    ->first();
 
         $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.name','users.rt','users.rw')
                     ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
@@ -283,6 +289,168 @@ class PagesController extends Controller
         // return view('warga.surat.cetak_domisili', $data);
         $pdf = PDF::loadView('warga.surat.cetak_domisili', $data);
         return $pdf->stream('surat-domisili.pdf');
+    }
+    public function tambah_pengantar(Request $request)
+    {
+        $data = [
+            'nama'          => $request->nama_pengantar,
+            'id_users'      => Auth::guard('user')->user()->id,
+            'pekerjaan'     => $request->pekerjaan_pengantar,
+            'agama'         => $request->agama_pengantar,
+            'tempat_lahir'  => $request->tempat_lahir_pengantar,
+            'tgl_lahir'     => $request->tgl_lahir_pengantar,
+            'jenis_kelamin' => $request->jenis_kelamin_pengantar,
+            'alamat'        => $request->alamat_pengantar,
+            'keperluan'     => $request->keperluan_pengantar,
+            'status'        => 0,
+        ];
+        DB::table('surat_pengantar')->insert($data);
+
+        return redirect()->back()->with(['success'=>'Data Simpan']);
+    }
+    public function edit_pengantar(Request $request)
+    {
+        $data = [
+            'nama'          => $request->nama_pengantar,
+            'pekerjaan'     => $request->pekerjaan_pengantar,
+            'agama'         => $request->agama_pengantar,
+            'tempat_lahir'  => $request->tempat_lahir_pengantar,
+            'tgl_lahir'     => $request->tgl_lahir_pengantar,
+            'jenis_kelamin' => $request->jenis_kelamin_pengantar,
+            'alamat'        => $request->alamat_pengantar,
+            'keperluan'     => $request->keperluan_pengantar,
+        ];
+        DB::table('surat_pengantar')->where('id',$request->id)->update($data);
+
+        return redirect()->back()->with(['success'=>'Data Update']);
+    }
+    public function kirim_pengantar($id)
+    {
+        DB::table('surat_pengantar')->where('id',$id)->update(['status'=>1]);
+        
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/surat','Pengajuan Surat Pengantar',$id_users,$penerima->id);
+        // End Notification
+        
+        return redirect()->back()->with(['success'=>'Data Kirim']);
+    }
+    public function cetak_pengantar($id){
+
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $data['surat'] = DB::table('surat_pengantar')->where('id', $id)->first();
+
+        $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.name','users.rt','users.rw')
+                    ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
+                    ->where('users.rt', $rt)
+                    ->where('users.rw', $rw)
+                    ->first();
+
+        // return view('warga.surat.cetak_pengantar', $data);
+        $pdf = PDF::loadView('warga.surat.cetak_pengantar', $data);
+        return $pdf->stream('surat pengantar.pdf');
+    }
+    public function tambah_kematian(Request $request)
+    {
+        $dayList = array(
+            'Sun' => 'Minggu',
+            'Mon' => 'Senin',
+            'Tue' => 'Selasa',
+            'Wed' => 'Rabu',
+            'Thu' => 'Kamis',
+            'Fri' => 'Jumat',
+            'Sat' => 'Sabtu'
+        );
+        $datenow = new DateTime();
+        $tgl_lahir_kematian = new DateTime($request->tgl_lahir_kematian);
+
+        $umur = $datenow->diff($tgl_lahir_kematian);
+        $hari = date("D", strtotime($request->tanggal_kematian));
+        $data = [
+            'id_users'          => Auth::guard('user')->user()->id,
+            'nama'              => $request->nama_kematian,
+            'jenis_kelamin'     => $request->jenis_kelamin_kematian,
+            'tempat_lahir'      => $request->tempat_lahir_kematian,
+            'tgl_lahir'         => $request->tgl_lahir_kematian,
+            'pekerjaan'         => $request->pekerjaan_kematian,
+            'agama'             => $request->agama_kematian,
+            'alamat'            => $request->alamat_kematian,
+            'tgl_kematian'      => $request->tanggal_kematian,
+            'hari'              => $dayList[$hari],
+            'usia'              => $umur->y,
+            'penyebab_kematian' => $request->penyebab_kematian,
+            'status'            => 0,
+        ];
+        DB::table('surat_kematian')->insert($data);
+
+        return redirect()->back()->with(['success'=>'Data Simpan']);
+    }
+    public function edit_kematian(Request $request)
+    {
+        $dayList = array(
+            'Sun' => 'Minggu',
+            'Mon' => 'Senin',
+            'Tue' => 'Selasa',
+            'Wed' => 'Rabu',
+            'Thu' => 'Kamis',
+            'Fri' => 'Jumat',
+            'Sat' => 'Sabtu'
+        );
+        $datenow = new DateTime();
+        $tgl_lahir_kematian = new DateTime($request->tgl_lahir_kematian);
+
+        $umur = $datenow->diff($tgl_lahir_kematian);
+        $hari = date("D", strtotime($request->tanggal_kematian));
+        $data = [
+            'nama'          => $request->nama_kematian,
+            'tempat_lahir'  => $request->tempat_lahir_kematian,
+            'tgl_lahir'     => $request->tgl_lahir_kematian,
+            'agama'         => $request->agama_kematian,
+            'jenis_kelamin' => $request->jenis_kelamin_kematian,
+            'pekerjaan'     => $request->pekerjaan_kematian,
+            'alamat'        => $request->alamat_kematian,
+            'tgl_kematian'  => $request->tanggal_kematian,
+            'hari'              => $dayList[$hari],
+            'usia'              => $umur->y,
+            'penyebab_kematian' => $request->penyebab_kematian,
+        ];
+        DB::table('surat_kematian')->where('id',$request->id)->update($data);
+
+        return redirect()->back()->with(['success'=>'Data Update']);
+    }
+    public function kirim_kematian($id)
+    {
+        DB::table('surat_kematian')->where('id',$id)->update(['status'=>1]);
+        
+        // Notification
+        $id_users = Auth::guard('user')->user()->id;
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $penerima = DB::table('users')->where('rt',$rt)->where('rw',$rw)->where('status',2)->first();
+        PushNotification('/RT/surat','Pengajuan Surat Kematian',$id_users,$penerima->id);
+        // End Notification
+        
+        return redirect()->back()->with(['success'=>'Data Kirim']);
+    }
+    public function cetak_kematian($id){
+
+        $rt = Auth::guard('user')->user()->rt;
+        $rw = Auth::guard('user')->user()->rw;
+        $data['surat'] = DB::table('surat_kematian')->where('id', $id)->first();
+
+        $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.name','users.rt','users.rw')
+                    ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
+                    ->where('users.rt', $rt)
+                    ->where('users.rw', $rw)
+                    ->first();
+
+        // return view('warga.surat.cetak_kematian', $data);
+        $pdf = PDF::loadView('warga.surat.cetak_keterangankematian', $data);
+        return $pdf->stream('surat-kematian.pdf');
     }
     public function galeri()
     {
@@ -302,8 +470,6 @@ class PagesController extends Controller
 		return view('warga.galeri',
 		compact('foto','video'));
     }
-    
-	
     public function storekritiksaran(Request $request)
 	{
 		$id_users = Auth::guard('user')->user()->id;
@@ -516,9 +682,9 @@ class PagesController extends Controller
                 DB::table('detail_users')->insert($data);
             } 
             return redirect()->back()->with(['success'=>'Berhasil Update']);
-    }catch(Exception $e){
+        }catch(Exception $e){
              return redirect()->back()->with(['error'=>'Gagal Update']);
-            }
+        }
 
     }
     public function datawarga_update(Request $request)

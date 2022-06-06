@@ -79,6 +79,14 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::post('/surat/domisili/verifikasi', 'PagesController@verifikasi_domisili')->name('verifikasi_domisili');
         Route::get('/surat/domisili/delete/{id}', 'PagesController@delete_domisili')->name('delete_domisili');
 
+        // Surat Pengantar
+        Route::post('/surat/pengantar/verifikasi', 'PagesController@verifikasi_pengantar')->name('verifikasi_pengantar');
+        Route::get('/surat/pengantar/delete/{id}', 'PagesController@delete_pengantar')->name('delete_pengantar');
+
+        // Surat Kematian
+        Route::post('/surat/kematian/verifikasi', 'PagesController@verifikasi_kematian')->name('verifikasi_kematian');
+        Route::get('/surat/kematian/delete/{id}', 'PagesController@delete_kematian')->name('delete_kematian');
+
         // Jadwal Ronda
         Route::get('/jadwal-ronda', 'JadwalRondaController@index')->name('jadwalronda');
         Route::get('/jadwalronda/cetak_jadwalronda', 'JadwalRondaController@cetak_jadwalronda')->name('jadwalronda.cetak_jadwalronda');

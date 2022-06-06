@@ -109,7 +109,7 @@
                     </tr>
                     <tr>
                         <td width="25%">Jenis / Kelamin</td>
-                        <td width="75%" style="vertical-align: top;">:
+                        <td width="75%" style="vertical-align: top;">: {{$surat->jenis_kelamin}}
                             </b></td>
                     </tr>
                     <tr>
@@ -119,11 +119,11 @@
                     </tr>
                     <tr>
                         <td width="25%">No. KTP / NIK</td>
-                        <td width="75%" style="vertical-align: top;">: </b></td>
+                        <td width="75%" style="vertical-align: top;">: {{ $surat->nik }}</b></td>
                     </tr>
                     <tr>
                         <td>Agama</td>
-                        <td style="vertical-align: top;">: {{$surat->nama}}</td>
+                        <td style="vertical-align: top;">: {{$surat->agama}}</td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
@@ -145,9 +145,9 @@
     <table border="0" style="width: 100%;">
         <tr>
             <td align="center">
-                <span style="float: right;">Jakarta, {{date('d F Y')}}</span>
+                <span style="float: right;">Kadumanggu, {{date('d F Y')}}</span>
                 <br>
-                <span style="float: right;padding-top: 10px;">Pengurus RT {{ $ttd->rt }} / {{ $ttd->rw }}</span>
+                <span style="float: right;padding-top: 10px;">KETUA RT {{ $ttd->rt }} / {{ $ttd->rw }}</span>
                 <br><br><br>
                 <div width="40%" style="float: right;">
                     <img src="{{url('/upload/tanda_tangan/'.$ttd->tanda_tangan.'')}}" alt="Tanda Tangan"
