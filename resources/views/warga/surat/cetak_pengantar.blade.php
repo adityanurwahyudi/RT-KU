@@ -59,7 +59,7 @@
     <center>
         <span style="font-size: 17px;"><b>PEMERINTAH KABUPATEN BOGOR</b></span><br>
         <span style="font-size: 17px;"><b>DESA KADUMANGGU, KECAMATAN BABAKAN MADANG</b></span><br>
-        <span style="font-size: 17px;"><b> RT __ RW __ </b></span><br>
+        <span style="font-size: 17px;"><b> RT {{ $ttd->rt }} RW {{ $ttd->rw }} </b></span><br>
     </center>
     <br>
     <hr style="border:1px solid #000;">
@@ -71,13 +71,13 @@
     </table>
     <table border="0" style="width: 100%; font-size: 14px;">
         <tr>
-            <td align="center" style="font-weight: bold;">No. __ / __ /SKD/</td>
+            <td align="center" style="font-weight: bold;">No. {{ $ttd->rt }}/{{ $ttd->rw }}/SKD/</td>
         </tr>
     </table>
     <br>
     <table border="0" style="width: 100%;">
         <span>
-            Yang bertanda tangan dibawah ini Pengurus RT. __ / RW. __  Desa Kadumanggu, Kecamatan Babakan Madang, Kabupaten Bogor, Menerangkan Bahwa :
+            Yang bertanda tangan dibawah ini Pengurus RT. {{ $ttd->rt }} / RW. {{ $ttd->rw }}  Desa Kadumanggu, Kecamatan Babakan Madang, Kabupaten Bogor, Menerangkan Bahwa :
         </span>
     </table>
     <br><br>
@@ -105,28 +105,27 @@
                 <table border="0" style="width: 100%;">
                     <tr>
                         <td width="25%">Nama Lengkap </td>
-                        <td width="75%" style="vertical-align: top;">:</b></td>
+                        <td width="75%" style="vertical-align: top;">: {{ $surat->nama }}</b></td>
                     </tr>
                     <tr>
-                        <td width="25%">Jenis / Kelamin</td>
-                        <td width="75%" style="vertical-align: top;">:
-                            </b></td>
+                        <td width="25%">Jenis Kelamin</td>
+                        <td width="75%" style="vertical-align: top;">: {{ $surat->jenis_kelamin }}</b></td>
                     </tr>
                     <tr>
                         <td width="25%">Tempat / Tanggal Lahir</td>
-                        <td width="75%" style="vertical-align: top;">: </b></td>
+                        <td width="75%" style="vertical-align: top;">: {{ $surat->tempat_lahir }} / {{ $surat->tgl_lahir }}</b></td>
                     </tr>
                     <tr>
                         <td width="25%">Pekerjaan</td>
-                        <td width="75%" style="vertical-align: top;">: </b></td>
+                        <td width="75%" style="vertical-align: top;">: {{ $surat->pekerjaan }}</b></td>
                     </tr>
                     <tr>
                         <td>Agama</td>
-                        <td style="vertical-align: top;">:</td>
+                        <td style="vertical-align: top;">: {{ $surat->agama }}</td>
                     </tr>
                     <tr>
                         <td>Alamat</td>
-                        <td style="vertical-align: top;">: </td>
+                        <td style="vertical-align: top;">: {{ $surat->alamat }}</td>
                     </tr>
                 </table>
             </td>
@@ -135,16 +134,11 @@
     <br>
     <table border="0" style="width: 100%;">
         <span>
-           Adalah benar nama tersebut diatas adalah warga masyarakat RT __ RW __ Desa Kadumanggu Kecamatan Babakan Madang Kabupaten Bogor.
+           Adalah benar nama tersebut diatas adalah warga masyarakat RT {{ $ttd->rt }} RW {{ $ttd->rw }} Desa Kadumanggu Kecamatan Babakan Madang Kabupaten Bogor.
            <br> Demikian surat pengantar ini dipergunakan untuk membuat:
-           <tr>
-                        <td></td>
-                        <td style="vertical-align: top;">: </td>
-                    </tr>
+           <br>
+           {{ $surat->keperluan }}
         </span>
-        <td colspan="2">
-    <br><br>
-            </td>
     </table>
     <br><br><br>
     <table border="0" style="width: 100%;">
@@ -152,15 +146,15 @@
             <td align="center">
                 <span style="float: right;">Kadumanggu, {{date('d F Y')}}</span>
                 <br>
-                <span style="float: right;padding-top: 10px;">KETUA RT. __/__ </span>
+                <span style="float: right;padding-top: 10px;">KETUA RT {{ $ttd->rt }} / {{ $ttd->rw }}</span>
                 <br><br><br>
                 <div width="40%" style="float: right;">
-                    <img src="" alt="Tanda Tangan"
+                    <img src="{{url('/upload/tanda_tangan/'.$ttd->tanda_tangan.'')}}" alt="Tanda Tangan"
                         style="position:absolute;padding-right:15px;height:100px;width:100px;z-index:1;">
-                    <img src="" alt="Tanda Tangan"
+                    <img src="{{url('/upload/stempel/'.$ttd->stempel.'')}}" alt="Tanda Tangan"
                         style="position:relative;padding-right:15px;height:100px;width:100px;">
                     <br>
-                    <span style="padding-right:-10px;"></span>
+                    <span style="padding-right:-10px;">{{ $ttd->name }}</span>
                 </div>
             </td>
         </tr>

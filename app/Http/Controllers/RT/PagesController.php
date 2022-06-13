@@ -78,17 +78,32 @@ class PagesController extends Controller
         $rt = Auth::guard('admin')->user()->rt;
         $rw = Auth::guard('admin')->user()->rw;
 
-        $data['no'] = 1;
         $data['ttd'] = DB::table('stempel_tanda_tangan')->select('stempel_tanda_tangan.*','users.rt','users.rw')
                     ->leftjoin('users','users.id','stempel_tanda_tangan.id_users')
                     ->where('users.rt', $rt)
                     ->where('users.rw', $rw)
                     ->get();
+        $data['no_domisili'] = 1;
         $data['domisili'] = DB::table('surat_domisili')->select('surat_domisili.*')
                         ->leftjoin('users','users.id','surat_domisili.id_users')
                         ->where('users.rt', $rt)
                         ->where('users.rw', $rw)
-                        ->orderBy('tgl_lahir','ASC')->get();
+                        ->orderBy('surat_domisili.id','DESC')
+                        ->get();
+        $data['no_pengantar'] = 1;
+        $data['pengantar'] = DB::table('surat_pengantar')->select('surat_pengantar.*')
+                        ->leftjoin('users','users.id','surat_pengantar.id_users')
+                        ->where('users.rt', $rt)
+                        ->where('users.rw', $rw)
+                        ->orderBy('surat_pengantar.id','DESC')
+                        ->get();
+        $data['no_kematian'] = 1;
+        $data['kematian'] = DB::table('surat_kematian')->select('surat_kematian.*')
+                        ->leftjoin('users','users.id','surat_kematian.id_users')
+                        ->where('users.rt', $rt)
+                        ->where('users.rw', $rw)
+                        ->orderBy('surat_kematian.id','DESC')
+                        ->get();
 
         if(isset($_GET['id_notif'])){
             DB::table('notification')->where('id',$_GET['id_notif'])->update(['is_read'=>true]);
@@ -176,6 +191,40 @@ class PagesController extends Controller
     public function verifikasi_domisili(Request $request)
     {
         DB::table('surat_domisili')->where('id', $request->id)->update([
+            'status'=>$request->status,
+            'catatan'=>$request->catatan
+        ]);
+
+        return redirect()->back()->with(['success'=>'Verifikasi Berhasil']);
+    }
+
+    public function delete_pengantar($id)
+    {
+        DB::table('surat_pengantar')->where('id', $id)->delete();
+
+        return redirect()->back()->with(['success'=>'Delete Berhasil']);
+    }
+
+    public function verifikasi_pengantar(Request $request)
+    {
+        DB::table('surat_pengantar')->where('id', $request->id)->update([
+            'status'=>$request->status,
+            'catatan'=>$request->catatan
+        ]);
+
+        return redirect()->back()->with(['success'=>'Verifikasi Berhasil']);
+    }
+
+    public function delete_kematian($id)
+    {
+        DB::table('surat_kematian')->where('id', $id)->delete();
+
+        return redirect()->back()->with(['success'=>'Delete Berhasil']);
+    }
+
+    public function verifikasi_kematian(Request $request)
+    {
+        DB::table('surat_kematian')->where('id', $request->id)->update([
             'status'=>$request->status,
             'catatan'=>$request->catatan
         ]);
