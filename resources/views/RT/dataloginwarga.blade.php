@@ -37,11 +37,14 @@
                             <td>{{ $val->telpon }}</td>
                             <td>{{ $val->password_real }}</td>
                             <td>
-
+                                @if($val->status == 0 ) 
+                                <a title="Verifikasi" href="{{ route('admin.rt.dataloginwarga_verifakun',$val->id) }}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Verifikasi</a>
+                                    @else 
                                 <a title="Edit" href="{{ route('admin.rt.dataloginwarga_edit',$val->id) }}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
                                 <button title="Delete" class="btn btn-danger"
                                     onclick="hapus('{{ $val->id }}')"><i class="fa fa-trash"></i> Delete</button>
-                            </td>
+                           @endif
+                                </td>
                         </tr>
                         @endforeach
                     </tbody>

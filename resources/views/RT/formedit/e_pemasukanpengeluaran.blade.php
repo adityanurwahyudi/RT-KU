@@ -2,10 +2,10 @@
 
 @section('content')
                 <div class="container-fluid px-4">
-                    <h1 class="mt-4">Edit Profile</h1>
+                    <h1 class="mt-4">Laporan Keuangan</h1>
                     <ol class="breadcrumb mb-4">
                         <li class="breadcrumb-item"><a>Dashboard</a></li>
-                        <li class="breadcrumb-item active">Edit Profile</li>
+                        <li class="breadcrumb-item active">Edit Laporan Keuangan</li>
                     </ol>
                     <div class="card mb-4">
                         <div class="card-header">
@@ -35,18 +35,21 @@
                                 </div>
                                 
                                 <div class="mb-3">
-                                    <label for="keterangan" class="form-label">Keterangan</label>
+                                    <label for="keterangan" class="form-label">Rincian</label>
                                     <input type="text" class="form-control" id="keterangan" name="keterangan" value="{{ $p->keterangan }}" required>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="pemasukan" class="form-label">Pemasukan</label>
-                                    <input type="text" class="form-control" id="pemasukan" name="pemasukan" placeholder="jika kosong isi 0" value="{{ $p->pemasukan }}" required>
-                                </div>
+                                <label>Jenis Keterangan :</label><br>
+                                <select for="jenis" id="jenis" value="{{ $keuangan->jenis }}"  name="jenis" class="form-label">
+                                <option value="Pemasukan" {{ ($keuangan->jenis == 'Pemasukan') ? 'selected' : '' }}>Pemasukan</option>
+                                <option value="Pengeluaran" {{ ($keuangan->jenis == 'Pengeluaran') ? 'selected' : '' }}>Pengeluaran</option>
+                               
+                                </select>
+                                <br>
 
                                 <div class="mb-3">
-                                    <label for="pengeluaran" class="form-label">Pengeluaran</label>
-                                    <input type="text" class="form-control" id="pengeluaran" name="pengeluaran" placeholder="jika kosong isi 0" value="{{ $p->pengeluaran }}"  required>
+                                    <label for="jumlah" class="form-label">Jumlah</label>
+                                    <input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="jika kosong isi 0" value="{{ $p->jumlah }}"  required>
                                 </div>
 
                                 <div class="mb-3">

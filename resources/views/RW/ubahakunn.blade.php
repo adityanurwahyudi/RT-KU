@@ -12,7 +12,7 @@
 
                 <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Ubah Akun</p>
 
-                <form class="mx-1 mx-md-4" action="{{ route('admin.rt.rt_update') }}" method="post">
+                <form class="mx-1 mx-md-4" action="{{ route('admin.rw.rw_update') }}" method="post">
 
                 {{ csrf_field() }}   
                 <input type="hidden" id="id" name="id" value="{{ $users->id }}">

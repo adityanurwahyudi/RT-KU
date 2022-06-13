@@ -33,17 +33,21 @@ class LoginController extends BaseController
             'password' => 'required',
         ]);
         if (Auth::check()) { }
-
-        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
-            return redirect()->intended('/warga/index');
-        } else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 2])) {
-            return redirect()->intended('/RT/dashboard-rt');
-        } else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 3])) {
-            return redirect()->intended('/RW/dashboard-rw');
-        }else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 4])) {
-            return redirect()->intended('/kelurahan/dashboard-kelurahan');
+        $check = DB::table('users')->where('email',$request->email)->first();
+        if ($check->status == 0 ){
+            return redirect()->intended('/login')->with(['error'=>'Akun belum terverifikasi !']);
         } else {
-            return redirect()->intended('/login')->with(['error'=>'Email atau Password Salah !']);
+            if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1])) {
+                return redirect()->intended('/warga/index');
+            } else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 2])) {
+                return redirect()->intended('/RT/dashboard-rt');
+            } else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 3])) {
+                return redirect()->intended('/RW/dashboard-rw');
+            }else if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'status' => 4])) {
+                return redirect()->intended('/kelurahan/dashboard-kelurahan');
+            } else {
+                return redirect()->intended('/login')->with(['error'=>'Email atau Password Salah !']);
+            }
         }
     }
 

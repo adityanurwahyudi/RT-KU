@@ -14,6 +14,8 @@ Route::get('/', function () {
     return view('landing');
 });
 
+Route::get('/register/email', 'FrontController@getEmail')->name('getEmail');
+Route::get('/register/telpon', 'FrontController@getTelpon')->name('getTelpon');
 Route::get('/register-tamu', 'FrontController@register_tamu')->name('register_tamu');
 // Detail Event
 Route::get('/detail-event/{id}/{page}', 'FrontController@detailEvent')->name('detail-event');
@@ -24,17 +26,17 @@ Route::get('/event/kehadiran/{id}', 'FrontController@kehadiran')->name('event.ke
 Route::post('/event/kehadiran/store', 'FrontController@store_kehadiran')->name('event.store_kehadiran');
 
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-// Cek Email
-Route::get('cek-email','FrontController@cekEmail')->name('cekEmail');
 
 Auth::routes(['register' => false]);
 Route::namespace('Auth')->group(function () {
     Route::get('/login', 'LoginController@getLogin')->middleware('guest');
     Route::post('/login', 'LoginController@postLogin')->name('login');
     Route::get('/logout', 'LoginController@logout')->name('logout');
+    
+        //register
+        Route::get('/register', 'RegisterController@register')->name('register');
+        Route::post('register/save', 'RegisterController@save')->name('save'); 
 
-    Route::get('/register', 'RegisterController@getRegister')->name('register');
-    Route::post('/register/store', 'RegisterController@create')->name('register.store');
 });
 
 Route::name('admin.')->middleware('auth:admin')->group(function () {
@@ -44,11 +46,17 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
 
         Route::get('/data-warga', 'UserManagementController@datawarga')->name('datawarga');\
         
-    //form create akun di rt
-    Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
-    Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
-    Route::get('/data-login-warga/nik', 'UserManagementController@getNik')->name('getNik');
+        //form create akun di rt
+        Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
+        Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
+        Route::get('/data-login-warga/nik', 'UserManagementController@getNik')->name('getNik');
+       
+        
+        //ubahakun  
+        Route::get('/ubahakun', 'PagesController@ubahakun')->name('ubahakun');
+        Route::post('/profil/updatert', 'PagesController@rt_update')->name('rt_update');
     
+        
         // User Management
         Route::get('data-login-warga', 'UserManagementController@dataloginwarga')->name('dataloginwarga');
         Route::get('data-login-warga/create', 'UserManagementController@dataloginwarga_create')->name('dataloginwarga_create');
@@ -56,7 +64,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/edit/{id}', 'UserManagementController@dataloginwarga_edit')->name('dataloginwarga_edit');
         Route::post('data-login-warga/update', 'UserManagementController@dataloginwarga_update')->name('dataloginwarga_update');
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
-
+        Route::get('data-login-warga/verif/{id}', 'UserManagementController@dataloginwarga_verifakun')->name('dataloginwarga_verifakun');
+        Route::post('data-login-warga/verif', 'UserManagementController@dataloginwarga_verif')->name('dataloginwarga_verif');
         // Penentuan Warga Tidak Mampu
         Route::get('/SPK-warga', 'PenentuanWargaController@SPKWarga')->name('SPK-warga');
 
@@ -102,6 +111,9 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::post('/kegiatan/update1', 'BeritadankegiatanController@update1')->name('kegiatan.update1');
         Route::post('/kegiatan/update', 'BeritadankegiatanController@update')->name('kegiatan.update');
         Route::get('/kegiatan/edit1/{id}', 'BeritadankegiatanController@edit1')->name('kegiatan.edit1');
+        
+        //ubah akun
+        
 
         //datakependudukanwarga
         Route::get('/datawarga/cetak_datawarga', 'DataKependudukanController@cetak_datawarga')->name('datawarga.cetak_datawarga');
@@ -111,7 +123,10 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/datawarga/tambah', 'DataKependudukanController@tambah')->name('datawarga.tambah');
         Route::get('/datawarga/hapus/{id}', 'DataKependudukanController@hapus')->name('datawarga.hapus');
         Route::post('/datawarga/update', 'DataKependudukanController@update')->name('datawarga.update');
-        Route::get('/datawarga/edit/{id}', 'UserManagementController@edit')->name('datawarga.edit');
+        Route::get('/datawarga/edit/{id}', 'DataKependudukanController@edit')->name('datawarga.edit');
+        //Route::get('/datawarga/edit/{id}', 'UserManagementController@edit')->name('datawarga.edit');
+
+        
 
         //keluarmasukwarga
         Route::get('/keluarmasukwarga', 'TamupindahController@index')->name('keluarmasukwarga');
@@ -169,8 +184,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         //keuangan
         Route::get('/keuangan/edit/{id}', 'KeuanganController@edit')->name('keuangan.edit');
         Route::get('/keuangan/tambahh', 'KeuanganController@tambahh')->name('keuangan.tambahh');
-        Route::get('/keuangan/hapus/{id}', 'KeuanganController@hapus')->name('keuangan.hapus');
-        Route::post('/keuangan/prosess', 'KeuanganController@prosess')->name('keuangan.prosess');
+        Route::get('/keuangan/hapus/{request}', 'KeuanganController@hapus')->name('keuangan.hapus');
+        Route::post('/keuangan/proses', 'KeuanganController@proses')->name('keuangan.proses');
         Route::post('/keuangan/update', 'KeuanganController@update')->name('keuangan.update');
 
         // security
@@ -219,7 +234,13 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('/dashboard-rw/warga-berdasarkan-agama', 'DashboardAdminController@wargaBerdasarkanAgama')->name('wargaBerdasarkanAgama'); 
         Route::get('/dashboard-rw/warga-berdasarkan-kewarganegaraan', 'DashboardAdminController@wargaBerdasarkanKewarganegaraan')->name('wargaBerdasarkanKewarganegaraan');
 
-        Route::get('/dashboard-rw/table', 'DashboardAdminController@getTable')->name('getTable');
+        // 
+        Route::get('/ubahakunn', 'DashboardAdminController@ubahakunn')->name('ubahakunn');
+        Route::post('/profil/updaterw', 'DashboardAdminController@rw_update')->name('rw_update');
+
+        Route::get('/dashboard-rw/table-warga-data', 'DashboardAdminController@getTableWarga')->name('getTableWarga'); 
+        Route::get('/dashboard-rw/table-warga-pengaduan', 'DashboardAdminController@getTablePengaduan')->name('getTablePengaduan'); 
+        Route::get('/dashboard-rw/table-warga-kritik', 'DashboardAdminController@getTableKritik')->name('getTableKritik'); 
         Route::get('/dashboard-rw/pdf-table/{rt}', 'DashboardAdminController@cetak_table_pdf')->name('cetak_table_pdf');
         
         // User Management
@@ -231,8 +252,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('data-login-warga/hapus/{id}', 'UserManagementController@dataloginwarga_hapus')->name('dataloginwarga_hapus');
         
         Route::get('/rt/datatable', 'DataKependudukanController@datatable')->name('rt.datatable');
-        //validasi form rw
         
+        //validasi form rw
         Route::get('/data-login-warga/rt', 'UserManagementController@getRt')->name('getRt');
         Route::get('/data-login-warga/telpon', 'UserManagementController@getTelpon')->name('getTelpon');
         Route::get('/data-login-warga/email', 'UserManagementController@getEmail')->name('getEmail');
@@ -241,12 +262,8 @@ Route::name('admin.')->middleware('auth:admin')->group(function () {
         Route::get('datawarga', 'DataKependudukannController@datawarga')->name('datawarga');
         Route::get('/datawarga/cetak_datawarga', 'DataKependudukannController@cetak_datawarga')->name('datawarga.cetak_datawarga');
         Route::get('pengaduan', 'DataKependudukannController@pengaduan')->name('pengaduan');
-        Route::get('/pengaduan/cetak_pengaduan', 'DataKependudukannController@cetak_pengaduan')->name('pengaduan.cetak_pengaduan');
         Route::get('kendaraan', 'DataKependudukannController@kendaraan')->name('kendaraan');
-        Route::get('/kendaraan/cetak_kendaraan', 'DataKependudukannController@cetak_kendaraan')->name('kendaraan.cetak_kendaraan');
         Route::get('keluarmasukwarga', 'DataKependudukannController@keluarmasukwarga')->name('keluarmasukwarga');
-        Route::get('/tamu/cetak_tamu', 'DataKependudukannController@cetak_tamu')->name('tamu.cetak_tamu');
-        Route::get('/pindah/cetak_pindah', 'DataKependudukannController@cetak_pindah')->name('pindah.cetak_pindah');
         Route::get('kritiksaran', 'DataKependudukannController@kritiksaran')->name('kritiksaran');
     });
 
@@ -328,7 +345,6 @@ Route::name('warga.')->namespace('warga')->middleware('auth:user')->prefix('warg
     Route::get('/pindah', 'PagesController@pindah')->name('pindah');
     Route::get('/profil', 'PagesController@profil')->name('profil');
     Route::post('/profil/update', 'PagesController@profil_update')->name('profil_update');
-    Route::post('/profil/updatert', 'PagesController@rt_update')->name('rt_update');
     Route::post('/profil/updaterw', 'PagesController@rw_update')->name('rw_update');
 
     

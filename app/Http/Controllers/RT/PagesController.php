@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
 use DB;
+use Hash;
 use Auth;
 
 class PagesController extends Controller
@@ -20,6 +21,34 @@ class PagesController extends Controller
     public function profile()
     {
         return view('RT.profile');
+    }
+
+    public function ubahakun()
+    {
+       
+            $id_users = Auth::guard('admin')->user()->id;
+            $users['users'] = DB::table('users')
+            ->where('id',$id_users)
+            ->orderBy('id','ASC')
+            ->first();
+
+        return view('RT.ubahakun' ,$users);
+    }
+    public function rt_update(Request $request)
+    {
+        try{
+            $data = [
+                'name'          => $request->nama,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'password_real' => $request->password
+            ];
+            DB::table('users')->where('id', $request->id)->update($data);
+
+            return redirect("RT/dashboard-rt")->with(['success'=>'Data Update']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
+        }
     }
     
     // view halaman RT

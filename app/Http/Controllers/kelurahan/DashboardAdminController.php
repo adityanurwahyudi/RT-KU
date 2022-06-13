@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use PDF;
 class DashboardAdminController extends Controller
 {
 
@@ -118,6 +119,19 @@ class DashboardAdminController extends Controller
                             $q->where('users.rt', $rt);
                         })
                         ->where('agama','khonghucu')->count();
+                        
+        $data['hindu'] = DB::table('users')
+                        ->leftjoin('detail_users','detail_users.id_users','users.id')
+                        ->whereNotNull('rw')
+                        ->whereNotNull('rt')
+                        ->when($rw, function($q, $rw){
+                            $q->where('users.rw', $rw);
+                        })
+                        ->when($rt, function($q, $rt){
+                            $q->where('users.rt', $rt);
+                        })
+                        ->where('agama','hindu')->count();
+                        
 
         echo json_encode($data);
     }
@@ -180,7 +194,7 @@ class DashboardAdminController extends Controller
                     ->when($rt, function($q, $rt){
                         $q->where('users.rt', $rt);
                     })
-                    ->where('statuspernikahan','Belum_Menikah')
+                    ->where('statuspernikahan','BelumMenikah')
                     ->count();
 
         $data['cerai'] = DB::table('users')

@@ -2,16 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
-use App\Models\User;
-use App\Models\masterEvent;
-use App\Models\tiketEvent;
-use App\Models\Kehadiran;
-use Exception;
-use Hash;
 
 class FrontController extends Controller
 {
@@ -19,7 +10,7 @@ class FrontController extends Controller
     {
         // $this->middleware('auth');
     }
-
+   
     public function register_tamu()
     {
         $data['rt'] = DB::table('users')->select('rt')
@@ -33,7 +24,35 @@ class FrontController extends Controller
 
         return view('registertamu',$data);
     }
+    
+    public function getEmail()
+    {
+        $email = $_GET['email'];
+        $data=DB::table('users')
+        ->where('email',$email)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
 
+        echo $check;
+    }
+    public function getTelpon()
+    {
+        $telpon = $_GET['telpon'];
+        $data=DB::table('users')
+        ->where('telpon',$telpon)
+        ->get();
+        if(count($data)>0)
+        {
+        $check=true;
+        }else{
+            $check=false;
+        }
 
-
+        echo $check;
+    }
 }

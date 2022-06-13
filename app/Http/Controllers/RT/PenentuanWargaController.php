@@ -34,14 +34,14 @@ class PenentuanWargaController extends Controller
                     ->join('hasil_normalisasi','hasil_normalisasi.id_users','users.id')
                     ->where('rt',$rt)
                     ->where('rw',$rw)
-                    ->orderBy('rank','DESC') 
+                    ->orderBy('users.id','DESC') 
                     ->get();
 
         $data['normalisasi'] = DB::table('hasil_normalisasi')
                     ->join('users','users.id','hasil_normalisasi.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw)   
-                    ->orderBy('rank','DESC') 
+                    ->orderBy('users.id','DESC') 
                     ->get();
 
         return view('RT.SPKwarga', $data);

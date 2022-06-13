@@ -11,44 +11,6 @@ use PDF;
 
 class DataKependudukanController extends Controller
 {
-	public function tambah()
-	{
-		return view('RT.formcreate.c_datakependudukan');
-	}
-	public function proses(Request $request)
-	{
-			$id_users = Auth::guard('admin')->user()->id;
-	
-			if($request->hasFile('fotoprofile')){
-				$file = $request->file('fotoprofile');
-				$path = 'upload/datakependudukan';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-			}else{
-				$namefile = null;
-			}
-			
-			DB::table('datakependudukan')->insert([
-				'id_users'	=> $id_users,
-				'nama' =>  $request->nama,
-				'nik' =>  $request->nik,
-                'nokk'	=> $request->nokk,
-				'email' =>  $request->email,
-				'telepon' =>  $request->telepon,
-                'alamat'	=> $request->alamat,
-				'agama' =>  $request->agama,
-				'jeniskelamin' =>  $request->jeniskelamin,
-                'tanggallahir'	=> $request->tanggallahir,
-				'usia' => $request->usia,
-				'kewarganegaraan' =>  $request->kewarganegaraan,
-				'pekerjaan' =>  $request->pekerjaan,
-                'statuspernikahan'	=> $request->statuspernikahan,
-				'fotoprofile' => $namefile,
-			]);
-		
-			return redirect('warga/data-warga')->with(['success'=>'Data Berhasil Ditambahkan!']);
-	
-	}
 	public function prosess(Request $request)
 	{
 			$id_users = Auth::guard('admin')->user()->id;
@@ -70,14 +32,16 @@ class DataKependudukanController extends Controller
                 'statuspernikahan'	=> $request->statuspernikahan,
 			]);
 		
-			return redirect('RT/data-warga')->with(['success'=>'Data Berhasil Ditambahkan!']);
+			return redirect('RT.dashboard_admin')->with(['success'=>'Data Berhasil Ditambahkan!']);
 	
 	}
 	
 	public function edit($id)
 	{
-		$datawarga = DB::table('users')->where('users.id', $id)
+		
+		$datawarga = DB::table('users')
 		->leftjoin('detail_users','detail_users.id_users','users.id')
+		->where('detail_users.id', $id)
 		->first();
 		return view('RT.formedit.e_datawarga', ['datawarga' => $datawarga]);
 	}
@@ -91,8 +55,9 @@ class DataKependudukanController extends Controller
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
                     ->get();
- 
-    	$pdf = PDF::loadview('RT.laporan.cetak_datawarga',$data);
+  $size_paper = [0, 0, 595.28, 841.89];
+    	$pdf = PDF::loadview('RT.laporan.cetak_datawarga',$data)
+		->setPaper($size_paper, 'landscape');
     	return $pdf->stream();
     }
 	public function cetak_datawargatidakmampu()
@@ -117,15 +82,16 @@ class DataKependudukanController extends Controller
 	{
 		$id_users = Auth::guard('admin')->user()->id;
 
-		$detail_users = DB::table('detail_users')->where('id',$request->id)->first();
+		$detail_users = DB::table('detail_users')
+		->where('id',$request->id)
+		->first();
 		
-		$fotoprofile = DB::table('detail_users')->where('id', $request->id)->update([
+		$fotoprofile = DB::table('detail_users')
+		->where('id_users', $request->id)
+		->update([
 			'id_users'	=> $id_users,
-			'nama' =>  $request->nama,
 			'nik' =>  $request->nik,
 			'nokk'	=> $request->nokk,
-			'email' =>  $request->email,
-			'telepon' =>  $request->telepon,
 			'alamat'	=> $request->alamat,
 			'agama' =>  $request->agama,
 			'jeniskelamin' =>  $request->jeniskelamin,
@@ -135,11 +101,21 @@ class DataKependudukanController extends Controller
 			'pekerjaan' =>  $request->pekerjaan,
 			'statuspernikahan'	=> $request->statuspernikahan,
 	]);
-		return redirect('RT/data-warga')->with(['success'=>'Data Berhasil Diupdate!']);;
+	DB::table('users')
+		->where('id', $request->id)
+		->update([
+			'name' =>  $request->name,
+			'email'	=> $request->email,
+			'telpon'	=> $request->telepon,
+	]);
+		return redirect('RT/dashboard-rt')->with(['success'=>'Data Berhasil Diupdate!']);;
 	}
 	public function hapus($id)
 	{
-		DB::table('datakependudukan')->where('id', $id)->delete();
-		return redirect('RT/data-warga');
+		DB::table('detail_users')->where('id_users', $id)
+		->delete();
+		DB::table('users')->where('id', $id)
+		->delete();
+		return redirect('RT/dashboard-rt');
 	}
 }

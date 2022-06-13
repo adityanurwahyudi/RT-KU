@@ -23,14 +23,12 @@
 		<thead>
 			<tr>
             
-                             <th>No</th>
-                            <th>Nama</th>
+                            <th>No</th>
                             <th>Tanggal</th>
-                            <th>Kategori</th>
-                            <th>Bulan</th>
+                            <th>Rincian</th>
+                            <th>Jenis Keterangan</th>
                             <th>Jumlah</th>
                             <th>Bukti</th>
-                            <th>Keterangan</th>
                             <th>Total Saldo</th>
                             </tr>
 		</thead>
@@ -38,15 +36,13 @@
 				@php $no=1 @endphp
         @foreach($keuangan as $p)
                         <tr>
-                            <td>{{ $no++ }}</td>
-                            <td>{{ $p->nama }}</td>
+                        <td>{{ $no++ }}</td>
                             <td>{{ $p->tanggal }}</td>
-                            <td>{{ $p->kategori }}</td>
-                            <td>{{ $p->bulan }}</td>
-                            <td>{{ $p->jumlah }}</td>
-                            <td><img width="100" height="100"src="{{asset('upload/keuangan/'.$p->bukti)}}"></td>
                             <td>{{ $p->keterangan }}</td>
-                            <td>{{ $p->totalsaldo }}</td>
+                            <td>{{ $p->jenis }}</td>
+                            <td>{{ number_format($p->jumlah,3,',','.') }}</td>
+                            <td><img width="100" height="100"src="{{asset('upload/keuangan/'.$p->bukti)}}"></td>
+                            <td>{{ number_format($p->totalsaldo,3,',','.') }}</td>
     </tr>
                     
 			@endforeach

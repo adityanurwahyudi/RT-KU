@@ -160,7 +160,7 @@
                        </div>
                        <div class="form-group">
                        <font color="#000000">Tanggal Lahir </font>
-                           <input id="tanggallahir" name="tanggallahir" type="date" value="{{ $users->tanggallahir }}" class="form-control"placeholder="tanggal lahir">
+                           <input id="tanggallahir" name="tanggallahir" type="text" value="{{ $users->tanggallahir }}" class="form-control"placeholder="tanggal lahir">
                             </div>
                             <div class="form-group">
                            <input id="usia" name="usia" type="tel" value="{{ $users->usia }}" class="form-control"
@@ -211,7 +211,7 @@
             function Alphabet(id, pesan) {
                 
                 var nilai = document.getElementById(id);
-                var alphaExp = /^[a-zA-Z]+$/;
+                var alphaExp = /^[a-zA-Z]+$/\s;
                 if(nilai.value!= ''){
                 
                 if(nilai.value.match(alphaExp)) {
@@ -344,4 +344,24 @@ $.ajaxSetup({
     }
 });
 </script>
+    <script>
+        $(function() {
+            //$( "#tanggallahir" ).date();
+            flatpickr("#tanggallahir", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 maxDate: "today"
+                });
+        });
+ 
+        window.onload=function(){
+            $('#tanggallahir').on('change', function() {
+                var dob = new Date(this.value);
+                var today = new Date();
+                var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                $('#usia').val(age);
+            });
+        }
+ 
+    </script>
 @endsection

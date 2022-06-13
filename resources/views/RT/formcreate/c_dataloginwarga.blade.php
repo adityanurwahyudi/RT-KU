@@ -63,7 +63,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="tanggallahir" class="form-label">Tanggal Lahir </label>
-                    <input type="date" class="form-control" id="tanggallahir" name="tanggallahir" >
+                    <input type="text" class="form-control" id="tanggallahir" name="tanggallahir" >
                 </div>
                 <div class="mb-3">
                     <label for="usia" class="form-label">Usia</label>
@@ -108,7 +108,7 @@
             function Alphabet(id, pesan) {
                 
                 var nilai = document.getElementById(id);
-                var alphaExp = /^[a-zA-Z]+$/;
+                var alphaExp = /^[a-zA-Z]+$/\s;
                 if(nilai.value!= ''){
                 
                 if(nilai.value.match(alphaExp)) {
@@ -188,14 +188,14 @@
             }
         
         </script>
-        
-
-
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
     <script>
         $(function() {
-            $( "#tanggallahir" ).date();
+            //$( "#tanggallahir" ).date();
+            flatpickr("#tanggallahir", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 maxDate: "today"
+                });
         });
  
         window.onload=function(){

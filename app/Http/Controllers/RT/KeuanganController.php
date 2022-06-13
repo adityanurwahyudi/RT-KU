@@ -17,21 +17,18 @@ class KeuanganController extends Controller
 		$rt = Auth::guard('admin')->user()->rt;
 		$rw = Auth::guard('admin')->user()->rw;
 
-		$qris = DB::table('qris')->select('qris.*')
-				->leftjoin('users','users.id','qris.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
-				->get();
+		
 		$keuangan = DB::table('keuangan')->select('keuangan.*')
 		->leftjoin('users','users.id','keuangan.id_users')
 		->where('users.rw', $rw)
+		->orderBy('id','asc')
 		->where('users.rt', $rt)
 		->get();
 
 		$no = 1;
 		$No = 1;
 		$NO = 1;
-		return view('RT.keuangan', compact('qris', 'keuangan','no', 'No','NO',));
+		return view('RT.keuangan', compact( 'keuangan','no', 'No','NO',));
 	}
 	
 	public function cetak_keuangan()
@@ -49,128 +46,78 @@ class KeuanganController extends Controller
     	$pdf = PDF::loadview('RT.laporan.cetak_keuangan',['keuangan'=>$keuangan]);
     	return $pdf->stream();
     }
-	public function tambah()
-	{
-		return view('RT.formcreate.c_qris');
-	}
 	public function tambahh()
 	{
 		return view('RT.formcreate.c_pemasukanpengeluaran');
 	}
 
-//qris
 	public function proses(Request $request)
 	{
 		$id_users = Auth::guard('admin')->user()->id;
 
 			if($request->hasFile('bukti')){
 				$file = $request->file('bukti');
-				$path = 'upload/qris';
+				$path = 'upload/keuangan';
 				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
 				$file->move($path, $namefile);
 			}else{
 				$namefile = null;
 			}
 				  
-			$bukti = DB::table('qris')->insert([
-				'id_users'	=> $id_users,
-			'nama' =>  $request->nama,
-			'bukti' => $namefile,
-			]);
-			return redirect('RT/keuangan')->with(['success'=>'Data Berhasil Ditambahkan!']);;
-	}
-	
-	//pemasukan dan pengeluaran
-	public function edit($id)
-	
-	{
-		$keuangan = DB::table('keuangan')->where('id', $id)->get();
-		return view('RT.formedit.e_pemasukanpengeluaran', ['keuangan' => $keuangan]);
-	}
-	
-	public function prosess(Request $request)
-	{
-		$id_users = Auth::guard('admin')->user()->id;
+			$total = DB::table('keuangan')
+					->orderBy('id','desc')->first();
+			$cek_total = !empty($total) ? $total->totalsaldo : 0;
+			$jumlah = str_replace(',','.',$request->jumlah);
 
-		if($request->hasFile('bukti')){
-			$file = $request->file('bukti');
-			$path = 'upload/keuangan';
-			$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-			$file->move($path, $namefile);
-		}else{
-			$namefile = null;
-		}
-			  
-		$bukti = DB::table('keuangan')->insert([
+			if($request->jenis == "Pemasukan"){
+				$total_jumlah = $cek_total + $jumlah;
+			}
+			else{
+				if($cek_total < $jumlah){
+					return redirect('RT/keuangan')->with(['error'=>'Saldo Kurang !']);
+				}else{
+					$total_jumlah = $cek_total - $jumlah;
+				}
+			}
+			$bukti = DB::table('keuangan')->insert([
 			'id_users'	=> $id_users,
 			'tanggal' =>  $request->tanggal,
 			'keterangan' =>  $request->keterangan,
-			'pemasukan' =>  $request->pemasukan,
-			'pengeluaran' =>  $request->pengeluaran,
+			'jenis' =>  $request->jenis,
+			'jumlah' =>  str_replace(',','.',$request->jumlah),
+			'totalsaldo' =>  $total_jumlah,
 			'bukti' => $namefile,
-			'totalsaldo'	=> $request->totalsaldo,
-		]);
-		return redirect('RT/keuangan')->with(['success'=>'Data Berhasil Ditambahkan!']);;
-
-}   
-    
-public function update(Request $request)
-{
-	$id_users = Auth::guard('admin')->user()->id;
-
-	$keuangan = DB::table('keuangan')->where('id',$request->id)->first();
-	if($request->hasFile('bukti')){
-		$file = $request->file('bukti');
-		$path = 'upload/keuangan';
-		$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-		$file->move($path, $namefile);
-	}else{
-		$namefile = $keuangan->bukti;
-	}
-		  
-	$bukti = DB::table('keuangan')->where('id', $request->id)->update([
-		'id_users'=> $id_users,
-		'nama' =>  $request->nama,
-		'tanggal' =>  $request->tanggal,
-		'kategori' =>  $request->kategori,
-		'bulan' =>  $request->bulan,
-		'jumlah' =>  $request->jumlah,
-		'keterangan' =>  $request->keterangan,
-		'bukti' => $namefile,
-	]);
-
-	return redirect('RT/keuangan')->with(['success'=>'Data Berhasil Diupdate!']);;
-
-}	
-	
-	//konfirmasi pembayaran dari web warga
-	public function proses2(Request $request)
-	{
-			if($request->hasFile('bukti')){
-				$file = $request->file('bukti');
-				$path = 'upload/konfirmasipembayaran';
-				$namefile = uniqid().'.'.$file->getClientOriginalExtension();
-				$file->move($path, $namefile);
-			}else{
-				$namefile = null;
-			}
-				  
-			$bukti = DB::table('pemasukanpengeluaran')->insert([
-			'nama' =>  $request->nama,	
-			'tanggal' => date('Y-m-d'),	
-			'bulan' =>  $request->bulan,
-			'metodepembayaran' =>  $request->metodepembayaran,	
-			'pemasukan' =>  $request->pemasukan,
-			'bukti' => $namefile,
-			'status' =>  $request->status,	
 			]);
-			Session::flash('success', "Success!");
-			return redirect('warga/keuangan')->with(['success'=>'Data Berhasil Terkirim!']);;
+
+			return redirect('RT/keuangan')->with(['success'=>'Data Berhasil Ditambahkan!']);
 	}
-	public function hapus($id)
+	public function hapus($request)
 	{
-		DB::table('qris')->where('id', $id)->delete();
+		$dt = explode('_',$request);
+		$id = $dt[0];
+		$tanggal = $dt[1];
+		$keterangan = $dt[2];
+		$jenis = $dt[3];
+		$jumlah = $dt[4];
+		$totalsaldo = $dt[5];
+
+		$total = DB::table('keuangan')
+					->orderBy('id','desc')->first();
+			$cek_total = !empty($total) ? $total->totalsaldo : 0;
+
+			if($jenis == "Pemasukan"){
+				$total_jumlah = $cek_total - $jumlah;
+			}
+			else{
+				$total_jumlah = $cek_total + $jumlah;
+			}
+			
+			$bukti = DB::table('keuangan')->where('id',$total->id)->update([
+				'totalsaldo' =>  $total_jumlah,
+			]);
+
 		DB::table('keuangan')->where('id', $id)->delete();
+
 		return redirect('RT/keuangan');
 	}
 }

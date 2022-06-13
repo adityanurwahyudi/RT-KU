@@ -68,20 +68,6 @@
                                 </div>
                             </div>
                 </div>
-
-            <section class="page-title bg-keuangan2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="block text-center">
-                                <span class="text-white">Laporan Keuangan</span>
-                                <h1 class="text-capitalize mb-4 text-lg">Keuangan Warga</h1>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
             <!--  Section Services Start -->
             <section class="section service border-top">
                 <div class="container">
@@ -100,28 +86,42 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered table-hover table-condensed" id="keuangan-table">
-                <thead>
-                                <tr>
-                                <th>Tanggal</th>
-                                <th>No</th>
-                                <th>Keterangan</th>
-                                <th>Pemasukan</th>
-                                <th>Pengeluaran</th>
-                                <th>Total Saldo</th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
+            
+            <table class="table table-striped table-bordered table-hover table-condensed"
+                    id="satu">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Rincian</th>
+                            <th>Jenis Keterangan</th>
+                            <th>Jumlah</th>
+                            <th>Bukti</th>
+                            <th>Total Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                      @foreach($keuangan as $p)
                         <tr>
-                            <td>{{ $p->tanggal }}</td>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->keterangan }}</td>
-                            <td>{{ $p->pemasukan }}</td>
-                            <td>{{ $p->pengeluaran }}</td>
-                            <td>{{ $p->totalsaldo }}</td>
-                        
+                            <td>{{ $p->jenis }}</td>
+                            <td>{{ number_format($p->jumlah,3,',','.') }}</td>
+                            
+                            <td>
+                                
+                                <?php
+                                $bkt =  explode(".",$p->bukti);
+                                ?>
+                                @if($bkt[1]== 'mp4')
+                                    
+                                @else
+                                    <a href="{{url('upload/keuangan/'.$p->bukti.'')}}" class="btn btn-primary"> <i class="fa fa-image"></i>
+                                @endif
+                            </td>
+                            <td>{{ number_format($p->totalsaldo,3,',','.') }}</td>
+                           
                         </tr>
                         @endforeach
                     </tbody>

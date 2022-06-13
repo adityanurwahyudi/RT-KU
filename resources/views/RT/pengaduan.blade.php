@@ -21,6 +21,7 @@
                     <thead>
                         <tr>
                             <th>No</th>
+                            <th>Kategori Pengaduan</th>
                             <th>Nama</th>
                             <th>Telepon</th>
                             <th>Tanggal</th>
@@ -31,12 +32,24 @@
                     </thead>
                     <tbody>
                      @foreach($pengaduan as $p)
+                     
                         <tr>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $p->kategori }}</td>
                             <td>{{ $p->nama }}</td>
                             <td>{{ $p->telepon }}</td>
                             <td>{{ $p->tanggal }}</td>
-                            <td>{{ $p->bukti }}</td>
+                            <td>
+                                
+                                <?php
+                                $bkt =  explode(".",$p->bukti);
+                                ?>
+                                @if($bkt[1]== 'mp4')
+                                    <a href="{{url('upload/pengaduan/'.$p->bukti.'')}}" class="btn btn-primary"> <i class="fa fa-video"></i></a>
+                                @else
+                                    <a href="{{url('upload/pengaduan/'.$p->bukti.'')}}" class="btn btn-primary"> <i class="fa fa-image"></i>
+                                @endif
+                            </td>
                             <td>{{ $p->deskripsi }}</td>
                             <td>
                                 <a title="Delete" href="{{route('admin.rt.pengaduan.hapus',$p->id)}}" class="btn btn-danger"

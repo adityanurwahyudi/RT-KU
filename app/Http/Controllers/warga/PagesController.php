@@ -77,6 +77,7 @@ class PagesController extends Controller
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
                     ->get();
+                  
     //count jenis kelamin
         $data['lakilaki'] = DB::table('detail_users')->select('detail_users.*')
                     ->join('users','users.id','detail_users.id_users')
@@ -375,6 +376,7 @@ class PagesController extends Controller
 				'telepon' =>  $request->telepon,
 				'deskripsi' =>  $request->deskripsi,
 				'tanggal' =>  $request->tanggal,
+				'kategori' =>  $request->kategori,
 				'bukti' => $namefile,
 		]);
 
@@ -393,18 +395,14 @@ class PagesController extends Controller
 		$rw = Auth::guard('user')->user()->rw;
         
 		$no = 1;
-        $qris = DB::table('qris')
-                ->leftjoin('users','users.id','qris.id_users')
-				->where('users.rw', $rw)
-				->where('users.rt', $rt)
-                ->get();
+        
         $keuangan = DB::table('keuangan')
                 ->leftjoin('users','users.id','keuangan.id_users')
                 ->where('users.rw', $rw)
                 ->where('users.rt', $rt)
                 ->get();
                 return view('warga.keuangan',
-		compact('qris','keuangan','no'));
+		compact('keuangan','no'));
     }
     public function keamanan()
     {
@@ -523,7 +521,7 @@ class PagesController extends Controller
     }
     public function datawarga_update(Request $request)
     {
-        try{
+        // try{
             $id_users = Auth::guard('user')->user()->id;
             $id_jumlah = $request->jumlah;
             $id_kendaraan = $request->kendaraan;
@@ -553,24 +551,28 @@ class PagesController extends Controller
                     ->leftjoin('master_jumlah_tanggungan','master_jumlah_tanggungan.id','detail_users.id_jumlah_tanggungan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
+                    ->whereNotNull('detail_users.id_jumlah_tanggungan')
                     ->orderBy('master_jumlah_tanggungan.bobot','DESC')->first();
             $rating_kendaraan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_kendaraan','master_kendaraan.id','detail_users.id_kendaraan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
+                    ->whereNotNull('detail_users.id_kendaraan')
                     ->orderBy('master_kendaraan.bobot','DESC')->first();
             $rating_pekerjaan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_pekerjaan','master_pekerjaan.id','detail_users.id_pekerjaan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
+                    ->whereNotNull('detail_users.id_pekerjaan')
                     ->orderBy('master_pekerjaan.bobot','DESC')->first();
             $rating_penghasilan = DB::table('detail_users')
                     ->leftjoin('users','users.id','detail_users.id_users')
                     ->leftjoin('master_penghasilan','master_penghasilan.id','detail_users.id_penghasilan')
                     ->where('users.rt',$rt)
                     ->where('users.rw',$rw)
+                    ->whereNotNull('detail_users.id_penghasilan')
                     ->orderBy('master_penghasilan.bobot','DESC')->first();
 
             // Get Bobot Berdasarkan Id
@@ -580,11 +582,11 @@ class PagesController extends Controller
             $bobot_penghasilan = getPenghasilan($id_penghasilan)->bobot;
 
             // Bobot yang didapet diNormalisasi
-            $cek_rating_jumlah = !empty($rating_jumlah) ? $rating_jumlah->bobot : 1;
-            $cek_rating_kendaraan = !empty($rating_kendaraan) ? $rating_kendaraan->bobot : 1;
-            $cek_rating_pekerjaan = !empty($rating_pekerjaan) ? $rating_pekerjaan->bobot : 1;
-            $cek_rating_penghasilan = !empty($rating_penghasilan) ? $rating_penghasilan->bobot : 1;
-
+            $cek_rating_jumlah = ($rating_jumlah->bobot != null) ? $rating_jumlah->bobot : 1;
+            $cek_rating_kendaraan = ($rating_kendaraan->bobot != null) ? $rating_kendaraan->bobot : 1;
+            $cek_rating_pekerjaan = ($rating_pekerjaan->bobot != null) ? $rating_pekerjaan->bobot : 1;
+            $cek_rating_penghasilan = ($rating_penghasilan->bobot != null) ? $rating_penghasilan->bobot : 1;
+            
             $normalisasi_jumlah = Round($bobot_jumlah / $cek_rating_jumlah,3);
             $normalisasi_kendaraan = Round($bobot_kendaraan / $cek_rating_kendaraan,3);
             $normalisasi_pekerjaaan = Round($bobot_pekerjaan / $cek_rating_pekerjaan,3);
@@ -595,7 +597,7 @@ class PagesController extends Controller
             $kepentingan_kendaraan = DB::table('bobot_kepentingan')->where('kriteria','master_kendaraan')->first()->rating_kepentingan;
             $kepentingan_pekerjaaan = DB::table('bobot_kepentingan')->where('kriteria','master_pekerjaan')->first()->rating_kepentingan;
             $kepentingan_penghasilan = DB::table('bobot_kepentingan')->where('kriteria','master_penghasilan')->first()->rating_kepentingan;
-
+           
             // Penentuan Rank
             $rank_jumlah = $kepentingan_jumlah * $normalisasi_jumlah;
             $rank_kendaraan = $kepentingan_kendaraan * $normalisasi_kendaraan;
@@ -618,9 +620,9 @@ class PagesController extends Controller
                 DB::table('hasil_normalisasi')->insert($data_normalisasi);
             }
             return redirect()->back()->with(['success'=>'Berhasil Update']);
-        }catch(Exception $e){
-            return redirect()->back()->with(['error'=>'Gagal Update']);
-        }
+        // }catch(Exception $e){
+        //     return redirect()->back()->with(['error'=>'Gagal Update']);
+        // }
     }
     
     public function pindah()
@@ -650,36 +652,6 @@ class PagesController extends Controller
             return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
         }
     }
-     public function rt_update(Request $request)
-    {
-        try{
-            $data = [
-                'name'          => $request->nama,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password),
-                'password_real' => $request->password
-            ];
-            DB::table('users')->where('id', $request->id)->update($data);
-
-            return redirect()->back()->with(['success'=>'Data Update']);
-        }catch(Exception $e){
-            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
-        }
-    } 
-    public function rw_update(Request $request)
-    {
-        try{
-            $data = [
-                'name'          => $request->nama,
-                'email'         => $request->email,
-                'password'      => Hash::make($request->password),
-                'password_real' => $request->password
-            ];
-            DB::table('users')->where('id', $request->id)->update($data);
-
-            return redirect()->back()->with(['success'=>'Data Update']);
-        }catch(Exception $e){
-            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
-        }
-    }
+    
+   
 }

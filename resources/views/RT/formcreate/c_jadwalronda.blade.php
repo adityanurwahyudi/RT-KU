@@ -50,7 +50,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="tanggal" class="form-label">Tanggal</label>
-                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                            <input type="text"  class="form-control" id="tanggallahir" name="tanggal" required>
                         </div>
                         <br>
                         <div class="mb-3">
@@ -94,4 +94,24 @@
         $(obj).parent().parent().remove();
     }
 </script>
+    <script>
+        $(function() {
+            //$( "#tanggallahir" ).date();
+            flatpickr("#tanggallahir", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 minDate: "today"
+                });
+        });
+ 
+        window.onload=function(){
+            $('#tanggallahir').on('change', function() {
+                var dob = new Date(this.value);
+                var today = new Date();
+                var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                $('#usia').val(age);
+            });
+        }
+ 
+    </script>
 @endsection

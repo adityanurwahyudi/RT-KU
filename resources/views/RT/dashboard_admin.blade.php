@@ -24,12 +24,55 @@
     </style>
 @endsection
 @section('content')
+
 <div class="container-fluid px-4">
     <h1 class="mt-4">Data Kependudukan</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item"><a>Dashboard</a></li>
         <li class="breadcrumb-item active">Data Kependudukan</li>
     </ol>
+    <div class="row">
+        <div class="card-header">
+            <i ></i>
+           Informasi Trend Pengaduan Masyarakat
+        </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-primary text-white mb-4">
+                                    <div class="card-body">{{$Keamanan}}</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" > Keamanan</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-warning text-white mb-4">
+                                    <div class="card-body">{{$Sampah}}</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" >Sampah</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-success text-white mb-4">
+                                    <div class="card-body">{{$Kejahatan}}</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" >Tindak Kejahatan</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-md-6">
+                                <div class="card bg-danger text-white mb-4">
+                                    <div class="card-body">{{$Infrastruktur}}</div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" >Infrastruktur</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
     <div class="card mb-4">
         <div class="card-header">
@@ -38,7 +81,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-		        
+            <a href="{{ route('admin.rt.datawarga.cetak_datawarga')}}" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a><br><br>
                 <table class="table table-striped table-bordered table-hover table-condensed" id="satu">
                     <thead>
                         <tr>
@@ -78,7 +121,7 @@
                             <td>{{ $p->statuspernikahan }}</td>
                             <td>{{ $p->kewarganegaraan }}</td>
                             
-                            <td>
+                            <td> <a title="Edit" href="{{ route('admin.rt.datawarga.edit',$p->id) }}" class="btn btn-info"><i class="fa fa-edit" aria-hidden="true"></i> Edit</a>
                                 <a title="Delete" href="{{route('admin.rt.datawarga.hapus',$p->id)}} " class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>
@@ -90,6 +133,7 @@
             </div>
         </div>
     </div>
+
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
@@ -125,6 +169,9 @@
             </div>
         </div>
     </div>
+    
+   
+
     
     <div class="card mb-4">
         <div class="card-header">

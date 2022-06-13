@@ -294,7 +294,8 @@
                     ['Protestan', data.protestan],
                     ['Katholik', data.katholik],
                     ['Buddha', data.buddha],
-                    ['Khonghucu', data.khonghucu]
+                    ['Khonghucu', data.khonghucu],
+                    ['Hindu', data.hindu]
                 ]
             }]
         });

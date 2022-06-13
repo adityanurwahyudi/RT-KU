@@ -38,7 +38,7 @@
                                                 {{ csrf_field() }}
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="nama" class="form-outline flex-fill mb-0">
-                                                        <input type="text" id="nama" name="nama"
+                                                        <input type="text" id="nama" name="nama" onkeypress="return hanyaHuruf(event)"
                                                             placeholder="Nama Lengkap" class="form-control" required
                                                             maxlength="40" minlength="4" />
                                                     </div>
@@ -47,7 +47,7 @@
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="email" class="form-outline flex-fill mb-0">
                                                         <input type="email" name="email" placeholder="Alamat Email"
-                                                            id="email" class="form-control" required />
+                                                            id="email" onchange="cekEmail()" class="form-control" required />
                                                     </div>
                                                 </div>
 
@@ -55,7 +55,7 @@
                                                     <div for="telepon"class="form-outline flex-fill mb-0">
                                                         <input type="number" id="telepon" name="telepon"
                                                             placeholder="Nomor Telepon" class="form-control"
-                                                            minlength="10" maxlength="20" required />
+                                                            minlength="10" maxlength="20" onchange="cekTelpon()" onkeyup="Nomor('telepon','Telepon Harus Angka')" required />
                                                     </div>
                                                 </div>
 
@@ -150,6 +150,72 @@
     </script>
     
 @section('script')
+     
+<script type="text/javascript">
+   
+   function hanyaHuruf(event){
+            var charCode = (event.which) ? event.which : event.keyCode
+            if ((charCode < 65 || charCode > 90)&&(charCode < 97 || charCode > 122)&&charCode>32)
+                return false;
+            return true;
+        }
+    function Nomor(id, pesan) {
+        var nilai = document.getElementById(id);
+        var numberExp = /^[0-9]+$/;
+        if(nilai.value!= ''){
+            
+        if(nilai.value.match(numberExp)) {
+            return true;
+        }
+        else {
+            alert(pesan);
+            nilai.focus();
+            nilai.value='';
+            return false;
+        }
+
+        }
+        
+    }
+    function Email(nilai, pesan) {
+        var email = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+        if(nilai.value.match(email)) {
+            return true;
+        }
+        else {
+            alert(pesan);
+            nilai.focus();
+            return false;
+        }
+    }
+    
+    function cekTelpon(){
+        var telpon = $('#telepon').val();
+        $.get("{{ URL::to('/register/telpon') }}",{telpon:telpon},
+        function(res){
+            
+        if(res == 1){
+            alert('Telpon Sudah Terdaftar');
+            $('#telepon').val('');
+            }
+        });
+    }
+    function cekEmail(){
+        var email = $('#email').val();
+        $.get("{{ URL::to('/register/email') }}",{email:email},
+        function(res){
+            
+        console.log(res)
+            if(res == 1){
+            alert('Email Sudah Terdaftar');
+            $('#email').val('');
+            }
+        });
+    }
+        
+</script>
+
+
 <script type="text/javascript">
     $(document).ready(function(){
         

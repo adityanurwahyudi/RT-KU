@@ -14,7 +14,7 @@
     @yield('css')
 </head>
 <body class="sb-nav-fixed">
-    @include('template.backend.navbar.navbar')
+    @include('template.backend.navbar.navbar2')
     <div id="layoutSidenav">
     @include('template.backend.sidebar.sidebar')
     

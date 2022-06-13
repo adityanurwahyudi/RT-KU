@@ -28,7 +28,7 @@
                                 </div> 
                                 <div class="mb-3">
                                     <label for="tanggal" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                                    <input type="text" class="form-control" id="tanggal" name="tanggal" required>
                                 </div>
                                  <div class="form-group-2 mb-4">
                                     <label for="deskripsi" class="form-label">Deskripsi Singkat</label>
@@ -102,7 +102,7 @@
     function Alphabet(id, pesan) {
                 
                 var nilai = document.getElementById(id);
-                var alphaExp = /^[a-zA-Z]+$/;
+                var alphaExp = /^[a-zA-Z]+$/\s;
                 if(nilai.value!= ''){
                 
                 if(nilai.value.match(alphaExp)) {
@@ -171,5 +171,24 @@
                   }
               });
             }
+    </script>
+    <script>
+        $(function() {
+            flatpickr("#tanggallahir", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 maxDate: "today"
+                });
+        });
+ 
+        window.onload=function(){
+            $('#tanggallahir').on('change', function() {
+                var dob = new Date(this.value);
+                var today = new Date();
+                var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+                $('#usia').val(age);
+            });
+        }
+ 
     </script>
 @endsection 

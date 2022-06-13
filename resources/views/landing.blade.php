@@ -92,7 +92,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
-                        <img src="{{asset('/superwarga/assets/img/1.jpg')}}" class="img-fluid" alt="">
+                        <img src="{{asset('/superwarga/assets/img/kantor.jpg')}}" width="2000" height="5000" class="img-fluid" alt="">
                     </div>
                     <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center"
                         data-aos="fade-up" data-aos-delay="100">
@@ -458,7 +458,7 @@
 function Alphabet(id, pesan) {
                 
                 var nilai = document.getElementById(id);
-                var alphaExp = /^[a-zA-Z]+$/;
+                var alphaExp = /^[a-zA-Z]+$/\s;
                 if(nilai.value!= ''){
                 
                 if(nilai.value.match(alphaExp)) {

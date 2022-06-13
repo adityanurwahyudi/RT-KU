@@ -70,6 +70,9 @@
                     </div>
                     <br><br>
                     <div class="text-center">
+                        <span><a href="{{route ('register') }}" style="color:blue;"> Daftar</a></span>
+                    </div>
+                    <div class="text-center">
                         <span>Lupa Password?<a href="{{ url('password/reset') }}" style="color:blue;"> Klik Disini</a></span>
                     </div>
                 </form>

@@ -26,7 +26,7 @@
                     <tbody>
                         <tr>
                             <td>Penghasilan</td>
-                            <td>2</td>
+                            <td>4</td>
                         </tr>
                         <tr>
                             <td>Pekerjaan</td>
@@ -34,11 +34,11 @@
                         </tr>
                         <tr>
                             <td>Jumlah Tanggungan</td>
-                            <td>4</td>
+                            <td>5</td>
                         </tr>
                         <tr>
                             <td>Kendaraan</td>
-                            <td>1</td>
+                            <td>2</td>
                         </tr>
                     </tbody>
                 </table>

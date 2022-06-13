@@ -40,8 +40,8 @@
             Data Kependudukan Warga
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-            <a href="" target="" class="btn btn-primary" id="setpdf" onclick="setPdf()">PDF</a>
+            <div class="table-responsive">   
+            <a href=""  target="" id="setpdf" onclick="setPdf()" target="_blank" class="btn btn-warning"> <i class="fa fa-file"></i> Lihat PDF</a>
             <br><br>
                  <div class="d-flex flex-row align-items-center mb-4">
                     <div for="rt" class="form-outline flex-fill mb-0">
@@ -72,6 +72,58 @@
                             <th>Pekerjaan</th>
                             <th>Status Menikah</th>
                             <th>Kewarganegaraan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Data Pengaduan / Pelaporan Warga
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatable-pengaduan">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama </th>
+                            <th>Telepon</th>
+                            <th>Tanggal</th>
+                            <th>Bukti</th>
+                            <th>Deskripsi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+				
+                    </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Data Kritik dan Saran Warga
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                
+                <table class="table table-striped table-bordered table-hover table-condensed" id="datatable-kritik">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama </th>
+                            <th>Email</th>
+                            <th>Telepon</th>
+                            <th>Kritik dan Saran</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -207,6 +259,8 @@
         wargaBerdasarkanJenisKelamin();
         wargaBerdasarkanAgama();
         setTable();
+        setTablePengaduan();
+        setTableKritik();
         wargaBerdasarkanKewarganegaraan();
         $('#filter_rt').change(function(){
             wargaBerdasarkanUsia();
@@ -215,18 +269,20 @@
             wargaBerdasarkanAgama();
             wargaBerdasarkanKewarganegaraan();
             setTable();
+            setTablePengaduan();
+            setTableKritik();
         })
     });
     function setPdf(){
-        var rt = ($('#rt').val()) ? $('#rt').val() : 0;
+        var rt = ($('#filter_rt').val()) ? $('#filter_rt').val() : 0;
 
-        $('#setpdf').attr("href", "{{ URL::to('RW/dashboard-kelurahan/pdf-table/')}}"+'/'+rw+'/'+rt);
+        $('#setpdf').attr("href", "{{ URL::to('RW/dashboard-rw/pdf-table/')}}"+'/'+rt);
         $('#setpdf').attr("target", "_blank");
     }
     function setTable()
     {
-        var rt = $('#rt').val();
-        $.get("{{ URL::to('RW/dashboard-rw/table') }}",{rt:rt},function(res){
+        var rt = $('#filter_rt').val();
+        $.get("{{ URL::to('RW/dashboard-rw/table-warga-data') }}",{rt:rt}, function(res){
             var data = JSON.parse(res);
             var html = '';
 
@@ -263,8 +319,72 @@
                 html += '</tr>';
             })
 
+            $('#datatable-users').DataTable().destroy();
             $('#datatable-users tbody').html(html);
             $('#datatable-users').DataTable();
+        });
+    }
+    function setTablePengaduan()
+    {
+        var rt = $('#filter_rt').val();
+        $.get("{{ URL::to('RW/dashboard-rw/table-warga-pengaduan') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+            $.each(data, function(i ,val){
+                var no = i + 1;
+                var nama = (val.nama==null) ? '-' : val.nama;
+                var telepon = (val.telepon==null) ? '-' : val.telepon;
+                var deskripsi = (val.deskripsi==null) ? '-' : val.deskripsi;
+                var tanggal = (val.tanggal==null) ? '-' : val.tanggal;
+                var bukti = (val.bukti==null) ? '-' : val.bukti;
+                
+                var bkt = bukti.split(".");
+                if(bkt[1] == 'mp4'){
+                    var icon = '<i class="fa fa-video"></i>';
+                }else{
+                    var icon = '<i class="fa fa-image"></i>';
+                }
+
+                html += '<tr>';
+                    html += '<td>'+no+'</td>';
+                    html += '<td>'+nama+'</td>';
+                    html += '<td>'+telepon+'</td>';
+                    html += '<td>'+tanggal+'</td>';
+                    html += '<td> <a href="{{url("upload/pengaduan")}}/'+bukti+'" class="btn btn-primary" >'+icon+'</a></td>';
+                    html += '<td>'+deskripsi+'</td>';
+                html += '</tr>';
+            })
+
+            $('#datatable-pengaduan tbody').html(html);
+            $('#datatable-pengaduan').DataTable();
+        });
+    }
+    function setTableKritik()
+    {
+        var rt = $('#filter_rt').val();
+        $.get("{{ URL::to('RW/dashboard-rw/table-warga-kritik') }}",{rt:rt}, function(res){
+            var data = JSON.parse(res);
+            var html = '';
+
+            $.each(data, function(i ,val){
+                var no = i + 1;
+                var nama = (val.nama==null) ? '-' : val.nama;
+                var email = (val.email==null) ? '-' : val.email;
+                var telepon = (val.telepon==null) ? '-' : val.telepon;
+                var kritikdansaran = (val.kritikdansaran==null) ? '-' : val.kritikdansaran;
+
+                html += '<tr>';
+                    html += '<td>'+no+'</td>';
+                    html += '<td>'+nama+'</td>';
+                    html += '<td>'+email+'</td>';
+                    html += '<td>'+telepon+'</td>';
+                    html += '<td>'+kritikdansaran+'</td>';
+                html += '</tr>';
+            })
+
+            $('#datatable-kritik tbody').html(html);
+            $('#datatable-kritik').DataTable();
         });
     }
 

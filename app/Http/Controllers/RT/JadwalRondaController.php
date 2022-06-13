@@ -83,13 +83,6 @@ class JadwalRondaController extends Controller
         return $pdf->stream();
     }
     
-    public function cetak_jadwalronda1($id){
-
-        $data['jadwalronda'] = DB::table('jadwal_ronda')->where('id', $id)->first();
-
-        $pdf = PDF::loadView('RT.laporan.cetak_jadwalronda', $data);
-        return $pdf->stream();
-    }
     public function save(Request $request)
     {
         $rt = Auth::guard('admin')->user()->rt;

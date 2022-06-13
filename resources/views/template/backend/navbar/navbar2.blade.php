@@ -83,9 +83,9 @@
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
+            <!-- <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
                 aria-describedby="btnNavbarSearch" />
-            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
         </div>
     </form>
     <!-- Navbar-->
@@ -95,12 +95,12 @@
                 $id_users = Auth::guard('admin')->user()->id;
                 $notification = notification($id_users);
             ?>
-            <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <!-- <a class="nav-link" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <span class="badge badge-default" id="badgeNotifikasi">
                    {{ count($notification) }}
                 </span>
-            </a>
+            </a> -->
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" style="min-width:24rem;">
                 <ul class="dropdown-menu-list scroller" style="height: 280px;padding-left:0rem;overflow-y:auto" data-handle-color="#637283" id="dropdownNotifikasi">
                     <li class="header" id="headerNotifikasi">{{ count($notification) }} NOTIFICATION</li>
@@ -145,10 +145,6 @@
             <li >
                     <div class="sb-nav-link-icon">
                     <a class="dropdown-item" class="nav-link" value="{{ $users->name }}" href="">{{ $users->name }}</a>
-                </li>
-            <li >
-                    <div class="sb-nav-link-icon">
-                    <a class="dropdown-item" class="nav-link" href="{{ route('admin.rt.ubahakun') }}">Ubah Akun</a>
                 </li>
                 <li onclick="event.preventDefault();document.getElementById('logout').submit();">
                     <a class="dropdown-item" href="#!">Logout</a>

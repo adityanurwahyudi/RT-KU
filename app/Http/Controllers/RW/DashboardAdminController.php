@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use App\Models\Kehadiran;
-
+use PDF;
+use Hash;
 class DashboardAdminController extends Controller
 {
 
@@ -261,13 +262,86 @@ class DashboardAdminController extends Controller
         ]);
     }
     
-    public function getTable()
+    public function getTableWarga()
     {
         $rw = Auth::guard('admin')->user()->rw;
         $rt = $_GET['rt'];
         $data = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
-                    ->whereNotNull('rw',$rw)
+                    ->where('rw',$rw)
+                    ->whereNotNull('rt')
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
+
+        echo json_encode($data);
+    }
+    
+    public function getTable()
+    {
+        $rt = $_GET['rt'];
+        $data = DB::table('users')
+                    ->leftjoin('detail_users','detail_users.id_users','users.id')
+                    ->whereNotNull('rt')
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
+
+        echo json_encode($data);
+    } 
+
+    public function getTablePengaduan()
+    {
+        $rw = Auth::guard('admin')->user()->rw;
+        $rt = $_GET['rt'];
+        $data = DB::table('pengaduan')
+                    ->leftjoin('users','users.id','pengaduan.id_users')
+                    ->where('rw',$rw)
+                    ->whereNotNull('rt')
+                    ->when($rt, function($q, $rt){
+                        $q->where('users.rt', $rt);
+                    })
+                    ->get();
+
+        echo json_encode($data);
+    } 
+    public function ubahakunn()
+    {
+       
+            $id_users = Auth::guard('admin')->user()->id;
+            $users['users'] = DB::table('users')
+            ->where('id',$id_users)
+            ->orderBy('id','ASC')
+            ->first();
+
+        return view('RW.ubahakunn' ,$users);
+    }
+    public function rw_update(Request $request)
+    {
+        try{
+            $data = [
+                'name'          => $request->nama,
+                'email'         => $request->email,
+                'password'      => Hash::make($request->password),
+                'password_real' => $request->password
+            ];
+            DB::table('users')->where('id', $request->id)->update($data);
+
+            return redirect("RW/dashboard-rw")->with(['success'=>'Data Update']);
+        }catch(Exception $e){
+            return redirect()->back()->with(['error'=>'Gagal Update'.$e]);
+        }
+    }
+    
+    public function getTableKritik()
+    {
+        $rw = Auth::guard('admin')->user()->rw;
+        $rt = $_GET['rt'];
+        $data = DB::table('kritiksaran')
+                    ->leftjoin('users','users.id','kritiksaran.id_users')
+                    ->where('rw',$rw)
                     ->whereNotNull('rt')
                     ->when($rt, function($q, $rt){
                         $q->where('users.rt', $rt);
@@ -278,12 +352,15 @@ class DashboardAdminController extends Controller
     }
     public function cetak_table_pdf($rt)
     {
+
+        $rw = Auth::guard('admin')->user()->rw;
         $rt = ($rt!=0) ? $rt : null;
 
         $data['no']= 1;
         $data['data'] = DB::table('users')
                     ->leftjoin('detail_users','detail_users.id_users','users.id')
                     ->whereNotNull('rt')
+                    ->where('rw',$rw)
                     ->when($rt, function($q, $rt){
                         $q->where('users.rt', $rt);
                     })
@@ -295,7 +372,7 @@ class DashboardAdminController extends Controller
             'isRemoteEnabled' => true,
             'images' => true,
         ])
-        ->loadView('rw.cetak_pdf_dashboard', $data)
+        ->loadView('RW.cetak_pdf_dashboard', $data)
         ->setPaper($size_paper, 'landscape');
         return $pdf->stream('Data Warga Dashboard RW.pdf');
     }

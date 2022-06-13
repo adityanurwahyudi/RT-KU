@@ -118,8 +118,18 @@
                                 placeholder="Nomor Telepon" readonly>
                         </div>
                         <div class="form-group">
+                       <font color="#000000">Kategori Pengaduan  </font><br>
+                          <select  class="form-control" id="kategori"   name="kategori" for="kategori">
+                        <option value="Keamanan">Keamanan</option>
+                        <option value="Sampah" >Sampah</option>
+                        <option value="Kejahatan">Tindak Kejahatan</option>
+                        <option value="Infrastruktur" > Infrastruktur </option>
+                        <option value="Lingkungan">Lingkungan </option>
+                          </select>
+                        </div> 
+                        <div class="form-group">
                             <label>Tanggal</label>
-                             <input name="tanggal" type="date" id="tanggal" class="form-control"
+                             <input name="tanggal" type="text" id="tanggal" class="form-control"
                                 placeholder="Tanggal">
                         </div>
                         <div class="form-group">
@@ -176,6 +186,18 @@
 
 @section('script')
 @section('script')
+
+<script>
+        $(function() {
+            //$( "#tanggallahir" ).date();
+            flatpickr("#tanggal", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 
+                });
+        });
+ 
+    </script>
 <script type="text/javascript">
     $(document).ready(function(){
         

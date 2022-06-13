@@ -8,6 +8,10 @@
 <!-- Owl Carousel CSS -->
 <link rel="stylesheet" href="{{asset('/sbwarga/plugins/slick-carousel/slick/slick.css')}}">
 <link rel="stylesheet" href="{{asset('/sbwarga/plugins/slick-carousel/slick/slick-theme.css')}}">
+ 
+<!-- flatpicker -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

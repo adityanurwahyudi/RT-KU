@@ -89,6 +89,38 @@ class DashboardAdminController extends Controller
             ->where('statuspernikahan','Cerai') 
             ->count();
 
+            //count pengaduan
+            $data['Keamanan'] = DB::table('pengaduan')->select('users.*')
+            ->leftjoin('users','users.id','pengaduan.id_users')
+                                ->where('rt',$rt)
+                                ->where('rw',$rw) 
+                                ->where('kategori','Keamanan') 
+                                ->count();
+            $data['Sampah'] = DB::table('pengaduan')->select('users.*')
+            ->leftjoin('users','users.id','pengaduan.id_users')
+                                ->where('rt',$rt)
+                                ->where('rw',$rw) 
+                                ->where('kategori','Sampah') 
+                                ->count();
+            $data['Kejahatan'] = DB::table('pengaduan')->select('users.*')
+            ->leftjoin('users','users.id','pengaduan.id_users')
+                                ->where('rt',$rt)
+                                ->where('rw',$rw) 
+                                ->where('kategori','Kejahatan') 
+                                ->count();
+            $data['Infrastruktur'] = DB::table('pengaduan')->select('users.*')
+            ->leftjoin('users','users.id','pengaduan.id_users')
+                                ->where('rt',$rt)
+                                ->where('rw',$rw) 
+                                ->where('kategori','Infrastruktur') 
+                                ->count();
+            $data['Lingkungan'] = DB::table('pengaduan')->select('users.*')
+            ->leftjoin('users','users.id','pengaduan.id_users')
+                                ->where('rt',$rt)
+                                ->where('rw',$rw) 
+                                ->where('kategori','Lingkungan') 
+                                ->count();
+
         //count agama             
         $data['islam'] = DB::table('detail_users')->select('detail_users.*')
                     ->join('users','users.id','detail_users.id_users')
@@ -124,7 +156,7 @@ class DashboardAdminController extends Controller
                     ->join('users','users.id','detail_users.id_users')
                     ->where('rt',$rt)
                     ->where('rw',$rw) 
-                    ->where('agama','konghucu') 
+                    ->where('agama','khonghucu') 
                     ->count();
         $data['normalisasi'] = DB::table('hasil_normalisasi')
                     ->join('users','users.id','hasil_normalisasi.id_users')

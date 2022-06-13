@@ -78,7 +78,8 @@
                             <td>{{ $p->statuspernikahan }}</td>
                             <td>{{ $p->kewarganegaraan }}</td>
                             
-                            <td>
+                            <td> 
+                           
                                 <a title="Delete" href="{{route('admin.rt.datawarga.hapus',$p->id)}} " class="btn btn-danger"
                                     onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
                             </td>

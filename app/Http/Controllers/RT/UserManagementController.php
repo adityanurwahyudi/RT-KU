@@ -93,6 +93,38 @@ class UserManagementController extends Controller
             ->where('rw',$rw) 
             ->where('statuspernikahan','Cerai') 
             ->count();
+//count pengaduan
+$data['Keamanan'] = DB::table('pengaduan')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kategori','Keamanan') 
+                    ->count();
+$data['Sampah'] = DB::table('pengaduan')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kategori','Sampah') 
+                    ->count();
+$data['Kejahatan'] = DB::table('pengaduan')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kategori','Kejahatan') 
+                    ->count();
+$data['Infrastruktur'] = DB::table('pengaduan')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kategori','Infrastruktur') 
+                    ->count();
+                    
+$data['Lingkungan'] = DB::table('pengaduan')->select('detail_users.*')
+                    ->join('users','users.id','detail_users.id_users')
+                    ->where('rt',$rt)
+                    ->where('rw',$rw) 
+                    ->where('kategori','Lingkungan') 
+                    ->count();
 
         //count agama             
         $data['islam'] = DB::table('detail_users')->select('detail_users.*')
@@ -158,7 +190,7 @@ class UserManagementController extends Controller
         $data['users'] = DB::table('users')
         ->where('rt',$rt)
         ->where('rw',$rw)
-        ->where('status',1)
+        ->whereIn('status',[1,0])
         ->orderBy('id','ASC')->get();
         
 
@@ -291,6 +323,15 @@ class UserManagementController extends Controller
 
         return view('RT.formedit.e_dataloginwarga', $data);
     }
+    public function dataloginwarga_verifakun($id)
+    {
+        $data['users'] = DB::table('users')->select('detail_users.*','users.name','users.telpon','users.email','users.status','users.password_real')
+        ->join('detail_users','id_users','users.id')
+        ->where('users.id', $id)
+        ->first();
+
+        return view('RT.formedit.e_verif', $data);
+    }
 
     public function dataloginwarga_update(Request $request)
     {
@@ -309,6 +350,26 @@ class UserManagementController extends Controller
                 'status'            => 1
             ];
             DB::table('users')->where('id',$request->id)->update($data);
+
+            return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
+        }catch(Exception $e){
+            return redirect('/RT/data-login-warga')->with(['error'=>'Gagal Simpan'.$e]);
+        }
+    }
+    public function dataloginwarga_verif(Request $request)
+    {
+        try{
+            if ($request->status == 1){
+
+            
+            $data = [
+                'status'            => $request->status,
+
+            ];
+            DB::table('users')->where('id',$request->id)->update($data);
+        } else {
+            DB::table('users')->where('id',$request->id)->delete();
+        }
 
             return redirect('/RT/data-login-warga')->with(['success'=>'Berhasil Simpan']);
         }catch(Exception $e){

@@ -22,11 +22,11 @@
                     id="satu">
                     <thead>
                         <tr>
-                            <th>Tanggal</th>
                             <th>No</th>
-                            <th>Keterangan</th>
-                            <th>Pemasukan</th>
-                            <th>Pengeluaran</th>
+                            <th>Tanggal</th>
+                            <th>Rincian</th>
+                            <th>Jenis Keterangan</th>
+                            <th>Jumlah</th>
                             <th>Bukti</th>
                             <th>Total Saldo</th>
                             <th>Action</th>
@@ -35,20 +35,27 @@
                     <tbody>
                      @foreach($keuangan as $p)
                         <tr>
-                            <td>{{ $p->tanggal }}</td>
                             <td>{{ $no++ }}</td>
+                            <td>{{ $p->tanggal }}</td>
                             <td>{{ $p->keterangan }}</td>
-                            <td>{{ $p->pemasukan }}</td>
-                            <td>{{ $p->pengeluaran }}</td>
+                            <td>{{ $p->jenis }}</td>
+                            <td>{{ number_format($p->jumlah,3,',','.') }}</td>
+                            
                             <td>
-                                <a class="btn btn-info" img width="100" height="100"src="{{asset('upload/keuangan/'.$p->bukti)}}"><i class="fa fa-eye"></i></a>
+                                
+                                <?php
+                                $bkt =  explode(".",$p->bukti);
+                                ?>
+                                @if($bkt[1]== 'mp4')
+                                    
+                                @else
+                                    <a href="{{url('upload/keuangan/'.$p->bukti.'')}}" class="btn btn-primary"> <i class="fa fa-image"></i>
+                                @endif
                             </td>
-                            <td>{{ $p->totalsaldo }}</td>
+                            <td>{{ number_format($p->totalsaldo,3,',','.') }}</td>
                             <td>
-
-                                <a title="Edit" href="{{route('admin.rt.keuangan.edit',$p->id)}}" class="btn btn-info"><i class="fa fa-edit"></i> Edit</a>
-                                <a title="Delete" href="{{route('admin.rt.keuangan.hapus',$p->id)}}" class="btn btn-danger"
-                                    onclick="return confirm('Apakah Anda yakin ingin menghapus data ?')"><i class="fa fa-trash"></i> Delete</a>
+                                <button title="Delete" class="btn btn-danger"
+                                    onclick="hapus(this)" data-item="{{json_encode($p)}}"><i class="fa fa-trash"></i> Delete</button>
                             </td>
                         </tr>
                         @endforeach
@@ -62,8 +69,40 @@
 @endsection
 
 @section('script')
-<script type="text/javascript">
+<script>
+    function hapus(obj){
+        var item = $(obj).data('item');
+
+        var id = item.id;
+        var tanggal = item.tanggal;
+        var keterangan = item.keterangan;
+        var jenis = item.jenis;
+        var jumlah = item.jumlah;
+        var totalsaldo = item.totalsaldo;
+        var request = id+'_'+tanggal+'_'+keterangan+'_'+jenis+'_'+jumlah+'_'+totalsaldo;
+        
+
+        Swal.fire({
+            icon: 'question',
+            title: 'Ingin Menghapus Data?',
+            showCancelButton: true,
+            cancelButtonText: "Batal",
+            confirmButtonText: "Hapus",
+        }).then(function(result) {
+            if(result.value){
+                window.location.href = "{{ URL::to('/RT/keuangan/hapus')}}"+'/'+request;
+            }else{
+                Swal.fire({
+                    type: 'error',
+                    text: "Batal Hapus",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        })
+    }
 </script>
+
 @if(Session::has('success'))
     <script>
         Swal.fire(

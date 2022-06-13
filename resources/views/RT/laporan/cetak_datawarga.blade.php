@@ -18,15 +18,15 @@
 	<center>
 		<h5>Laporan Data Warga</h4>
 	</center>
-<table class="table table-striped table-bordered table-hover table-condensed" id="satu">
+<table class="table table-striped table-bordered table-hover table-condensed" style="width:100%;word-wrap: break-word" id="satu">
                 
 		<thead>
 			<tr>
-                            <th>No</th>
-                            <th>Nama</th>
+                <th style="width:4%">No</th>
+                <th style="width:10%">Nama</th>
+                <th style="width:15%">Email</th>
                             <th>NIK</th>
                             <th>No KK</th>
-                            <th>Email</th>
                             <th>Telepon</th>
                             <th>Agama</th>
                             <th>Jenis Kelamin</th>
@@ -36,7 +36,6 @@
                             <th>Pekerjaan</th>
                             <th>Status Menikah</th>
                             <th>Kewarganegaraan</th>
-                            <th>Foto Profile</th>
 			</tr>
 		</thead>
 		<tbody>

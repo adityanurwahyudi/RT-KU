@@ -64,7 +64,12 @@
         <span>Mulai chat...</span>
     </a>
 </div>
-
+<?php
+            $id_users = Auth::guard('user')->user()->id;
+            $users = DB::table('users')->where('users.id',$id_users)
+            ->leftjoin('detail_users','detail_users.id_users','users.id')
+            ->first();
+            ?>
              <!-- Modal pindah -->
              <div class="modal fade" id="modal-pindah" role="dialog" style="z-index:1500" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -83,13 +88,13 @@
                     @csrf
                     <div class="modal-body">
                     <label for="nama"><b>Nama Lengkap</b></label>
-                        <input id="nama" type="text" placeholder="Nama Lengkap" name="nama" required>
+                        <input id="nama" type="text" placeholder="Nama Lengkap" value="{{ $users->name }}" name="nama" required>
 
                         <label for="tanggal"><b>Tanggal</b></label><br>
-                        <input id="tanggal" type="date" placeholder="Tanggal" class="form-control" name="tanggal" required>
+                        <input id="tanggal" type="text" placeholder="Tanggal" class="form-control" name="tanggal" required>
                         <br>
                         <label for="alamat"><b>Alamat</b></label>
-                        <input id="alamat" type="text" placeholder="Alamat Terkini" name="alamat" required>
+                        <input id="alamat" type="text" placeholder="Alamat Terkini" value="{{ $users->alamat }}" name="alamat" required>
 
                         <label for="alamatpindah"><b>Alamat Pindah</b></label>
                         <input id="alamatpindah" type="text" placeholder="Alamat Pindah" name="alamatpindah" required>
@@ -106,52 +111,9 @@
             </div>
         </div>
     </div>
-
-    <?php
-            $id_users = Auth::guard('user')->user()->id;
-            $users = DB::table('users')->where('users.id',$id_users)
-            ->leftjoin('detail_users','detail_users.id_users','users.id')
-            ->first();
-            ?>
-            <div id="id01" class="modal">
-
-                <form class="modal-content animate" action="{{ route('warga.prosespindah') }}" method="post">
-                {{ csrf_field() }}    
-                <div class="imgcontainer">
-                        <span onclick="document.getElementById('id01').style.display='none'" class="close"
-                            title="Close Modal">&times;</span>
-                    </button>
-                        <img src="{{asset('/loginform/images/pindah.jpg')}}" alt="Avatar" class="avatar">
-                    </div>
-
-                    <div class="container">
-                        <label for="nama"><b>Nama Lengkap</b></label>
-                        <input id="nama" type="text" placeholder="Nama Lengkap" value="{{ $users->name }}" name="nama" readonly>
-
-                        <label for="tanggal"><b>Tanggal</b></label><br>
-                        <input id="tanggal" type="date" placeholder="Tanggal" class="form-control" name="tanggal" required>
-                        <br>
-                        <label for="alamat"><b>Alamat</b></label>
-                        <input id="alamat" type="text" placeholder="Alamat Terkini" value="{{ $users->alamat }}" name="alamat" readonly>
-
-                        <label for="alamatpindah"><b>Alamat Pindah</b></label>
-                        <input id="alamatpindah" type="text" placeholder="Alamat Pindah" name="alamatpindah" required>
-
-                        <label for="deskripsi"><b>Keterangan Pindah</b></label>
-                        <input id="deskripsi" type="text" placeholder="deskripsi Pindah" name="deskripsi" required>
-
-                        <center>
-                        <button class="btn btn-main" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>    
-                          Kirim</button>
-                        </center>
-                    </div>
-                </form>
-            </div>
             <?php
             $id_users = Auth::guard('user')->user()->id;
             $users = DB::table('users')->where('id',$id_users)->orderBy('id','ASC')->first();
-            
-            
             ?>
             <div id="id02" class="modal">
 
@@ -205,7 +167,9 @@
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"><i class="fa fa-user"></i></a>
                         <ul class="dropdown-menu" aria-labelledby="dropdown06">
-                            <li><a class="dropdown-item"  onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Ubah Akun</a></li>
+                        <li><a class="dropdown-item"   style="width:auto;" >{{ $users->name }}</a></li>    
+                        <li><a class="dropdown-item"  onclick="document.getElementById('id02').style.display='block'" style="width:auto;" >Ubah Akun</a></li>
+                            
                             <li><a class="dropdown-item"  data-toggle="modal" data-target="#modal-pindah" >Pindah</a></li>
                             <li><a class="dropdown-item" href="{{ route('warga.datawarga') }}">Formulir</a></li>
                             <li onclick="event.preventDefault();document.getElementById('logout').submit();"><a class="dropdown-item" href="#">Logout</a></li>
@@ -219,4 +183,15 @@
         </div>
     </nav>
 </header>
+
+<script>
+        $(function() {
+            flatpickr("#tanggal", {
+                 enableTime: false,
+                 dateFormat: "Y-m-d ",
+                 minDate: "today"
+                });
+        });
+ 
+    </script>
 <!-- Header Close -->

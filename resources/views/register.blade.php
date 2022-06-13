@@ -33,13 +33,13 @@
                                             <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Registrasi Akun
                                             </p>
 
-                                            <form action=""  method="post"
+                                            <form action="{{ url('register/save') }}"  method="post"
                                                 class="mx-1 mx-md-4" enctype="multipart/form-data">
                                                 {{ csrf_field() }}
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="nama" class="form-outline flex-fill mb-0">
                                                         <input type="text" id="nama" name="nama"
-                                                            placeholder="Nama Lengkap" class="form-control" required
+                                                            placeholder="Nama Lengkap" onkeypress="return hanyaHuruf(event)" class="form-control" required
                                                             maxlength="40" minlength="4" />
                                                     </div>
                                                 </div>
@@ -47,15 +47,15 @@
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="email" class="form-outline flex-fill mb-0">
                                                         <input type="email" name="email" placeholder="Alamat Email"
-                                                            id="email" class="form-control" required />
+                                                            id="email" onchange="cekEmail()" class="form-control" required />
                                                     </div>
                                                 </div>
 
                                                 <div class="d-flex flex-row align-items-center mb-4">
                                                     <div for="telepon"class="form-outline flex-fill mb-0">
-                                                        <input type="number" id="telepon" name="telepon"
+                                                        <input type="text" id="telepon" name="telepon"
                                                             placeholder="Nomor Telepon" class="form-control"
-                                                            minlength="10" maxlength="20" required />
+                                                            minlength="10" onchange="cekTelpon()" onkeyup="Nomor('telepon','Telepon Harus Angka')" maxlength="21" required />
                                                     </div>
                                                 </div>
                                                 <div class="d-flex flex-row align-items-center mb-4">
@@ -128,19 +128,70 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
     <script src="/sbadmin/js/scripts.js"></script>
-    <script type=”text/javascript” window.onload=function() {
-        document.getElementById(“password”).onchange=validatePassword;
-        document.getElementById(“retypepassword”).onchange=validatePassword; } function validatePassword() { var
-        pass2=document.getElementById(“retypepassword”).value; var pass1=document.getElementById(“password”).value; if
-        (pass1 !=pass2) document.getElementById(“retypepassword”).setCustomValidity(“Passwords Tidak Sama”); else
-        document.getElementById(“retypepassword″).setCustomValidity(”); }>
-    </script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
     
-@section('script')
 <script type="text/javascript">
-    $(document).ready(function(){
+   
+   function hanyaHuruf(event){
+            var charCode = (event.which) ? event.which : event.keyCode
+            if ((charCode < 65 || charCode > 90)&&(charCode < 97 || charCode > 122)&&charCode>32)
+                return false;
+            return true;
+        }
+    function Nomor(id, pesan) {
+        var nilai = document.getElementById(id);
+        var numberExp = /^[0-9]+$/;
+        if(nilai.value!= ''){
+            
+        if(nilai.value.match(numberExp)) {
+            return true;
+        }
+        else {
+            alert(pesan);
+            nilai.focus();
+            nilai.value='';
+            return false;
+        }
+
+        }
         
-    })
+    }
+    function Email(nilai, pesan) {
+        var email = /^([a-zA-Z0-9_.+-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+        if(nilai.value.match(email)) {
+            return true;
+        }
+        else {
+            alert(pesan);
+            nilai.focus();
+            return false;
+        }
+    }
+    
+    function cekTelpon(){
+        var telpon = $('#telepon').val();
+        $.get("{{ URL::to('/register/telpon') }}",{telpon:telpon},
+        function(res){
+            
+        if(res == 1){
+            alert('Telpon Sudah Terdaftar');
+            $('#telepon').val('');
+            }
+        });
+    }
+    function cekEmail(){
+        var email = $('#email').val();
+        $.get("{{ URL::to('/register/email') }}",{email:email},
+        function(res){
+            
+        console.log(res)
+            if(res == 1){
+            alert('Email Sudah Terdaftar');
+            $('#email').val('');
+            }
+        });
+    }
+        
 </script>
 
 @if(Session::has('success'))
